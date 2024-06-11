@@ -20,7 +20,10 @@ public enum UserRole {
     ARCHIVE_ADMINISTRATION(false, false),
     ADMINISTRATION_MANAGER(false, false, AppRole.ADMIN),
     // external professors
-    EXTERNAL(true, false);
+    EXTERNAL(true, false),
+
+    // companies' supervisors for student internships
+    SUPERVISOR(false, false);
 
     private final Boolean professor;
 
