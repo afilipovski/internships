@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Authentication.css';
+import {Link} from "react-router-dom";
 
-const Authentication = () => (
+function Authentication(pros) {
+    return (
   <div>
-    <button>Најава</button>
+    <Link to="https://cas.finki.ukim.mk/cas/logout?service=https%3A%2F%2Fcourses.finki.ukim.mk">Најава</Link>
   </div>
 );
+}
 
 Authentication.propTypes = {};
 
