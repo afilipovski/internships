@@ -1,6 +1,9 @@
 package mk.ukim.finki.wp.internships.model.internships;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
 import mk.ukim.finki.wp.internships.model.User;
@@ -8,6 +11,9 @@ import mk.ukim.finki.wp.internships.model.User;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Internship {
     @Id
     @Column(name = "id")
@@ -20,7 +26,7 @@ public class Internship {
     private Student student;
 
     @ManyToOne
-    private Professor professor;
+    private InternshipCoordinator coordinator;
 
     @ManyToOne
     private User studentAdmin;
@@ -33,4 +39,9 @@ public class Internship {
 
     @ManyToOne
     private InternshipPosting posting;
+
+    public Internship(Student student, InternshipPosting posting) {
+        this.student = student;
+        this.posting = posting;
+    }
 }
