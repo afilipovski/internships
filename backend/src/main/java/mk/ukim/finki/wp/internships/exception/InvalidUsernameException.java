@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.internships.model.exceptions;
+package mk.ukim.finki.wp.internships.exception;
 
 public class InvalidUsernameException extends RuntimeException {
 }
