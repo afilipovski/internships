@@ -2,8 +2,8 @@ package mk.ukim.finki.wp.internships.config;
 
 import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.User;
-import mk.ukim.finki.wp.internships.model.exceptions.InvalidUsernameException;
-import mk.ukim.finki.wp.internships.model.exceptions.ProfessorNotFoundException;
+import mk.ukim.finki.wp.internships.exception.InvalidUsernameException;
+import mk.ukim.finki.wp.internships.exception.ProfessorNotFoundException;
 import mk.ukim.finki.wp.internships.repository.ProfessorRepository;
 import mk.ukim.finki.wp.internships.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
