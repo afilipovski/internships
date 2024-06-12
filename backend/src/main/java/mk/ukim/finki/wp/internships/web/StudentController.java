@@ -4,7 +4,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import mk.ukim.finki.wp.internships.model.DTO.StudentDto;
 import mk.ukim.finki.wp.internships.model.Student;
 import mk.ukim.finki.wp.internships.model.StudyProgram;
-import mk.ukim.finki.wp.internships.repository.ImportRepository;
 import mk.ukim.finki.wp.internships.service.interfaces.StudentService;
 import mk.ukim.finki.wp.internships.service.interfaces.StudyProgramService;
 import org.springframework.data.domain.Page;
