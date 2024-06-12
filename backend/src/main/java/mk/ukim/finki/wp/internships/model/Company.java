@@ -31,7 +31,7 @@ public class Company {
 
     public Boolean active;
 
-    @OneToMany
+    @OneToMany(mappedBy="company")
     public List<InternshipPosting> postings;
 
 }
