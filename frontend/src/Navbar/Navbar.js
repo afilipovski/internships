@@ -18,16 +18,16 @@ function Navbar(props) {
             </div>
             <div class="flex">
                 <div class="flex flex-col justify-center">
-                    <div class="flex rounded-xl border-2 border-black w-fit h-fit text-lg">
-                        <div class="flex p-2">
-                            <h1 class="font-bold mx-2 h-fit w-fit">Лука Крстиќ</h1>
-                            <h1 className="mx-2 h-fit w-fit">(213257)</h1>
+                    <div class="flex rounded-xl border-2 border-black h-[6vh] text-[12px] md:text-md">
+                        <div class="flex p-[10px]">
+                            <h1 class="font-bold mx-0 md:mx-2 w-fit my-auto">Лука Крстиќ</h1>
+                            <h1 className="mx-0 md:mx-2 w-fit my-auto">(213257)</h1>
                         </div>
-                        <img src={Pfp} class="h-11 rounded-lg w-11"/>
+                        <img src={Pfp} class="hidden rounded-lg h-11 w-11"/>
                     </div>
                 </div>
-                <div class="flex flex-col justify-center" onClick={()=> nav("/authenticate")}>
-                    <img class="bg-red h-12 rounded-lg p-[12px] w-12 ml-4" src={LogoutSVG}/>
+                <div class="flex flex-col justify-center ml-2 md:ml-4" onClick={()=> nav("/authenticate")}>
+                    <img class="bg-red h-[6vh] w-[6vh] rounded-lg p-[10px]" src={LogoutSVG}/>
                 </div>
             </div>
 

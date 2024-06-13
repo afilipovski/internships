@@ -1,1 +1,22 @@
 .InternCard {}
+
+.bgLogoBlur {
+   backdrop-filter: blur(80px);
+}
+
+.bgLogoImage {
+    background-size: cover;
+    background-position: center;
+}
+
+div.circles > img {
+    margin-right : 5.5%;
+    margin-bottom : 3%;
+}
+
+div.circles > img:nth-child(6){
+    margin-right: 0;
+}
+div.circles > img:nth-child(12){
+    margin-right: 0;
+}

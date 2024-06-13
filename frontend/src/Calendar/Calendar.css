@@ -1,1 +1,25 @@
 .Calendar {}
+
+
+textarea {
+    resize: none;
+    background-color: #f8f8f8;
+}
+
+textarea:focus{
+    outline: #2A93D1 solid 2px;
+
+}
+
+.cardWeek:hover{
+    outline: #2A93D1 solid 2px;
+    transition: outline-width 100ms;
+}
+
+.cardWeek:nth-child(4):nth-child(8):nth-child(12){
+    margin-right: 0;
+}
+
+.cardWeek{
+    margin-right: 3%;
+}
