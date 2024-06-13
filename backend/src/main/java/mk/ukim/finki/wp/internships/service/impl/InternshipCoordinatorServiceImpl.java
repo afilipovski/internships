@@ -53,7 +53,7 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
     }
 
     @Override
-    public void assignRoundRobin(String internshipId) {
+    public void assignRandom(String internshipId) {
         Internship internship = internshipRepository
                 .findById(internshipId)
                 .orElseThrow(() -> new InternshipNotFoundException(internshipId));

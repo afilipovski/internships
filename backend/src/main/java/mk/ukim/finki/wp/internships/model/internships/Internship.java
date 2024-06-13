@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import mk.ukim.finki.wp.internships.model.Company;
 import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
 import mk.ukim.finki.wp.internships.model.User;
@@ -19,10 +20,10 @@ public class Internship {
     @Column(name = "id")
     private String id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private InternshipSupervisor supervisor;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Student student;
 
     @ManyToOne
@@ -39,6 +40,9 @@ public class Internship {
 
     @ManyToOne
     private InternshipPosting posting;
+
+    @ManyToOne
+    private Company company;
 
     public Internship(Student student, InternshipPosting posting) {
         this.student = student;

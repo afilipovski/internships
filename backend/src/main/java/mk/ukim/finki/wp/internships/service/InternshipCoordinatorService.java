@@ -9,5 +9,5 @@ public interface InternshipCoordinatorService {
 
     void revokeApprovalInternship(String id, String internshipId);
 
-    void assignRoundRobin(String internshipId);
+    void assignRandom(String internshipId);
 }
