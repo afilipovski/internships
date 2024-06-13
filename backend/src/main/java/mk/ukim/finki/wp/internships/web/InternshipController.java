@@ -25,6 +25,6 @@ public class InternshipController {
 
     @PutMapping("/set-status")
     public void changeInternshipStatus(@RequestParam String internshipId, @RequestParam String userId, @RequestParam InternshipStatus status){
-        internshipService.setStatus(internshipId, userId, status);
+        internshipService.setStatusSupervisor(internshipId, userId, status);
     }
 }
