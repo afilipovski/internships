@@ -5,6 +5,7 @@ import InternCard from "./InternCard/InternCard";
 import Authentication from "./Authentication/Authentication";
 import Calendar from "./Calendar/Calendar";
 import Coordinator from "./Coordinator/Coordinator";
+import CoordinatorDetails from "./CoordinatorDetails/CoordinatorDetails";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route exact path="/authenticate" element={<Authentication />} />
             <Route exact path="/calendar" element={<Calendar />} />
             <Route exact path="/coordinator" element={<Coordinator />} />
+            <Route exact path="/coordinatorDetails" element={<CoordinatorDetails />} />
         </Routes>
       </Router>
   );
