@@ -6,8 +6,8 @@ function Calendar(props) {
     return (
         <div class="md:h-[93vh] w-full flex flex-col lg:flex-row">
             <div class="md:basis-1/3 lg:basis-1/4 flex flex-col justify-start px-4 py-4 shadowCard">
-                <h1 class="w-full basis-1/8 p-2 text-center font-thin text-4xl mb-16 mt-8">Дневник</h1>
-                <div class="basis-3/4 w-full p-4 shadowCard rounded-xl flex flex-col justify-between">
+                <h1 class="w-full basis-1/8 p-2 text-center font-thin text-4xl mb-8 mt-8">Дневник</h1>
+                <div class="basis-2/3 w-full p-4 shadowCard rounded-xl flex flex-col justify-between">
                     <div class="">
                         <h1 class="text-offblack font-bold text-2xl">Недела 2</h1>
                         <h4 class="text-sm text-gray">22-26 Април</h4>
