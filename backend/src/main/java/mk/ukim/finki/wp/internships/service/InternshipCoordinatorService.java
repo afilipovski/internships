@@ -3,6 +3,10 @@ package mk.ukim.finki.wp.internships.service;
 import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 
 public interface InternshipCoordinatorService {
+    InternshipCoordinator create(String professorId);
+
+    InternshipCoordinator delete(String id);
+
     InternshipCoordinator findById(String id);
 
     void approveInternship(String id, String internshipId);

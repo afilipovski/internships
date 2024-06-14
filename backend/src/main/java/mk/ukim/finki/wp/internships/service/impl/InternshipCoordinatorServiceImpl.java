@@ -1,13 +1,12 @@
 package mk.ukim.finki.wp.internships.service.impl;
 
 import lombok.AllArgsConstructor;
-import mk.ukim.finki.wp.internships.exception.IllegalInternshipStatusOperation;
-import mk.ukim.finki.wp.internships.exception.InternshipNotFoundException;
-import mk.ukim.finki.wp.internships.exception.SupervisorNotFoundException;
-import mk.ukim.finki.wp.internships.exception.UserNotInternshipCoordinatorException;
+import mk.ukim.finki.wp.internships.exception.*;
+import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.internships.Internship;
 import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 import mk.ukim.finki.wp.internships.model.internships.InternshipStatus;
+import mk.ukim.finki.wp.internships.repository.ProfessorRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipCoordinatorRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
@@ -19,12 +18,29 @@ import java.util.Random;
 @Service
 @AllArgsConstructor
 public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorService {
-    private final InternshipCoordinatorRepository internshipCoordinatorRepository;
+    private final InternshipCoordinatorRepository coordinatorRepository;
     private final InternshipRepository internshipRepository;
+    private final ProfessorRepository professorRepository;
+
+    @Override
+    public InternshipCoordinator create(String professorId) {
+        Professor professor = professorRepository.findById(professorId)
+                .orElseThrow(() -> new ProfessorNotFoundException(professorId));
+
+        InternshipCoordinator coordinator = new InternshipCoordinator(professor);
+        return coordinatorRepository.save(coordinator);
+    }
+
+    @Override
+    public InternshipCoordinator delete(String id) {
+        InternshipCoordinator coordinator = findById(id);
+        coordinatorRepository.delete(coordinator);
+        return coordinator;
+    }
 
     @Override
     public InternshipCoordinator findById(String id) {
-        return internshipCoordinatorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
+        return coordinatorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
     }
 
     private void changeInternshipStatus(String id, String internshipId, InternshipStatus from, InternshipStatus to) {
@@ -59,7 +75,7 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
                 .orElseThrow(() -> new InternshipNotFoundException(internshipId));
 
         Random random = new Random();
-        List<InternshipCoordinator> coordinators = internshipCoordinatorRepository.findAll();
+        List<InternshipCoordinator> coordinators = coordinatorRepository.findAll();
         InternshipCoordinator coordinator = coordinators.get(random.nextInt(0,coordinators.size()));
 
         internship.setCoordinator(coordinator);

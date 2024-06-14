@@ -27,7 +27,7 @@ function Navbar(props) {
                     </div>
                 </div>
                 <div class="flex flex-col justify-center ml-2 md:ml-4" onClick={()=> nav("/authenticate")}>
-                    <img class="bg-red h-[6vh] w-[6vh] rounded-lg p-[10px]" src={LogoutSVG}/>
+                    <img class="bg-red h-[5.5vh] w-[5.5vh] rounded-lg p-[14px]" src={LogoutSVG}/>
                 </div>
             </div>
 
