@@ -2,8 +2,11 @@ package mk.ukim.finki.wp.internships.web;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.model.internships.Internship;
+import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 import mk.ukim.finki.wp.internships.model.internships.InternshipStatus;
+import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
 import mk.ukim.finki.wp.internships.service.InternshipService;
+import mk.ukim.finki.wp.internships.service.InternshipSupervisorService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,20 +14,11 @@ import org.springframework.web.bind.annotation.*;
 @ControllerAdvice
 @AllArgsConstructor
 public class InternshipController {
-    InternshipService internshipService;
+    private final InternshipService internshipService;
 
     @PostMapping("/create")
     public Internship createInternship(@RequestParam String studentId, @RequestParam String postingId) {
         return internshipService.create(studentId, postingId);
     }
 
-    @PutMapping("/assign-supervisor")
-    public void assignSupervisor(@RequestParam String internshipId, @RequestParam String supervisorId) {
-        internshipService.assignSupervisor(internshipId, supervisorId);
-    }
-
-    @PutMapping("/set-status")
-    public void changeInternshipStatus(@RequestParam String internshipId, @RequestParam String userId, @RequestParam InternshipStatus status){
-        internshipService.setStatusSupervisor(internshipId, userId, status);
-    }
 }

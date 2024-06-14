@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.internships.service.impl;
 
+import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.exception.EntityNotFoundException;
 import mk.ukim.finki.wp.internships.model.internships.InternshipWeek;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipWeekRepository;
@@ -9,8 +10,10 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 @Service
+@AllArgsConstructor
 public class InternshipWeekServiceImpl implements InternshipWeekService {
     InternshipWeekRepository internshipWeekRepository;
+
     @Override
     public InternshipWeek create(LocalDate startDate, LocalDate endDate) {
         InternshipWeek week = new InternshipWeek(startDate, endDate);
