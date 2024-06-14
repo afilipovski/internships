@@ -8,6 +8,8 @@ import java.util.List;
 public interface InternshipService {
     Internship create(String studentId, String postingId);
 
+    Internship delete(String id);
+
     List<Internship> findAllByStudentIndex(String studentId);
 
     List<Internship> findAllBySupervisorId(String supervisorId);

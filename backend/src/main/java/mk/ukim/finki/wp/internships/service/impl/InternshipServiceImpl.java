@@ -6,6 +6,7 @@ import mk.ukim.finki.wp.internships.exception.InternshipPostingNotFoundException
 import mk.ukim.finki.wp.internships.exception.InternshipWeekNotFoundException;
 import mk.ukim.finki.wp.internships.exception.StudentNotFoundException;
 import mk.ukim.finki.wp.internships.model.internships.Internship;
+import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 import mk.ukim.finki.wp.internships.model.internships.InternshipStatus;
 import mk.ukim.finki.wp.internships.model.internships.InternshipWeek;
 import mk.ukim.finki.wp.internships.repository.StudentRepository;
@@ -33,6 +34,13 @@ public class InternshipServiceImpl implements InternshipService {
         );
 
         return internshipRepository.save(internship);
+    }
+
+    @Override
+    public Internship delete(String id) {
+        Internship internship = findById(id);
+        internshipRepository.delete(internship);
+        return internship;
     }
 
     @Override

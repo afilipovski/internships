@@ -4,11 +4,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import mk.ukim.finki.wp.internships.model.internships.InternshipPosting;
 
 import java.util.List;
 
 @Entity
+@NoArgsConstructor
+@Setter
 public class Company {
 
     @Id
@@ -34,4 +38,14 @@ public class Company {
     @OneToMany(mappedBy="company")
     public List<InternshipPosting> postings;
 
+    public Company(String name, String phone, String email, String companyDescription, String websiteUrl, byte[] logoImage, byte[] banner, Boolean active) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.companyDescription = companyDescription;
+        this.websiteUrl = websiteUrl;
+        this.logoImage = logoImage;
+        this.banner = banner;
+        this.active = active;
+    }
 }

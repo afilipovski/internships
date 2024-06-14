@@ -23,7 +23,7 @@ public class CompanyController {
     }
 
     @GetMapping("/{companyId}")
-    public ResponseEntity<Company> getCompany(@PathVariable Long companyId){
+    public ResponseEntity<Company> getCompany(@PathVariable String companyId){
         Company company = companyRepository.findCompanyById(companyId)
                 .orElse(() -> new CompanyNotFoundException(companyId));
         return ResponseEntity.ok(company);
