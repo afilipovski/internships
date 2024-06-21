@@ -1,3 +1,18 @@
-<h1>
-    Example students page
-</h1>
+<h1>Internships for <span th:text="${student.getName() + ' ' + student.getLastName()}"></span></h1>
+
+<table>
+    <tr>
+        <th>Position</th>
+        <th>Company</th>
+        <th>Weeks-num</th>
+        <th>Weeks-completed</th>
+        <th>Internship-status</th>
+    </tr>
+    <tr th:each="internship : ${internships}">
+        <td th:text="${internship.getPosting().getPosition()}"></td>
+        <td th:text="${internship.getCompany().getName()}"></td>
+        <td th:text="${internship.getPosting().getPlannedWeeks()}"></td>
+        <td th:text="${internship.getJournal().size()}"></td>
+        <td th:text="${internship.getStatus()}"></td>
+    </tr>
+</table>
