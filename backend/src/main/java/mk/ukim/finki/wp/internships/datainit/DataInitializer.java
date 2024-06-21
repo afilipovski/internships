@@ -2,10 +2,7 @@ package mk.ukim.finki.wp.internships.datainit;
 
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
-import mk.ukim.finki.wp.internships.model.Student;
-import mk.ukim.finki.wp.internships.model.StudyProgram;
-import mk.ukim.finki.wp.internships.model.User;
-import mk.ukim.finki.wp.internships.model.UserRole;
+import mk.ukim.finki.wp.internships.model.*;
 import mk.ukim.finki.wp.internships.repository.StudentRepository;
 import mk.ukim.finki.wp.internships.repository.StudyProgramRepository;
 import mk.ukim.finki.wp.internships.repository.UserRepository;
@@ -17,6 +14,7 @@ public class DataInitializer {
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
     private final StudyProgramRepository studyProgramRepository;
+
 
     @PostConstruct
     void addStudents() {
@@ -30,7 +28,7 @@ public class DataInitializer {
         s1.setName("Александар");
         s1.setLastName("Филиповски");
         s1.setParentName("pn1");
-        s1.setStudyProgram(studyProgramRepository.findAll().get(0));
+        s1.setStudyProgram(studyProgramRepository.findAll().getFirst());
         studentRepository.save(s1);
 
         Student s2 = new Student();
@@ -39,7 +37,7 @@ public class DataInitializer {
         s2.setName("Васил");
         s2.setLastName("Стрезов");
         s2.setParentName("pn2");
-        s2.setStudyProgram(studyProgramRepository.findAll().get(0));
+        s2.setStudyProgram(studyProgramRepository.findAll().getFirst());
         studentRepository.save(s2);
 
         Student s3 = new Student();
@@ -48,7 +46,7 @@ public class DataInitializer {
         s3.setName("Лука");
         s3.setLastName("Крстиќ");
         s3.setParentName("pn3");
-        s3.setStudyProgram(studyProgramRepository.findAll().get(0));
+        s3.setStudyProgram(studyProgramRepository.findAll().getFirst());
         studentRepository.save(s3);
 
         Student s4 = new Student();
@@ -57,7 +55,7 @@ public class DataInitializer {
         s4.setName("Димитриј");
         s4.setLastName("Крстев");
         s4.setParentName("pn4");
-        s4.setStudyProgram(studyProgramRepository.findAll().get(0));
+        s4.setStudyProgram(studyProgramRepository.findAll().getFirst());
         studentRepository.save(s4);
 
         User user1 = new User();

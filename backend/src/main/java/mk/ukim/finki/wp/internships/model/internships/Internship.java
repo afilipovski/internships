@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mk.ukim.finki.wp.internships.model.Company;
-import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
-import mk.ukim.finki.wp.internships.model.User;
 
 import java.util.List;
 
@@ -28,9 +26,6 @@ public class Internship {
 
     @ManyToOne
     private InternshipCoordinator coordinator;
-
-    @ManyToOne
-    private User studentAdmin;
 
     @Enumerated
     private InternshipStatus status;

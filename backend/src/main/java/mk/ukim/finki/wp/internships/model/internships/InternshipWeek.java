@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.internships.model.internships;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
+@Getter
 @Setter
 public class InternshipWeek {
 
