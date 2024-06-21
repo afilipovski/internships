@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.internships.web;
+package mk.ukim.finki.wp.internships.web.rest;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/internship-coordinator")
 @ControllerAdvice
 @AllArgsConstructor
-public class InternshipCoordinatorController {
+public class InternshipCoordinatorControllerRest {
     private final InternshipCoordinatorService internshipCoordinatorService;
 
     @GetMapping("/{id}")

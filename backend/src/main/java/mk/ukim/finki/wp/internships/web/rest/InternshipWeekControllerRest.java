@@ -1,4 +1,4 @@
-package mk.ukim.finki.wp.internships.web;
+package mk.ukim.finki.wp.internships.web.rest;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.model.internships.InternshipWeek;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @RequestMapping("/internship-week")
 @ControllerAdvice
 @AllArgsConstructor
-public class InternshipWeekController {
+public class InternshipWeekControllerRest {
     InternshipWeekService internshipWeekService;
 
     @PostMapping("/create")
