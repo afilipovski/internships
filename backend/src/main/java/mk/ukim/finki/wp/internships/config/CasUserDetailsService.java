@@ -1,6 +1,7 @@
 package mk.ukim.finki.wp.internships.config;
 
 import mk.ukim.finki.wp.internships.repository.ProfessorRepository;
+import mk.ukim.finki.wp.internships.repository.StudentRepository;
 import mk.ukim.finki.wp.internships.repository.UserRepository;
 import mk.ukim.finki.wp.internships.repository.ProfessorRepository;
 import org.springframework.context.annotation.Profile;
@@ -17,9 +18,10 @@ public class CasUserDetailsService extends FacultyUserDetailsService implements 
 
 
     public CasUserDetailsService(UserRepository userRepository,
+                                 StudentRepository studentRepository,
                                  ProfessorRepository professorRepository,
                                  PasswordEncoder passwordEncoder) {
-        super(userRepository, professorRepository, passwordEncoder);
+        super(userRepository, studentRepository, professorRepository, passwordEncoder);
     }
 
     @Override
