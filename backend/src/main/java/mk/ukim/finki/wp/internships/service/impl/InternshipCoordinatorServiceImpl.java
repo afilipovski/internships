@@ -32,18 +32,18 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
     }
 
     @Override
-    public InternshipCoordinator delete(String id) {
+    public InternshipCoordinator delete(Long id) {
         InternshipCoordinator coordinator = findById(id);
         coordinatorRepository.delete(coordinator);
         return coordinator;
     }
 
     @Override
-    public InternshipCoordinator findById(String id) {
+    public InternshipCoordinator findById(Long id) {
         return coordinatorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
     }
 
-    private void changeInternshipStatus(String id, String internshipId, InternshipStatus from, InternshipStatus to) {
+    private void changeInternshipStatus(Long id, Long internshipId, InternshipStatus from, InternshipStatus to) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
 
         if (internship.getStatus() != from) {
@@ -59,17 +59,17 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
     }
 
     @Override
-    public void approveInternship(String id, String internshipId) {
+    public void approveInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.DEPOSITED);
     }
 
     @Override
-    public void revokeApprovalInternship(String id, String internshipId) {
+    public void revokeApprovalInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.DEPOSITED, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
-    public void assignRandom(String internshipId) {
+    public void assignRandom(Long internshipId) {
         Internship internship = internshipRepository
                 .findById(internshipId)
                 .orElseThrow(() -> new InternshipNotFoundException(internshipId));

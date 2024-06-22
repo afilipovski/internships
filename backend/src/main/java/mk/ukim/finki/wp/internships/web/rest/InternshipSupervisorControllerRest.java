@@ -13,22 +13,22 @@ public class InternshipSupervisorControllerRest {
     private final InternshipSupervisorService internshipSupervisorService;
 
     @GetMapping ("/{id}")
-    public InternshipSupervisor getSupervisor(@PathVariable String id){
+    public InternshipSupervisor getSupervisor(@PathVariable Long id){
         return internshipSupervisorService.findById(id);
     }
 
     @PutMapping("/approve-internship")
-    public void approveInternship(@RequestParam String supervisorId, @RequestParam String internshipId){
+    public void approveInternship(@RequestParam Long supervisorId, @RequestParam Long internshipId){
         internshipSupervisorService.approveInternship(supervisorId, internshipId);
     }
 
     @PutMapping("/revoke-approval-internship")
-    public void revokeApprovalInternship(@RequestParam String supervisorId, @RequestParam String internshipId){
+    public void revokeApprovalInternship(@RequestParam Long supervisorId, @RequestParam Long internshipId){
         internshipSupervisorService.revokeApprovalInternship(supervisorId, internshipId);
     }
 
     @PutMapping("/assign")
-    public void assignSupervisor(@RequestParam String supervisorId, @RequestParam String internshipId){
+    public void assignSupervisor(@RequestParam Long supervisorId, @RequestParam Long internshipId){
         internshipSupervisorService.assign(supervisorId, internshipId);
     }
 }

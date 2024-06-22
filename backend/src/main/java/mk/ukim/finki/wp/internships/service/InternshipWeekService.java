@@ -7,6 +7,6 @@ import java.time.LocalDate;
 public interface InternshipWeekService {
     InternshipWeek create(LocalDate startDate, LocalDate endDate);
 
-    InternshipWeek updateDescription(String id, String description);
+    InternshipWeek updateDescription(Long id, String description);
 
 }

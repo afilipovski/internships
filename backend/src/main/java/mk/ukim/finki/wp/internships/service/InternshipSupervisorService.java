@@ -4,11 +4,11 @@ import mk.ukim.finki.wp.internships.model.internships.InternshipSupervisor;
 
 public interface InternshipSupervisorService {
     InternshipSupervisor create(String companyId);
-    InternshipSupervisor findById(String id);
+    InternshipSupervisor findById(Long id);
 
-    void approveInternship(String id, String internshipId);
+    void approveInternship(Long id, Long internshipId);
 
-    void revokeApprovalInternship(String id, String internshipId);
+    void revokeApprovalInternship(Long id, Long internshipId);
 
-    void assign(String id, String internshipId);
+    void assign(Long id, Long internshipId);
 }

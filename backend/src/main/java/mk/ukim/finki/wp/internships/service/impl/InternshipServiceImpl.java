@@ -6,7 +6,6 @@ import mk.ukim.finki.wp.internships.exception.InternshipPostingNotFoundException
 import mk.ukim.finki.wp.internships.exception.InternshipWeekNotFoundException;
 import mk.ukim.finki.wp.internships.exception.StudentNotFoundException;
 import mk.ukim.finki.wp.internships.model.internships.Internship;
-import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 import mk.ukim.finki.wp.internships.model.internships.InternshipStatus;
 import mk.ukim.finki.wp.internships.model.internships.InternshipWeek;
 import mk.ukim.finki.wp.internships.repository.StudentRepository;
@@ -27,17 +26,19 @@ public class InternshipServiceImpl implements InternshipService {
     private final InternshipWeekRepository weekRepository;
 
     @Override
-    public Internship create(String studentId, String postingId) {
+    public Internship create(String studentId, Long postingId) {
         Internship internship = new Internship(
                 studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(studentId)),
                 internshipPostingRepository.findById(postingId).orElseThrow(() -> new InternshipPostingNotFoundException(postingId))
         );
 
+        internship.setStatus(InternshipStatus.ONGOING);
+
         return internshipRepository.save(internship);
     }
 
     @Override
-    public Internship delete(String id) {
+    public Internship delete(Long id) {
         Internship internship = findById(id);
         internshipRepository.delete(internship);
         return internship;
@@ -49,7 +50,7 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    public List<Internship> findAllBySupervisorId(String supervisorId) {
+    public List<Internship> findAllBySupervisorId(Long supervisorId) {
         return internshipRepository.findAllBySupervisorId(supervisorId);
     }
 
@@ -64,7 +65,7 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    public List<Internship> findAllBySupervisorIdAndStatus(String supervisorId, InternshipStatus status) {
+    public List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status) {
         return internshipRepository.findAllBySupervisorIdAndStatus(supervisorId,status);
     }
 
@@ -74,12 +75,12 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    public Internship findById(String id) {
+    public Internship findById(Long id) {
         return internshipRepository.findById(id).orElseThrow(() -> new InternshipNotFoundException(id));
     }
 
     @Override
-    public void addInternshipWeek(String id, String weekId) {
+    public void addInternshipWeek(Long id, Long weekId) {
         InternshipWeek week = weekRepository.findById(weekId).orElseThrow(() -> new InternshipWeekNotFoundException(weekId));
 
         Internship internship = findById(id);

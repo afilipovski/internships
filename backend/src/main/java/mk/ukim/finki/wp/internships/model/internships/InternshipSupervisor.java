@@ -13,7 +13,8 @@ import mk.ukim.finki.wp.internships.model.Company;
 public class InternshipSupervisor {
     @Id
     @Column(name = "id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @OneToOne
     private Company company;

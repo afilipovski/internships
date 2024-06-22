@@ -51,8 +51,8 @@ public class StudentController {
 
     @PostMapping("/create-internship")
     public String createInternshipPost(@RequestParam String studentId,
-                                       @RequestParam String postingId) {
+                                       @RequestParam Long postingId) {
         internshipService.create(studentId,postingId);
-        return "redirect:/list-internships";
+        return "redirect:/students/";
     }
 }

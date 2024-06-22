@@ -21,7 +21,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
-    public InternshipWeek updateDescription(String id, String description) {
+    public InternshipWeek updateDescription(Long id, String description) {
         InternshipWeek week = internshipWeekRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("InternshipWeek with id "+id+" not found"));
         week.setDescription(description);

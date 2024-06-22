@@ -1,7 +1,7 @@
 package mk.ukim.finki.wp.internships.exception;
 
 public class InternshipWeekNotFoundException extends EntityNotFoundException {
-    public InternshipWeekNotFoundException(String id) {
+    public InternshipWeekNotFoundException(Long id) {
         super("Internship week with id " + id + " not found");
     }
 }

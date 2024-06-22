@@ -13,7 +13,7 @@ public class InternshipControllerRest {
     private final InternshipService internshipService;
 
     @PostMapping("/create")
-    public Internship createInternship(@RequestParam String studentId, @RequestParam String postingId) {
+    public Internship createInternship(@RequestParam String studentId, @RequestParam Long postingId) {
         return internshipService.create(studentId, postingId);
     }
 

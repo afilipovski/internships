@@ -20,7 +20,7 @@ public class InternshipWeekControllerRest {
     }
 
     @PutMapping("/update-description")
-    public InternshipWeek updateDescription(@RequestParam String id, @RequestParam String description){
+    public InternshipWeek updateDescription(@RequestParam Long id, @RequestParam String description){
         return internshipWeekService.updateDescription(id, description);
     }
 }

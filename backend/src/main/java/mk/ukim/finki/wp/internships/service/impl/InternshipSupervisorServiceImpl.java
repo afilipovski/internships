@@ -30,11 +30,11 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
     }
 
     @Override
-    public InternshipSupervisor findById(String id) {
+    public InternshipSupervisor findById(Long id) {
         return supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
     }
 
-    private void changeInternshipStatus(String id, String internshipId, InternshipStatus from, InternshipStatus to) {
+    private void changeInternshipStatus(Long id, Long internshipId, InternshipStatus from, InternshipStatus to) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
 
         if (internship.getStatus() != from) {
@@ -50,17 +50,17 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
     }
 
     @Override
-    public void approveInternship(String id, String internshipId) {
+    public void approveInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_COMPANY_REVIEW, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
-    public void revokeApprovalInternship(String id, String internshipId) {
+    public void revokeApprovalInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.PENDING_COMPANY_REVIEW);
     }
 
     @Override
-    public void assign(String id, String internshipId) {
+    public void assign(Long id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
         InternshipSupervisor supervisor = supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
 
