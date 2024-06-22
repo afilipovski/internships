@@ -27,10 +27,10 @@ public class Internship {
     @ManyToOne
     private InternshipCoordinator coordinator;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private InternshipStatus status;
 
-    @OneToMany
+    @OneToMany(mappedBy = "internship")
     private List<InternshipWeek> journal;
 
     @ManyToOne

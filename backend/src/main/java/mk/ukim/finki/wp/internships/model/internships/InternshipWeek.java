@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.internships.model.internships;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +23,9 @@ public class InternshipWeek {
     private LocalDate startDate;
 
     private LocalDate endDate;
+
+    @ManyToOne
+    private Internship internship;
 
     private String description;
     public InternshipWeek(LocalDate startDate, LocalDate endDate) {
