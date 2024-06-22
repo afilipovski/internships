@@ -1,4 +1,4 @@
-<form method="post" th:action="@{/students/create-internship}">
+<form method="post" th:action="@{/student/create}">
     <input name="studentId" type="hidden" th:value="${student.getIndex()}">
     <label for="postingId">Internship posting</label>
     <select name="postingId" id="postingId">

@@ -19,10 +19,10 @@ public class Internship {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private InternshipSupervisor supervisor;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Student student;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Internship {
     @NonNull
     private InternshipStatus status;
 
-    @OneToMany(mappedBy = "internship")
+    @OneToMany(mappedBy = "internship",cascade = CascadeType.ALL)
     private List<InternshipWeek> journal;
 
     @ManyToOne

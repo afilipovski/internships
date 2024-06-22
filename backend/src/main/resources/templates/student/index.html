@@ -7,6 +7,7 @@
         <th>Weeks-num</th>
         <th>Weeks-completed</th>
         <th>Internship-status</th>
+        <th>Actions</th>
     </tr>
     <tr th:each="internship : ${internships}">
         <td th:text="${internship.getPosting().getPosition()}"></td>
@@ -14,9 +15,14 @@
         <td th:text="${internship.getPosting().getPlannedWeeks()}"></td>
         <td th:text="${internship.getJournal().size()}"></td>
         <td th:text="${internship.getStatus()}"></td>
+        <td>
+            <form method="post" th:action="${'/student/' + internship.getId() + '/delete'}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
     </tr>
 </table>
 
-<form method="get" th:action="@{/students/create-internship}">
+<form method="get" th:action="@{/student/create}">
     <button type="submit">Add new internship</button>
 </form>
