@@ -30,4 +30,11 @@ public class InternshipWeek {
         this.startDate = startDate;
         this.endDate = endDate;
     }
+
+    public InternshipWeek(LocalDate startDate, LocalDate endDate, Internship internship, String description) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.internship = internship;
+        this.description = description;
+    }
 }

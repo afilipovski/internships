@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/student")
+@RequestMapping("/internships")
 @AllArgsConstructor
-public class StudentController {
+public class InternshipController {
     private final InternshipService internshipService;
     private final InternshipPostingService internshipPostingService;
 
@@ -30,7 +30,7 @@ public class StudentController {
         model.addAttribute("student", student);
         model.addAttribute("internships", internships);
 
-        return "student/index";
+        return "internships/index";
     }
 
     @GetMapping("/create")
@@ -43,19 +43,27 @@ public class StudentController {
         model.addAttribute("student", student);
         model.addAttribute("postings", postings);
 
-        return "student/create";
+        return "internships/create";
     }
 
     @PostMapping("/create")
     public String createInternshipPost(@RequestParam String studentId,
                                        @RequestParam Long postingId) {
         internshipService.create(studentId,postingId);
-        return "redirect:/student/";
+        return "redirect:/internships/";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteInternship(@PathVariable Long id) {
         internshipService.delete(id);
-        return "redirect:/student/";
+        return "redirect:/internships/";
+    }
+
+    @GetMapping("/{id}")
+    public String internshipDetails(@PathVariable Long id, Model model) {
+        Internship internship = internshipService.findById(id);
+        model.addAttribute("internship",internship);
+
+        return "internships/details";
     }
 }
