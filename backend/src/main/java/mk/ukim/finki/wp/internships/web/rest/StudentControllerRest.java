@@ -3,7 +3,7 @@ package mk.ukim.finki.wp.internships.web.rest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/admin/students")
+@RequestMapping("/api/students")
 public class StudentControllerRest {
 
 //    private final StudentService studentService;

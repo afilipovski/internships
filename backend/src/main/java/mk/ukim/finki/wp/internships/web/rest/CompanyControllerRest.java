@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @ControllerAdvice
-@RestController("/company")
+@RestController("/api/company")
 public class CompanyControllerRest {
 //    private final CompanyService companyService;
 //

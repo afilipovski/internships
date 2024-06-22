@@ -1,0 +1,10 @@
+<form method="post" th:action="@{/students/create-internship}">
+    <input name="studentId" type="hidden" th:value="${student.getIndex()}">
+    <label for="postingId">Internship posting</label>
+    <select name="postingId" id="postingId">
+        <option th:each="posting : ${postings}"
+                th:value="${posting.getId()}"
+                th:text="${posting.getPosition() + ' @ ' + posting.getCompany().getName()}">
+    </select>
+    <button type="submit">Add internship</button>
+</form>

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mk.ukim.finki.wp.internships.model.Company;
 import mk.ukim.finki.wp.internships.model.Student;
 
 import java.util.List;
@@ -35,9 +34,6 @@ public class Internship {
 
     @ManyToOne
     private InternshipPosting posting;
-
-    @ManyToOne
-    private Company company;
 
     public Internship(Student student, InternshipPosting posting) {
         this.student = student;

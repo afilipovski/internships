@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/internship-week")
+@RequestMapping("/api/internship-week")
 @ControllerAdvice
 @AllArgsConstructor
 public class InternshipWeekControllerRest {

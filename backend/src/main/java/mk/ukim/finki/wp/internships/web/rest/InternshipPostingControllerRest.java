@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/internship-posting")
+@RequestMapping("/api/internship-posting")
 @AllArgsConstructor
 public class InternshipPostingControllerRest {
 }

@@ -10,9 +10,13 @@
     </tr>
     <tr th:each="internship : ${internships}">
         <td th:text="${internship.getPosting().getPosition()}"></td>
-        <td th:text="${internship.getCompany().getName()}"></td>
+        <td th:text="${internship.getPosting().getCompany().getName()}"></td>
         <td th:text="${internship.getPosting().getPlannedWeeks()}"></td>
         <td th:text="${internship.getJournal().size()}"></td>
         <td th:text="${internship.getStatus()}"></td>
     </tr>
 </table>
+
+<form method="get" action="">
+
+</form>

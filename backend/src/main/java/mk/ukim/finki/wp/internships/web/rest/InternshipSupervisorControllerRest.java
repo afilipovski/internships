@@ -6,7 +6,7 @@ import mk.ukim.finki.wp.internships.service.InternshipSupervisorService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/internship-supervisor")
+@RequestMapping("/api/internship-supervisor")
 @ControllerAdvice
 @AllArgsConstructor
 public class InternshipSupervisorControllerRest {
