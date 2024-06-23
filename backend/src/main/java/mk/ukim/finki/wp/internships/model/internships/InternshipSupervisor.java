@@ -21,6 +21,8 @@ public class InternshipSupervisor {
 
     private String email;
 
+    private String fullName;
+
     public InternshipSupervisor(Company company) {
         this.company = company;
     }

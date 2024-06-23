@@ -20,11 +20,20 @@ public interface InternshipService {
 
     List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status);
 
+    List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId);
+
     List<Internship> findAllByProfessorIdAndStatus(String coordinatorId, InternshipStatus status);
 
     Internship findById(Long id);
 
     void addInternshipWeek(Long id, Long weekId);
 
+    List<Internship> findAllByPostingCompanyId(String companyId);
+
+    List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status);
+
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, Long supervisorId);
+
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId);
 
 }

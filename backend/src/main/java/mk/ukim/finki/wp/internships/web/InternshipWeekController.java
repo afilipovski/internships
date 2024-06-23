@@ -22,7 +22,7 @@ public class InternshipWeekController {
                              Model model) {
         model.addAttribute("internship", internshipService.findById(internshipId));
 
-        return "internship-weeks/form";
+        return "student/journal-form";
     }
 
     @GetMapping("/{id}/edit")
@@ -34,7 +34,7 @@ public class InternshipWeekController {
                 internshipService.findById(internshipWeek.getInternship().getId()));
         model.addAttribute("week", internshipWeek);
 
-        return "internship-weeks/form";
+        return "student/journal-form";
     }
 
     @PostMapping("/save")

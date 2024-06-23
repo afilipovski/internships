@@ -1,0 +1,32 @@
+<table>
+    <tr>
+        <th>Start date</th>
+        <th>End date</th>
+        <th>Description</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="week : ${internship.getJournal()}">
+        <td th:text="${week.getStartDate()}"></td>
+        <td th:text="${week.getEndDate()}"></td>
+        <td th:text="${week.getDescription()}"></td>
+        <td>
+            <form th:action="@{'/internship-weeks/' + ${week.getId()} + '/edit'}">
+                <button type="submit">Edit</button>
+            </form>
+            <form method="post" th:action="@{'/internship-weeks/' + ${week.getId()} + '/delete'}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
+    <form method="post" th:if="${internship.getStatus() == InternshipStatus.PENDING_COMPANY_REVIEW}" th:action="@{'/supervisor/' + ${internship.getId()} + '/approve'}">
+        <input type="hidden" name="internshipId" th:value="${internship.getId()}">
+        <button type="submit">Approve</button>
+    </form>
+    <form method="post" th:if="${internship.getStatus() == InternshipStatus.PENDING_PROFFESSOR_REVIEW}" th:action="@{'/supervisor/' + ${internship.getId()} + '/revoke-approval'}">
+        <input type="hidden" name="internshipId" th:value="${internship.getId()}">
+        <button type="submit">Revoke approval</button>
+    </form>
+</div>

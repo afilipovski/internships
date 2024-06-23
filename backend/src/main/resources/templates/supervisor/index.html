@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Internships</title>
+</head>
+<body>
+    <h1>Internships for <span th:text="${supervisor.getFullName()}"></span></h1>
+    <table>
+        <tr>
+            <th>Student name</th>
+            <th>Position</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <tr th:each="internship : ${supervisor_internships}">
+            <td th:text="${internship.getStudent().getName() + ' ' + internship.getStudent().getLastName()}"></td>
+            <td th:text="${internship.getPosting().getPosition()}"></td>
+            <td th:text="${internship.getStatus()}"></td>
+            <td>
+                <form th:action="@{'/internships/' + ${internship.getId()}}">
+                    <button type="submit">Details</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <th:block th:if="${company_internships.size() != 0}">
+        <h1>Other internships @ <span th:text="${supervisor.getCompany().getName()}"></span></h1>
+        <table>
+            <tr>
+                <th>Student name</th>
+                <th>Position</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="internship : ${company_internships}">
+                <td th:text="${internship.getStudent().getName() + ' ' + internship.getStudent().getLastName()}"></td>
+                <td th:text="${internship.getPosting().getPosition()}"></td>
+                <td th:text="${internship.getStatus()}"></td>
+                <td>
+                    <form method="post" th:action="@{'/supervisor/' + ${internship.getId()} + '/assign'}">
+                        <button type="submit">Assign</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </th:block>
+
+
+</body>
+</html>

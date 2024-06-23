@@ -64,7 +64,7 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
         InternshipSupervisor supervisor = supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
 
-        if (!internship.getSupervisor().getCompany().id.equals(supervisor.getCompany().id)) {
+        if (!internship.getPosting().getCompany().id.equals(supervisor.getCompany().id)) {
             throw new SupervisorCompanyWithInternshipCompanyMismatchException(id,
                     internship.getSupervisor().getCompany().id, internshipId);
         }

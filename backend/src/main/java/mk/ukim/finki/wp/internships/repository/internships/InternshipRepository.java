@@ -11,6 +11,10 @@ public interface InternshipRepository extends JpaSpecificationRepository<Interns
     List<Internship> findAllBySupervisorId(Long supervisorId);
     List<Internship> findAllByStudentIndex(String studentIndex);
     List<Internship> findAllByPostingCompanyId(String companyId);
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, Long supervisorId);
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId);
+
+    List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId);
 
     List<Internship> findAllByCoordinatorProfessorIdAndStatus(String professorId, InternshipStatus status);
     List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status);

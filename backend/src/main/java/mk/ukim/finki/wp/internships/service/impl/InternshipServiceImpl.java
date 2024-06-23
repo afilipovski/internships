@@ -70,6 +70,11 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    public List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId) {
+        return internshipRepository.findAllBySupervisorIdOrderByStatusAsc(supervisorId);
+    }
+
+    @Override
     public List<Internship> findAllByProfessorIdAndStatus(String professorId, InternshipStatus status) {
         return internshipRepository.findAllByCoordinatorProfessorIdAndStatus(professorId,status);
     }
@@ -88,6 +93,26 @@ public class InternshipServiceImpl implements InternshipService {
         internship.getJournal().add(week);
 
         internshipRepository.save(internship);
+    }
+
+    @Override
+    public List<Internship> findAllByPostingCompanyId(String companyId) {
+        return internshipRepository.findAllByPostingCompanyId(companyId);
+    }
+
+    @Override
+    public List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status) {
+        return internshipRepository.findAllByPostingCompanyIdAndStatus(companyId,status);
+    }
+
+    @Override
+    public List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, Long supervisorId) {
+        return internshipRepository.findAllByPostingCompanyIdAndSupervisorIdNot(companyId,supervisorId);
+    }
+
+    @Override
+    public List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId) {
+        return internshipRepository.findAllByPostingCompanyIdAndSupervisorIdIsNull(companyId);
     }
 
 
