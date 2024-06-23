@@ -24,3 +24,14 @@
     <input type="hidden" name="internshipId" th:value="${internship.getId()}">
     <button type="submit">Log week</button>
 </form>
+
+<div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
+    <form method="post" th:if="${internship.getStatus() == InternshipStatus.ONGOING}" th:action="@{'/student/' + ${internship.getId()} + '/approve'}">
+        <input type="hidden" name="internshipId" th:value="${internship.getId()}">
+        <button type="submit">Approve</button>
+    </form>
+    <form method="post" th:if="${internship.getStatus() == InternshipStatus.PENDING_COMPANY_REVIEW}" th:action="@{'/student/' + ${internship.getId()} + '/revoke-approval'}">
+        <input type="hidden" name="internshipId" th:value="${internship.getId()}">
+        <button type="submit">Revoke approval</button>
+    </form>
+</div>
