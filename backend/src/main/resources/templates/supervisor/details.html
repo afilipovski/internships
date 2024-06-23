@@ -20,6 +20,7 @@
 </table>
 
 <div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
+    <hr>
     <form method="post" th:if="${internship.getStatus() == InternshipStatus.PENDING_COMPANY_REVIEW}" th:action="@{'/supervisor/' + ${internship.getId()} + '/approve'}">
         <input type="hidden" name="internshipId" th:value="${internship.getId()}">
         <button type="submit">Approve</button>

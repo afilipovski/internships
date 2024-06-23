@@ -35,8 +35,9 @@
 <div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
     <form th:action="@{/internship-weeks/create}" th:if="${internship.getStatus() == InternshipStatus.ONGOING}">
         <input type="hidden" name="internshipId" th:value="${internship.getId()}">
-        <button type="submit">Log week</button>
+        <button type="submit">+ Log week</button>
     </form>
+    <hr>
     <form method="post" th:if="${internship.getStatus() == InternshipStatus.ONGOING}" th:action="@{'/student/' + ${internship.getId()} + '/approve'}">
         <input type="hidden" name="internshipId" th:value="${internship.getId()}">
         <button type="submit">Approve</button>
@@ -44,5 +45,8 @@
     <form method="post" th:if="${internship.getStatus() == InternshipStatus.PENDING_COMPANY_REVIEW}" th:action="@{'/student/' + ${internship.getId()} + '/revoke-approval'}">
         <input type="hidden" name="internshipId" th:value="${internship.getId()}">
         <button type="submit">Revoke approval</button>
+    </form>
+    <form th:if="${internship.getStatus() == InternshipStatus.ONGOING}" method="post" th:action="${'/internships/' + internship.getId() + '/delete'}">
+        <button type="submit">Delete</button>
     </form>
 </div>
