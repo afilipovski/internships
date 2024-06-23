@@ -13,9 +13,9 @@
             <option th:each="company : ${companies}" th:value="${company.id}" th:text="${company.name}"></option>
         </select>
     </div>
-    <div>
+    <div th:if="${supervisor.id == null}" >
         <label for="email">Email:</label>
-        <input th:if="${supervisor.id == null}" type="email" id="email" th:field="*{email}" />
+        <input type="email" id="email" th:field="*{email}" />
     </div>
     <div>
         <label for="fullName">Full Name:</label>
