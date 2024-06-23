@@ -43,6 +43,19 @@ public class InternshipController {
     }
 
     private String coordinatorIndex(Professor professor, Model model) {
+        model.addAttribute("professor", professor);
+        model.addAttribute("coordinator", internshipCoordinatorService.findById(professor.getId()));
+
+        List<Internship> internships = internshipService.findAllByProfessorIdAndStatus(
+                professor.getId(),
+                InternshipStatus.PENDING_PROFFESSOR_REVIEW
+        );
+        internships.addAll(internshipService.findAllByProfessorIdAndStatus(
+                professor.getId(),
+                InternshipStatus.DEPOSITED
+        ));
+        model.addAttribute("internships", internships);
+
         return "coordinator/index";
     }
 

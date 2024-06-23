@@ -1,4 +1,5 @@
 INSERT INTO auth_user (id, name, email, role) VALUES
+                                                  ('aleksandar.filipovski','Александар Филиповски', 'aleksandar.filipovski@students.finki.ukim.mk','STUDENT'),
                                                   ('vasil.strezov', 'Васил Стрезов', 'vasil.strezov@students.finki.ukim.mk', 'STUDENT'),
                                                   ('luka.krstikj', 'Лука Крстиќ', 'luka.krstikj@students.finki.ukim.mk', 'STUDENT'),
                                                   ('dimitrij.krstev', 'Димитриј Крстев', 'dimitrij.krstev@students.finki.ukim.mk', 'STUDENT'),
