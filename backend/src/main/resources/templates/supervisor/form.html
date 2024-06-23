@@ -15,7 +15,7 @@
     </div>
     <div>
         <label for="email">Email:</label>
-        <input disabled type="email" id="email" th:field="*{email}" />
+        <input th:if="${supervisor.id == null}" type="email" id="email" th:field="*{email}" />
     </div>
     <div>
         <label for="fullName">Full Name:</label>

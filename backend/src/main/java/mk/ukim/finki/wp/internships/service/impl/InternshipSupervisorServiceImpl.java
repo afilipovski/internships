@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.internships.service.impl;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.exception.*;
 import mk.ukim.finki.wp.internships.model.Company;
+import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.User;
 import mk.ukim.finki.wp.internships.model.UserRole;
 import mk.ukim.finki.wp.internships.model.internships.Internship;

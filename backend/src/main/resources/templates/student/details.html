@@ -10,22 +10,25 @@
         <td th:text="${week.getEndDate()}"></td>
         <td th:text="${week.getDescription()}"></td>
         <td>
-            <form th:action="@{'/internship-weeks/' + ${week.getId()} + '/edit'}">
-                <button type="submit">Edit</button>
-            </form>
-            <form method="post" th:action="@{'/internship-weeks/' + ${week.getId()} + '/delete'}">
-                <button type="submit">Delete</button>
-            </form>
+            <div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
+                <div th:if="${internship.getStatus() == InternshipStatus.ONGOING}">
+                    <form th:action="@{'/internship-weeks/' + ${week.getId()} + '/edit'}">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form method="post" th:action="@{'/internship-weeks/' + ${week.getId()} + '/delete'}">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
         </td>
     </tr>
 </table>
 
-<form th:action="@{/internship-weeks/create}">
-    <input type="hidden" name="internshipId" th:value="${internship.getId()}">
-    <button type="submit">Log week</button>
-</form>
-
 <div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
+    <form th:action="@{/internship-weeks/create}" th:if="${internship.getStatus() == InternshipStatus.ONGOING}">
+        <input type="hidden" name="internshipId" th:value="${internship.getId()}">
+        <button type="submit">Log week</button>
+    </form>
     <form method="post" th:if="${internship.getStatus() == InternshipStatus.ONGOING}" th:action="@{'/student/' + ${internship.getId()} + '/approve'}">
         <input type="hidden" name="internshipId" th:value="${internship.getId()}">
         <button type="submit">Approve</button>

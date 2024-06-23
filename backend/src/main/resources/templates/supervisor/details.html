@@ -3,20 +3,11 @@
         <th>Start date</th>
         <th>End date</th>
         <th>Description</th>
-        <th>Actions</th>
     </tr>
     <tr th:each="week : ${internship.getJournal()}">
         <td th:text="${week.getStartDate()}"></td>
         <td th:text="${week.getEndDate()}"></td>
         <td th:text="${week.getDescription()}"></td>
-        <td>
-            <form th:action="@{'/internship-weeks/' + ${week.getId()} + '/edit'}">
-                <button type="submit">Edit</button>
-            </form>
-            <form method="post" th:action="@{'/internship-weeks/' + ${week.getId()} + '/delete'}">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
     </tr>
 </table>
 
