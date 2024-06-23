@@ -27,6 +27,12 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
         Professor professor = professorRepository.findById(professorId)
                 .orElseThrow(() -> new ProfessorNotFoundException(professorId));
 
+        internshipRepository.findAllByProfessorIdAndStatus(null, InternshipStatus.PENDING_PROFFESSOR_REVIEW)
+                .forEach(i -> {
+                    i.setProfessor(professor);
+                    internshipRepository.save(i);
+                });
+
         InternshipCoordinator coordinator = new InternshipCoordinator(professor);
         return coordinatorRepository.save(coordinator);
     }
@@ -76,7 +82,11 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
 
         Random random = new Random();
         List<InternshipCoordinator> coordinators = coordinatorRepository.findAll();
-        InternshipCoordinator coordinator = coordinators.get(random.nextInt(0,coordinators.size()));
+
+        InternshipCoordinator coordinator = new InternshipCoordinator();
+        if (!coordinators.isEmpty()) {
+            coordinator = coordinators.get(random.nextInt(0,coordinators.size()));
+        }
 
         internship.setProfessor(coordinator.getProfessor());
         internshipRepository.save(internship);
