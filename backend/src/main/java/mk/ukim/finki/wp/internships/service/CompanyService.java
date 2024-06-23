@@ -12,4 +12,5 @@ public interface CompanyService {
     void save(String id, String name, String phone, String email, String description,String websiteUrl, byte[] logoImage,byte[] banner,boolean active);
 
     void edit(String id,String name, String phone, String email, String companyDescription,String websiteUrl, byte[] logoImage,byte[] banner,boolean active);
+
 }

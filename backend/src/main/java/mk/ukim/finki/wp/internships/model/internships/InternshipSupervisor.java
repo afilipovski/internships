@@ -16,14 +16,21 @@ public class InternshipSupervisor {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
+    @ManyToOne
     private Company company;
 
+    @Column(unique = true)
     private String email;
 
     private String fullName;
 
     public InternshipSupervisor(Company company) {
         this.company = company;
+    }
+
+    public InternshipSupervisor(Company company, String email, String fullName) {
+        this.company = company;
+        this.email = email;
+        this.fullName = fullName;
     }
 }
