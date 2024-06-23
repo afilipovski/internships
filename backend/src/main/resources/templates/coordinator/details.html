@@ -1,3 +1,11 @@
+<h3>Student: <span th:text="${internship.getStudent().getName() + ' ' + internship.getStudent().getLastName()}"></span></h3>
+<h3>Supervisor:
+    <span th:text="@{${internship.getSupervisor() == null} ? 'TBD' : ${internship.getSupervisor().getFullName()}}"></span>
+</h3>
+<h3>Coordinator:
+    <span th:text="@{${internship.getProfessor() == null} ? 'TBD' : ${internship.getProfessor().getName()}}"></span>
+</h3>
+
 <table>
     <tr>
         <th>Start date</th>
