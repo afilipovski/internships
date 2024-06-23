@@ -15,7 +15,7 @@
         <td th:text="${internship.getPosting().getPlannedWeeks()}"></td>
         <td th:text="${internship.getJournal().size()}"></td>
         <td th:text="${internship.getStatus()}"></td>
-        <td>
+        <td style="display: flex">
             <div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
                 <form th:if="${internship.getStatus() == InternshipStatus.ONGOING}" method="post" th:action="${'/internships/' + internship.getId() + '/delete'}">
                     <button type="submit">Delete</button>

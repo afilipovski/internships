@@ -11,7 +11,7 @@
         <td th:text="${week.getDescription()}"></td>
         <td>
             <div th:with="InternshipStatus=${T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus)}">
-                <div th:if="${internship.getStatus() == InternshipStatus.ONGOING}">
+                <div style="display: flex" th:if="${internship.getStatus() == InternshipStatus.ONGOING}">
                     <form th:action="@{'/internship-weeks/' + ${week.getId()} + '/edit'}">
                         <button type="submit">Edit</button>
                     </form>
