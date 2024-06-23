@@ -19,6 +19,8 @@ public class InternshipSupervisor {
     @OneToOne
     private Company company;
 
+    private String email;
+
     public InternshipSupervisor(Company company) {
         this.company = company;
     }

@@ -43,6 +43,11 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
         return coordinatorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
     }
 
+    @Override
+    public InternshipCoordinator findByProfessorId(String professorId) {
+        return coordinatorRepository.findByProfessorId(professorId);
+    }
+
     private void changeInternshipStatus(Long id, Long internshipId, InternshipStatus from, InternshipStatus to) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
 

@@ -9,6 +9,8 @@ public interface InternshipCoordinatorService {
 
     InternshipCoordinator findById(Long id);
 
+    InternshipCoordinator findByProfessorId(String professorId);
+
     void approveInternship(Long id, Long internshipId);
 
     void revokeApprovalInternship(Long id, Long internshipId);
