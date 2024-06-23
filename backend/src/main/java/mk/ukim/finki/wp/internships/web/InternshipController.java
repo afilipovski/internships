@@ -32,9 +32,12 @@ public class InternshipController {
 
     private String supervisorIndex(InternshipSupervisor supervisor, Model model) {
         model.addAttribute("supervisor", supervisor);
-        model.addAttribute("supervisor_internships", internshipService.findAllBySupervisorIdOrderByStatusAsc(
-                supervisor.getId()
-        ));
+
+        List<Internship> supervisorInternships = internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.PENDING_COMPANY_REVIEW);
+        supervisorInternships.addAll(internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.PENDING_PROFFESSOR_REVIEW));
+        supervisorInternships.addAll(internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.ONGOING));
+
+        model.addAttribute("supervisor_internships", supervisorInternships);
         model.addAttribute("company_internships", internshipService.findAllByPostingCompanyIdAndSupervisorIdIsNull(
                 supervisor.getCompany().getId()
         ));
