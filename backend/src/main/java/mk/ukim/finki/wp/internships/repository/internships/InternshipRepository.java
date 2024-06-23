@@ -7,7 +7,7 @@ import mk.ukim.finki.wp.internships.repository.JpaSpecificationRepository;
 import java.util.List;
 
 public interface InternshipRepository extends JpaSpecificationRepository<Internship, Long> {
-    List<Internship> findAllByCoordinatorProfessorId(String professorId);
+    List<Internship> findAllByProfessorId(String professorId);
     List<Internship> findAllBySupervisorId(Long supervisorId);
     List<Internship> findAllByStudentIndex(String studentIndex);
     List<Internship> findAllByPostingCompanyId(String companyId);
@@ -16,7 +16,7 @@ public interface InternshipRepository extends JpaSpecificationRepository<Interns
 
     List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId);
 
-    List<Internship> findAllByCoordinatorProfessorIdAndStatus(String professorId, InternshipStatus status);
+    List<Internship> findAllByProfessorIdAndStatus(String professorId, InternshipStatus status);
     List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status);
     List<Internship> findAllByStudentIndexAndStatus(String studentIndex, InternshipStatus status);
     List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status);

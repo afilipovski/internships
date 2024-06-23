@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class Internship {
     private Student student;
 
     @ManyToOne
-    private InternshipCoordinator coordinator;
+    private Professor professor;
 
     @Enumerated(EnumType.STRING)
     @NonNull

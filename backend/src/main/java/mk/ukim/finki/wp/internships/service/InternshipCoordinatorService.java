@@ -5,15 +5,13 @@ import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 public interface InternshipCoordinatorService {
     InternshipCoordinator create(String professorId);
 
-    InternshipCoordinator delete(Long id);
+    InternshipCoordinator delete(String professorId);
 
-    InternshipCoordinator findById(Long id);
+    InternshipCoordinator findById(String professorId);
 
-    InternshipCoordinator findByProfessorId(String professorId);
+    void approveInternship(String professorId, Long internshipId);
 
-    void approveInternship(Long id, Long internshipId);
-
-    void revokeApprovalInternship(Long id, Long internshipId);
+    void revokeApprovalInternship(String professorId, Long internshipId);
 
     void assignRandom(Long internshipId);
 }

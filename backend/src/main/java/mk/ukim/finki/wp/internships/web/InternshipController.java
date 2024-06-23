@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -44,8 +43,6 @@ public class InternshipController {
     }
 
     private String coordinatorIndex(Professor professor, Model model) {
-        InternshipCoordinator coordinator = internshipCoordinatorService.findByProfessorId(professor.getId());
-        model.addAttribute("coordinator", coordinator);
         return "coordinator/index";
     }
 

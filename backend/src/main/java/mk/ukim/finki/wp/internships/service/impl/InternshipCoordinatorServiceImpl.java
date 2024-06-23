@@ -32,31 +32,26 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
     }
 
     @Override
-    public InternshipCoordinator delete(Long id) {
-        InternshipCoordinator coordinator = findById(id);
+    public InternshipCoordinator delete(String professorId) {
+        InternshipCoordinator coordinator = findById(professorId);
         coordinatorRepository.delete(coordinator);
         return coordinator;
     }
 
     @Override
-    public InternshipCoordinator findById(Long id) {
-        return coordinatorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
-    }
-
-    @Override
-    public InternshipCoordinator findByProfessorId(String professorId) {
+    public InternshipCoordinator findById(String professorId) {
         return coordinatorRepository.findByProfessorId(professorId);
     }
 
-    private void changeInternshipStatus(Long id, Long internshipId, InternshipStatus from, InternshipStatus to) {
+    private void changeInternshipStatus(String professorId, Long internshipId, InternshipStatus from, InternshipStatus to) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
 
         if (internship.getStatus() != from) {
             throw new IllegalInternshipStatusOperation(from, to);
         }
 
-        if (!internship.getCoordinator().getId().equals(id)) {
-            throw new UserNotInternshipCoordinatorException(id,internshipId);
+        if (!internship.getProfessor().getId().equals(professorId)) {
+            throw new UserNotInternshipCoordinatorException(professorId,internshipId);
         }
 
         internship.setStatus(to);
@@ -64,13 +59,13 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
     }
 
     @Override
-    public void approveInternship(Long id, Long internshipId) {
-        changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.DEPOSITED);
+    public void approveInternship(String professorId, Long internshipId) {
+        changeInternshipStatus(professorId,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.DEPOSITED);
     }
 
     @Override
-    public void revokeApprovalInternship(Long id, Long internshipId) {
-        changeInternshipStatus(id,internshipId,InternshipStatus.DEPOSITED, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
+    public void revokeApprovalInternship(String professorId, Long internshipId) {
+        changeInternshipStatus(professorId,internshipId,InternshipStatus.DEPOSITED, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
@@ -83,7 +78,7 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
         List<InternshipCoordinator> coordinators = coordinatorRepository.findAll();
         InternshipCoordinator coordinator = coordinators.get(random.nextInt(0,coordinators.size()));
 
-        internship.setCoordinator(coordinator);
+        internship.setProfessor(coordinator.getProfessor());
         internshipRepository.save(internship);
     }
 }

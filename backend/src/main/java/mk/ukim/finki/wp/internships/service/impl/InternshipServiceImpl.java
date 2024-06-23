@@ -56,7 +56,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public List<Internship> findAllByProfessorId(String professorId) {
-        return internshipRepository.findAllByCoordinatorProfessorId(professorId);
+        return internshipRepository.findAllByProfessorId(professorId);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public List<Internship> findAllByProfessorIdAndStatus(String professorId, InternshipStatus status) {
-        return internshipRepository.findAllByCoordinatorProfessorIdAndStatus(professorId,status);
+        return internshipRepository.findAllByProfessorIdAndStatus(professorId,status);
     }
 
     @Override

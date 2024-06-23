@@ -13,17 +13,17 @@ public class InternshipCoordinatorControllerRest {
     private final InternshipCoordinatorService internshipCoordinatorService;
 
     @GetMapping("/{id}")
-    public InternshipCoordinator getCoordinator(@PathVariable Long id){
+    public InternshipCoordinator getCoordinator(@PathVariable String id){
         return internshipCoordinatorService.findById(id);
     }
 
     @PutMapping("/approve-internship")
-    public void approveInternship(@RequestParam Long coordinatorId, @RequestParam Long internshipId){
+    public void approveInternship(@RequestParam String coordinatorId, @RequestParam Long internshipId){
         internshipCoordinatorService.approveInternship(coordinatorId, internshipId);
     }
 
     @PutMapping("/revoke-approval-internship")
-    public void revokeApproval(@RequestParam Long coordinatorId, @RequestParam Long internshipId){
+    public void revokeApproval(@RequestParam String coordinatorId, @RequestParam Long internshipId){
         internshipCoordinatorService.revokeApprovalInternship(coordinatorId, internshipId);
     }
 
