@@ -8,6 +8,7 @@ import mk.ukim.finki.wp.internships.model.internships.*;
 import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
 import mk.ukim.finki.wp.internships.service.InternshipPostingService;
 import mk.ukim.finki.wp.internships.service.InternshipService;
+import mk.ukim.finki.wp.internships.service.StudentService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,7 @@ public class InternshipController {
     private final InternshipService internshipService;
     private final InternshipPostingService internshipPostingService;
     private final InternshipCoordinatorService internshipCoordinatorService;
+    private final StudentService studentService;
 
     private String studentIndex(Student student, Model model) {
         List<Internship> internships = internshipService.findAllByStudentIndex(student.getIndex());
@@ -114,13 +116,15 @@ public class InternshipController {
         return "coordinator/details";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}/{index}/")
     public String internshipDetails(@PathVariable Long id,
+                                    @PathVariable String index,
                                     @AuthenticationPrincipal FacultyUserDetails principal,
                                     Model model) {
         Internship internship = internshipService.findById(id);
         model.addAttribute("internship",internship);
-
+        Student student=studentService.getStudentByIndex(index);
+        model.addAttribute("student",student);
         if (principal.getStudent() != null)
             return studentDetails(id,model);
         if (principal.getSupervisor() != null)

@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path="/" element={<InternCard />} />
+            <Route exact path="/" element={<InternCard />} />
             <Route exact path="/authenticate" element={<Authentication />} />
             <Route exact path="/calendar" element={<Calendar />} />
             <Route exact path="/coordinator" element={<Coordinator />} />

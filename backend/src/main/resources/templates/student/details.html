@@ -1,9 +1,250 @@
+<!DOCTYPE html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<style>
+    textarea {
+        resize: none;
+        background-color: #f8f8f8;
+    }
+
+    textarea:focus{
+        outline: #2A93D1 solid 2px;
+
+    }
+
+    .cardWeek:hover{
+        outline: #2A93D1 solid 2px;
+        transition: outline-width 100ms;
+    }
+
+    .cardWeek:nth-child(4):nth-child(8):nth-child(12){
+        margin-right: 0;
+    }
+
+    .cardWeek{
+        margin-right: 3%;
+    }
+
+    .responsive-basis {
+        flex-basis: 33.3333%;
+    }
+
+    @media (min-width: 768px) {
+        .responsive-flex {
+            flex-direction: row;
+        }
+        .responsive-basis {
+            flex-basis: 25%;
+        }
+    }
+</style>
+</head>
+<body>
+
+<div className="Navbar"
+     class="h-[7vh] py-2 flex justify-between px-2 lg:px-16 shadow-xl w-full overflow-hidden">
+    <div class="flex flex-col justify-center">
+        <img  style="height: 5vh;" th:src="@{/io.svg}"/>
+    </div>
+    <div class="flex">
+        <div class="flex flex-col justify-center">
+            <div class="flex rounded-xl border-2 border-black h-[6vh] text-[12px] md:text-md">
+                <div class="flex p-1">
+                    <h1 class="font-bold mx-0 md:mx-2 w-fit my-auto" th:text="${student.getName() + ' ' + student.getLastName()}"></h1>
+                    <h1 className="mx-0 md:mx-2 w-fit my-auto" th:text="${' (' + student.getIndex() + ')'}"></h1>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center ml-2 md:ml-4" >
+            <img class="bg-red-600 h-[5.5vh] w-[5.5vh] rounded-lg "  style="height: 5.5vh; width: 5.5vh; padding: 14px" th:src="@{/logout.svg}"/>
+        </div>
+    </div>
+
+</div>
+<div style="width: 100%; display: flex; flex-direction: row; height: 100vh;" class="responsive-flex">
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: flex-start; padding: 16px;box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);" class="responsive-basis ">
+        <h1 style="width: 100%; flex-basis: 12.5%; padding: 8px; text-align: center; font-weight: 100; font-size: 2.25rem; margin-bottom: 32px; margin-top: 32px;">Дневник</h1>
+        <div style="flex-basis: 66.6667%; width: 100%; padding: 16px; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+                <h1 style="color: #212121; font-weight: bold; font-size: 1.5rem;">Недела 2</h1>
+                <h4 style="font-size: 0.875rem; color: gray;">22-26 Април</h4>
+            </div>
+            <textarea placeholder="Внесете дневник за неделата." style="height: 50vh; padding: 0.5rem; margin-top: 1rem; margin-bottom: 1rem; border-radius: 0.75rem;"></textarea>
+            <div style="color: white; display: flex; justify-content: flex-end;">
+                <button style="background-color: red; padding: 0.5rem 1rem; border-radius: 0.75rem; margin-right: 0.5rem;">
+                    Откажи
+                </button>
+                <button style="background-color: #2A93D1; padding: 0.5rem 1rem; border-radius: 0.75rem;">
+                    Зачувај
+                </button>
+            </div>
+        </div>
+    </div>
+    <div  style="width: 100%; max-width: none; flex-basis: 75%; margin-left: auto; margin-right: auto;" class="lg:w-fit md:basis-2/3 lg:basis-3/4 p-8 w-full lg:w-fit mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4">
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 shadow-xl h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+        <div style="display: flex; flex-direction: column; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 20px; padding: 16px; height: 30vh; min-height: auto;" class="lg:h-auto flex flex-col shadowCard rounded-xl p-4 h-[30vh] lg:h-auto cardWeek">
+            <div style="display: flex; justify-content: space-between;" class="flex justify-between">
+                <div style="border-radius: 50%; background-color: #ccc; padding: 1rem; display: flex; justify-content: center; width: 3.5vw; height: 3.5vw;" class="rounded-full bg-gray p-4 flex justify-center">
+                    <div style="display: flex; flex-direction: column; justify-content: center;" class="flex flex-col justify-center">
+                        <h1 style="color: #f8f8f8; font-weight: bold; width: fit-content; height: fit-content;">1</h1>
+                    </div>
+                </div>
+                <div style="display: flex; flex-direction: column; justify-content: center;">
+                    <h1 style="width: fit-content; font-weight: bold; color: #333;">22-26 Април</h1>
+                </div>
+            </div>
+            <textarea style="border-radius: 0.75rem; margin-top: 1rem; height: 100%; padding: 0.5rem; font-size: 0.875rem;" disabled class="textarea">DABSHDSAHBJ</textarea>
+        </div>
+    </div>
+</div>
 <h3>Student: <span th:text="${internship.getStudent().getName() + ' ' + internship.getStudent().getLastName()}"></span></h3>
 <h3>Supervisor:
-    <span th:text="@{${internship.getSupervisor() == null} ? 'TBD' : ${internship.getSupervisor().getFullName()}}"></span>
+    <span th:text="${internship.getSupervisor() == null} ? 'TBD' : ${internship.getSupervisor().getFullName()}"></span>
 </h3>
 <h3>Coordinator:
-    <span th:text="@{${internship.getProfessor() == null} ? 'TBD' : ${internship.getProfessor().getName()}}"></span>
+    <span th:text="${internship.getProfessor() == null} ? 'TBD' : ${internship.getProfessor().getName()}"></span>
 </h3>
 
 <table>
@@ -50,3 +291,4 @@
         <button type="submit">Delete</button>
     </form>
 </div>
+</body>

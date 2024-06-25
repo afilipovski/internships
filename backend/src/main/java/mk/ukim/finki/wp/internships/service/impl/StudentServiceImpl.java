@@ -26,6 +26,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Student getStudentByIndex(String index) {
+        return studentRepository.findByIndex(index);
+    }
+
+    @Override
     public void approveInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
         if (internship.getStatus() != InternshipStatus.ONGOING) {
