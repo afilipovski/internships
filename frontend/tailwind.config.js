@@ -12,6 +12,7 @@ module.exports = {
         finkiI: '#313183',
         gray: '#bfbfbf',
         green: '#73E860',
+        lightgray: '#EDEDED'
       }
     },
   },
