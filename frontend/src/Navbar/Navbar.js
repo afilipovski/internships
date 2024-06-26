@@ -12,7 +12,7 @@ function Navbar(props) {
 
     return(
         <div className="Navbar"
-             class="h-[7vh] py-2 flex justify-between px-2 lg:px-16 shadow-xl w-full overflow-hidden">
+             class="h-[7vh] py-2 flex justify-between px-4 shadow-xl w-full overflow-hidden">
             <div class="flex flex-col justify-center">
                 <img class="h-[5vh]" src={Logo}/>
             </div>
