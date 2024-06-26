@@ -23,7 +23,18 @@
         div.circles > img:nth-child(12){
             margin-right: 0;
         }
+        @media (min-width: 700px) {
+            .responsive-flex {
+                flex-direction: row;
+            }
 
+        }
+        @media (max-width: 700px) {
+            .responsive-flex {
+                flex-direction: column;
+            }
+
+        }
     </style>
 </head>
 <body>
@@ -119,7 +130,7 @@
 'background-color: #bfbfbf; border-radius: 50%; width: 80px; padding: 10px;'"                     th:src="@{/check.svg}"/>
                 </span>
             </div>
-            <div class="flex flex-col-reverse lg:flex-row justify-between rounded-xl shadow-xl shadowCard mt-4">
+            <div class="flex  lg:flex-row justify-between rounded-xl shadow-xl shadowCard mt-4">
                 <div class="flex justify-evenly w-full p-4 lg:p-0">
                     <div class="flex flex-col justify-center">
                         <div class="rounded-full  bg-red-600" style="width: 20px; height: 20px"></div>
@@ -129,7 +140,7 @@
                     </div>
                 </div>
                 <form method="get" th:action="${'/internships/' + internship.getId()+ '/'+student.getIndex()+'/'}">
-                    <button style="background-color: #2A93D1"  class=" px-8 py-4 rounded-xl text-white font-bold text-lg lg:text-2xl">Дневник</button>
+                    <button style="background-color: #2A93D1"  class=" responsive-flex px-8 py-4 rounded-xl text-white font-bold text-lg lg:text-2xl">Дневник</button>
                 </form>
 
             </div>

@@ -16,19 +16,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StudentController {
     private final StudentService studentService;
 
-    @PostMapping("/{internshipId}/approve")
+    @PostMapping("/{internshipId}/approve/{index}")
     public String approve(@PathVariable Long internshipId,
+                          @PathVariable Long index,
                           @AuthenticationPrincipal FacultyUserDetails facultyUserDetails) {
         Student student = facultyUserDetails.getStudent();
         studentService.approveInternship(student.getIndex(), internshipId);
-        return "redirect:/internships/"+internshipId;
+        return "redirect:/internships/"+internshipId+"/"+index+"/";
     }
 
-    @PostMapping("/{internshipId}/revoke-approval")
+    @PostMapping("/{internshipId}/revoke-approval/{index}")
     public String revokeApproval(@PathVariable Long internshipId,
-                          @AuthenticationPrincipal FacultyUserDetails facultyUserDetails) {
+                                 @PathVariable Long index,
+                                 @AuthenticationPrincipal FacultyUserDetails facultyUserDetails) {
         Student student = facultyUserDetails.getStudent();
         studentService.revokeApprovalInternship(student.getIndex(), internshipId);
-        return "redirect:/internships/"+internshipId;
+        return "redirect:/internships/"+internshipId+"/"+index+"/";
     }
 }

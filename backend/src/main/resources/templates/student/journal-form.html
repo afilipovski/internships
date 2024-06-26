@@ -13,6 +13,6 @@
     <label for="description">Description:</label>
     <input id="description" type="text" name="description" th:value="${week?.getDescription()}">
     <br>
-
+    <input id="index" type="hidden" name="index" th:value="${student?.getIndex()}">
     <button type="submit">Save</button>
 </form>
