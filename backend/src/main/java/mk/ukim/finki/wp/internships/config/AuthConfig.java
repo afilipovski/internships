@@ -43,17 +43,7 @@ public class AuthConfig {
                         .requestMatchers("/active-subjects", "io.png", "/allocation/*").permitAll()
                         .anyRequest().authenticated()
                 )
-//                .logout(LogoutConfigurer::permitAll);
-//
-//                КОНФИГУРАЦИЈАТА ПОДОЛУ МОРА ДА СЕ ОТСТРАНИ ПРЕД ПРОДУКЦИЈА
-//                ПОТРЕБНА Е КАКО РЕШЕНИЕ ЗА КЕШИРАЊЕТО НА AUTHORIZATION HEADER
-                .logout((logout) -> logout
-                        .logoutUrl("/logout")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .deleteCookies("JSESSIONID")
-                        .logoutSuccessUrl("http://INVALIDATE@localhost:8080/")
-                        .permitAll());
+                .logout(LogoutConfigurer::permitAll);
 
     }
 
