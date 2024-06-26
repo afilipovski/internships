@@ -1,16 +1,18 @@
 package mk.ukim.finki.wp.internships.model.internships;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import mk.ukim.finki.wp.internships.model.Company;
 
 @Entity
+@Getter
+@Setter
 public class InternshipPosting {
     @Id
     @Column(name = "id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @ManyToOne
     private Company company;

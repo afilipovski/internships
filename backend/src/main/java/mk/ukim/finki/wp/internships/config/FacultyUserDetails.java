@@ -1,8 +1,10 @@
 package mk.ukim.finki.wp.internships.config;
 
+import lombok.Getter;
 import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
 import mk.ukim.finki.wp.internships.model.User;
+import mk.ukim.finki.wp.internships.model.internships.InternshipSupervisor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,9 +16,14 @@ public class FacultyUserDetails implements UserDetails {
 
     private User user;
 
+    @Getter
     private Student student;
 
+    @Getter
     private Professor professor;
+
+    @Getter
+    private InternshipSupervisor supervisor;
 
     private String password;
 
@@ -34,6 +41,12 @@ public class FacultyUserDetails implements UserDetails {
     public FacultyUserDetails(User user, Student student, String password) {
         this.user = user;
         this.student = student;
+        this.password = password;
+    }
+
+    public FacultyUserDetails(User user, InternshipSupervisor supervisor, String password) {
+        this.user = user;
+        this.supervisor = supervisor;
         this.password = password;
     }
 
@@ -72,11 +85,4 @@ public class FacultyUserDetails implements UserDetails {
         return true;
     }
 
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
 }

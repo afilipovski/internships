@@ -6,23 +6,34 @@ import mk.ukim.finki.wp.internships.model.internships.InternshipStatus;
 import java.util.List;
 
 public interface InternshipService {
-    Internship create(String studentId, String postingId);
+    Internship create(String studentId, Long postingId);
+
+    Internship delete(Long id);
 
     List<Internship> findAllByStudentIndex(String studentId);
 
-    List<Internship> findAllBySupervisorId(String supervisorId);
+    List<Internship> findAllBySupervisorId(Long supervisorId);
 
     List<Internship> findAllByProfessorId(String coordinatorId);
 
     List<Internship> findAllByStudentIdAndStatus(String studentId, InternshipStatus status);
 
-    List<Internship> findAllBySupervisorIdAndStatus(String supervisorId, InternshipStatus status);
+    List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status);
+
+    List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId);
 
     List<Internship> findAllByProfessorIdAndStatus(String coordinatorId, InternshipStatus status);
 
-    Internship findById(String id);
+    Internship findById(Long id);
 
-    void addInternshipWeek(String id, String weekId);
+    void addInternshipWeek(Long id, Long weekId);
 
+    List<Internship> findAllByPostingCompanyId(String companyId);
+
+    List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status);
+
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, Long supervisorId);
+
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId);
 
 }

@@ -3,11 +3,10 @@ package mk.ukim.finki.wp.internships.model.internships;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
-import mk.ukim.finki.wp.internships.model.Company;
 import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
-import mk.ukim.finki.wp.internships.model.User;
 
 import java.util.List;
 
@@ -18,31 +17,27 @@ import java.util.List;
 public class Internship {
     @Id
     @Column(name = "id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private InternshipSupervisor supervisor;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Student student;
 
     @ManyToOne
-    private InternshipCoordinator coordinator;
+    private Professor professor;
 
-    @ManyToOne
-    private User studentAdmin;
-
-    @Enumerated
+    @Enumerated(EnumType.STRING)
+    @NonNull
     private InternshipStatus status;
 
-    @OneToMany
+    @OneToMany(mappedBy = "internship",cascade = CascadeType.ALL)
     private List<InternshipWeek> journal;
 
     @ManyToOne
     private InternshipPosting posting;
-
-    @ManyToOne
-    private Company company;
 
     public Internship(Student student, InternshipPosting posting) {
         this.student = student;

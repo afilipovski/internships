@@ -12,8 +12,7 @@ const nav = useNavigate();
 
 return (
     <div class="flex flex-col justify-center h-[88vh]">
-        <div className='shadow-2xl rounded-xl w-fit mx-auto flex'>
-        </div>
+
         <div class="flex flex-col lg:flex-row rounded-[40px] shadowCard w-full lg:w-8/12 mx-auto mt-8">
             <div class="basis-1/4 rounded-tl-[40px] rounded-bl-[40px] flex justify-center overflow-hidden bgLogoImage" style={{backgroundImage: `url(${testLogo})`}}>
                 <div class="flex flex-col justify-center h-full w-full bgLogoBlur">

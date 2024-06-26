@@ -5,6 +5,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.web.access.expression.WebExpressionAuthorizationManager;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 public class AuthConfig {
 
@@ -42,7 +43,18 @@ public class AuthConfig {
                         .requestMatchers("/active-subjects", "io.png", "/allocation/*").permitAll()
                         .anyRequest().authenticated()
                 )
-                .logout(LogoutConfigurer::permitAll);
+//                .logout(LogoutConfigurer::permitAll);
+//
+//                КОНФИГУРАЦИЈАТА ПОДОЛУ МОРА ДА СЕ ОТСТРАНИ ПРЕД ПРОДУКЦИЈА
+//                ПОТРЕБНА Е КАКО РЕШЕНИЕ ЗА КЕШИРАЊЕТО НА AUTHORIZATION HEADER
+                .logout((logout) -> logout
+                        .logoutUrl("/logout")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                        .logoutSuccessUrl("http://INVALIDATE@localhost:8080/")
+                        .permitAll());
+
     }
 
 }

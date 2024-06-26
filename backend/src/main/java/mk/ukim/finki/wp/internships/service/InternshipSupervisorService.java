@@ -2,12 +2,22 @@ package mk.ukim.finki.wp.internships.service;
 
 import mk.ukim.finki.wp.internships.model.internships.InternshipSupervisor;
 
+import java.util.List;
+
 public interface InternshipSupervisorService {
-    InternshipSupervisor findById(String id);
+    InternshipSupervisor create(String companyId, String email, String fullName);
 
-    void approveInternship(String id, String internshipId);
+    InternshipSupervisor findById(Long id);
 
-    void revokeApprovalInternship(String id, String internshipId);
+    void approveInternship(Long id, Long internshipId);
 
-    void assign(String id, String internshipId);
+    void revokeApprovalInternship(Long id, Long internshipId);
+
+    void assign(Long id, Long internshipId);
+
+    List<InternshipSupervisor> findAll();
+
+    void save(InternshipSupervisor supervisor);
+
+    void update(InternshipSupervisor supervisor);
 }

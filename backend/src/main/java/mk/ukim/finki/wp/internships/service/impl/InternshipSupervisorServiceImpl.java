@@ -2,26 +2,55 @@ package mk.ukim.finki.wp.internships.service.impl;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.exception.*;
+import mk.ukim.finki.wp.internships.model.Company;
+import mk.ukim.finki.wp.internships.model.Professor;
+import mk.ukim.finki.wp.internships.model.User;
+import mk.ukim.finki.wp.internships.model.UserRole;
 import mk.ukim.finki.wp.internships.model.internships.Internship;
 import mk.ukim.finki.wp.internships.model.internships.InternshipStatus;
 import mk.ukim.finki.wp.internships.model.internships.InternshipSupervisor;
+import mk.ukim.finki.wp.internships.repository.CompanyRepository;
+import mk.ukim.finki.wp.internships.repository.UserRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipSupervisorRepository;
 import mk.ukim.finki.wp.internships.service.InternshipSupervisorService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class InternshipSupervisorServiceImpl implements InternshipSupervisorService {
     private final InternshipSupervisorRepository supervisorRepository;
     private final InternshipRepository internshipRepository;
+    private final CompanyRepository companyRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public InternshipSupervisor findById(String id) {
+    public InternshipSupervisor create(String companyId, String email, String fullName) {
+        Company company = companyRepository.findById(companyId)
+                .orElseThrow(() -> new CompanyNotFoundException(companyId));
+
+        User user = new User();
+        user.setId(email.split("@")[0]);
+        user.setRole(UserRole.SUPERVISOR);
+        user.setName(fullName);
+        user.setEmail(email);
+        userRepository.save(user);
+
+        InternshipSupervisor supervisor = new InternshipSupervisor(
+                company, email, fullName
+        );
+
+        return supervisorRepository.save(supervisor);
+    }
+
+    @Override
+    public InternshipSupervisor findById(Long id) {
         return supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
     }
 
-    private void changeInternshipStatus(String id, String internshipId, InternshipStatus from, InternshipStatus to) {
+    private void changeInternshipStatus(Long id, Long internshipId, InternshipStatus from, InternshipStatus to) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
 
         if (internship.getStatus() != from) {
@@ -37,26 +66,49 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
     }
 
     @Override
-    public void approveInternship(String id, String internshipId) {
+    public void approveInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_COMPANY_REVIEW, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
-    public void revokeApprovalInternship(String id, String internshipId) {
+    public void revokeApprovalInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.PENDING_COMPANY_REVIEW);
     }
 
     @Override
-    public void assign(String id, String internshipId) {
+    public void assign(Long id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
         InternshipSupervisor supervisor = supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
 
-        if (!internship.getSupervisor().getCompany().id.equals(supervisor.getCompany().id)) {
+        if (!internship.getPosting().getCompany().id.equals(supervisor.getCompany().id)) {
             throw new SupervisorCompanyWithInternshipCompanyMismatchException(id,
                     internship.getSupervisor().getCompany().id, internshipId);
         }
 
         internship.setSupervisor(supervisor);
         internshipRepository.save(internship);
+    }
+
+    @Override
+    public List<InternshipSupervisor> findAll() {
+        return supervisorRepository.findAll();
+    }
+
+    @Override
+    public void save(InternshipSupervisor supervisor) {
+        supervisorRepository.save(supervisor);
+    }
+
+    @Override
+    public void update(InternshipSupervisor supervisor) {
+        InternshipSupervisor current = supervisorRepository
+                .findById(supervisor.getId())
+                .orElseThrow();
+        User user = userRepository.findById(current.getEmail().split("@")[0]).orElseThrow();
+
+        user.setName(supervisor.getFullName());
+
+        userRepository.save(user);
+        supervisorRepository.save(supervisor);
     }
 }
