@@ -140,6 +140,7 @@ public class InternshipController {
         Student student=studentService.getStudentByIndex(index);
         model.addAttribute("student",student);
         model.addAttribute("supervisor",internship.getSupervisor());
+        model.addAttribute("profesor",internship.getProfessor());
         if (principal.getStudent() != null)
             return studentDetails(id,model);
         if (principal.getSupervisor() != null)
