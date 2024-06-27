@@ -28,7 +28,7 @@ public class InternshipSupervisorController {
         InternshipSupervisor supervisor = facultyUserDetails.getSupervisor();
         supervisorService.approveInternship(supervisor.getId(), internshipId);
         coordinatorService.assignRandom(internshipId);
-        return "redirect:/internships/"+internshipId;
+        return "redirect:/internships/";
     }
 
     @PostMapping("/{internshipId}/revoke-approval")
@@ -36,7 +36,7 @@ public class InternshipSupervisorController {
                                  @AuthenticationPrincipal FacultyUserDetails facultyUserDetails) {
         InternshipSupervisor supervisor = facultyUserDetails.getSupervisor();
         supervisorService.revokeApprovalInternship(supervisor.getId(), internshipId);
-        return "redirect:/internships/"+internshipId;
+        return "redirect:/internships/?filter=completed";
     }
 
     @PostMapping("/{internshipId}/assign")
@@ -44,7 +44,7 @@ public class InternshipSupervisorController {
                          @AuthenticationPrincipal FacultyUserDetails facultyUserDetails) {
         InternshipSupervisor supervisor = facultyUserDetails.getSupervisor();
         supervisorService.assign(supervisor.getId(), internshipId);
-        return "redirect:/internships/";
+        return "redirect:/internships/?filter=completed";
     }
 
     @GetMapping("/")

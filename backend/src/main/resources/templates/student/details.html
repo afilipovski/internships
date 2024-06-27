@@ -116,12 +116,12 @@
                     <h1 style="color: #212121; font-weight: bold; font-size: 1.5rem;" th:text="${week != null ? 'Недела ' + week.getId() : 'No Week'}" th:disabled="${internship.getStatus() == T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).DEPOSITED}"></h1>
                     <h4 style="font-size: 0.875rem; color: gray;" th:text="${week != null ? week?.getStartDate()?.getDayOfMonth()+ '-' + week?.getEndDate()?.getDayOfMonth()+ ' ' + week?.getEndDate()?.getMonth(): ''}" th:disabled="${internship.getStatus() == T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).DEPOSITED}"></h4>
                     <label for="startDate" style="margin: 2px">Start Date:</label>
-                    <input id="startDate" style="margin: 2px" type="date" name="startDate" th:value="${week?.getStartDate()}" th:disabled="${internship.getStatus() == T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).DEPOSITED}">
+                    <input id="startDate" style="margin: 2px" type="date" name="startDate" th:value="${week?.getStartDate()}" th:disabled="${internship.getStatus() != T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).ONGOING}">
                     <br>
                     <label for="startDate" style="margin: 2px">End Date:</label>
-                    <input id="endDate" style="margin: 2px" type="date" name="endDate" th:value="${week?.getEndDate()}" th:disabled="${internship.getStatus() == T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).DEPOSITED}">
+                    <input id="endDate" style="margin: 2px" type="date" name="endDate" th:value="${week?.getEndDate()}" th:disabled="${internship.getStatus() != T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).ONGOING}">
                 </div>
-                <textarea placeholder="Внесете дневник за неделата." name="description" style="height: 70vh; padding: 0.5rem; width: 100%; margin-top: 1rem; margin-bottom: 1rem; border-radius: 0.75rem;" th:text="${week != null ? week.getDescription() : ''}" th:disabled="${internship.getStatus() == T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).DEPOSITED}"></textarea>
+                <textarea placeholder="Внесете дневник за неделата." name="description" style="height: 30vh; padding: 0.5rem; width: 100%; margin-top: 1rem; margin-bottom: 1rem; border-radius: 0.75rem;" th:text="${week != null ? week.getDescription() : ''}" th:disabled="${internship.getStatus() == T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).DEPOSITED}"></textarea>
                 <div style="color: white; display: flex; justify-content: center; align-content: center; margin: auto">
 
                     <button type="submit" style="background-color: #2A93D1; padding: 0.5rem 1rem; border-radius: 0.75rem;" th:disabled="${internship.getStatus() == T(mk.ukim.finki.wp.internships.model.internships.InternshipStatus).DEPOSITED}">
@@ -138,17 +138,19 @@
                 </div>
             </form>
         </div>
+        <div style="display: flex; flex-direction: row" >
+            <div style="display: flex; justify-content: center; flex-direction: row">
+                <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: bold; font-size: 1rem; margin-bottom: 5px; margin-top: 5px;" >Supervisor:</h1>
 
-        <div style="display: flex; justify-content: center; flex-direction: row">
-            <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: 100; font-size: 2.25rem; margin-bottom: 5px; margin-top: 5px;" >Supervisor:</h1>
+                <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: 100; font-size: 1rem; margin-bottom: 5px; margin-top: 5px;" th:text="${internship.getSupervisor() == null} ? 'TBD' : ${internship.getSupervisor().getFullName()}"></h1>
+            </div>
+            <div style="display: flex; justify-content: center; flex-direction: row">
+                <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: bold; font-size: 1rem; margin-bottom: 5px; margin-top: 5px;" >Profesor:</h1>
 
-            <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: 100; font-size: 2.25rem; margin-bottom: 5px; margin-top: 5px;" th:text="${internship.getSupervisor() == null} ? 'TBD' : ${internship.getSupervisor().getFullName()}"></h1>
+                <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: 100; font-size: 1rem; margin-bottom: 5px; margin-top: 5px;" th:text="${internship.getProfessor() == null} ? 'TBD' : ${internship.getProfessor().getName()}"></h1>
+            </div>
         </div>
-        <div style="display: flex; justify-content: center; flex-direction: row">
-            <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: 100; font-size: 2.25rem; margin-bottom: 5px; margin-top: 5px;" >Profesor:</h1>
 
-            <h1 style="width: 100%; flex-basis: 12.5%; padding: 5px; text-align: center; font-weight: 100; font-size: 2.25rem; margin-bottom: 5px; margin-top: 5px;" th:text="${internship.getProfessor() == null} ? 'TBD' : ${internship.getProfessor().getName()}"></h1>
-        </div>
 
         <div style="display: flex; justify-content: center; flex-direction: row">
             <form method="post" th:if="${internship.getStatus() == InternshipStatus.ONGOING}" th:action="@{'/student/' + ${internship.getId()} + '/approve/'+${student.getIndex()}}">

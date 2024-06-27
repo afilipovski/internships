@@ -26,7 +26,7 @@ function Coordinator(props) {
         </div>
     );
 }
-``
+
 
 Coordinator.propTypes = {};
 

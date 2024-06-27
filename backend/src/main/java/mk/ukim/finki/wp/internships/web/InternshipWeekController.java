@@ -1,11 +1,14 @@
 package mk.ukim.finki.wp.internships.web;
 
 import lombok.AllArgsConstructor;
+import mk.ukim.finki.wp.internships.config.FacultyUserDetails;
 import mk.ukim.finki.wp.internships.model.Student;
+import mk.ukim.finki.wp.internships.model.internships.InternshipSupervisor;
 import mk.ukim.finki.wp.internships.model.internships.InternshipWeek;
 import mk.ukim.finki.wp.internships.service.InternshipService;
 import mk.ukim.finki.wp.internships.service.InternshipWeekService;
 import mk.ukim.finki.wp.internships.service.StudentService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +35,10 @@ public class InternshipWeekController {
     @GetMapping("/{id}/edit/{index}")
     public String editWeek(@PathVariable Long id,
                            @PathVariable String index,
+                           @AuthenticationPrincipal FacultyUserDetails principal,
                              Model model) {
+        Student studentt = principal.getStudent();
+        InternshipSupervisor supervisor = principal.getSupervisor();
         InternshipWeek internshipWeek = internshipWeekService.findById(id);
         Long internshipId=internshipWeek.getInternship().getId();
         Student student=studentService.getStudentByIndex(index);
@@ -40,7 +46,19 @@ public class InternshipWeekController {
                 internshipService.findById(internshipWeek.getInternship().getId()));
         model.addAttribute("week", internshipWeek);
         model.addAttribute("student", student);
-        return "/student/details";
+        model.addAttribute("supervisor", internshipWeek.getInternship().getSupervisor());
+        if(supervisor!=null)
+        {
+            System.out.println("VLAHASUPERVISOR");
+            return "/supervisor/details";
+        }
+        if(studentt!=null)
+        {
+            System.out.println("VLAGASTUNDET");
+            return "/student/details";
+        }
+
+        return null;
     }
 
     @PostMapping("/save")

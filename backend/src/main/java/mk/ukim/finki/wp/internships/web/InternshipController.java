@@ -5,10 +5,7 @@ import mk.ukim.finki.wp.internships.config.FacultyUserDetails;
 import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
 import mk.ukim.finki.wp.internships.model.internships.*;
-import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
-import mk.ukim.finki.wp.internships.service.InternshipPostingService;
-import mk.ukim.finki.wp.internships.service.InternshipService;
-import mk.ukim.finki.wp.internships.service.StudentService;
+import mk.ukim.finki.wp.internships.service.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +21,7 @@ public class InternshipController {
     private final InternshipPostingService internshipPostingService;
     private final InternshipCoordinatorService internshipCoordinatorService;
     private final StudentService studentService;
+    private final InternshipWeekService internshipWeekService;
 
     private String studentIndex(Student student, Model model) {
         List<Internship> internships = internshipService.findAllByStudentIndex(student.getIndex());
@@ -38,13 +36,21 @@ public class InternshipController {
         List<Internship> supervisorInternships = internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.PENDING_COMPANY_REVIEW);
         supervisorInternships.addAll(internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.PENDING_PROFFESSOR_REVIEW));
         supervisorInternships.addAll(internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.ONGOING));
-
+        List<Internship> companyInternships = internshipService.findAllByPostingCompanyIdAndSupervisorIdIsNull(supervisor.getCompany().getId());
+        model.addAttribute("company_internships", companyInternships);
         model.addAttribute("supervisor_internships", supervisorInternships);
-        model.addAttribute("company_internships", internshipService.findAllByPostingCompanyIdAndSupervisorIdIsNull(
-                supervisor.getCompany().getId()
-        ));
-
         return "supervisor/index";
+    }
+    private String supervisorIndexAssigned(InternshipSupervisor supervisor, Model model) {
+        model.addAttribute("supervisor", supervisor);
+
+        List<Internship> supervisorInternships = internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.PENDING_COMPANY_REVIEW);
+        supervisorInternships.addAll(internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.PENDING_PROFFESSOR_REVIEW));
+        supervisorInternships.addAll(internshipService.findAllBySupervisorIdAndStatus(supervisor.getId(), InternshipStatus.ONGOING));
+        List<Internship> companyInternships = internshipService.findAllByPostingCompanyIdAndSupervisorIdIsNull(supervisor.getCompany().getId());
+        model.addAttribute("company_internships", companyInternships);
+        model.addAttribute("supervisor_internships", supervisorInternships);
+        return "supervisor/assigned";
     }
 
     private String coordinatorIndex(Professor professor, Model model) {
@@ -66,6 +72,7 @@ public class InternshipController {
 
     @GetMapping("/")
     public String index(Model model,
+                        @RequestParam(required = false) String filter,
                         @AuthenticationPrincipal FacultyUserDetails principal) {
         Student student = principal.getStudent();
         InternshipSupervisor supervisor = principal.getSupervisor();
@@ -75,8 +82,14 @@ public class InternshipController {
             return studentIndex(student, model);
         }
         if (supervisor != null) {
-            return supervisorIndex(supervisor,model);
+            if(filter==null || filter.equals("current"))
+            {
+                return supervisorIndex(supervisor,model);
+            }
+            else {
+                return supervisorIndexAssigned(supervisor,model);            }
         }
+
         return coordinatorIndex(professor,model);
     }
 
@@ -121,10 +134,12 @@ public class InternshipController {
                                     @PathVariable String index,
                                     @AuthenticationPrincipal FacultyUserDetails principal,
                                     Model model) {
+
         Internship internship = internshipService.findById(id);
         model.addAttribute("internship",internship);
         Student student=studentService.getStudentByIndex(index);
         model.addAttribute("student",student);
+        model.addAttribute("supervisor",internship.getSupervisor());
         if (principal.getStudent() != null)
             return studentDetails(id,model);
         if (principal.getSupervisor() != null)

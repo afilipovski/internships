@@ -1,3 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+<div className="Navbar"
+     class="h-[7vh] py-2 flex justify-between px-2 lg:px-16 shadow-xl w-full overflow-hidden">
+    <div class="flex flex-col justify-center">
+        <img  style="height: 5vh;" th:src="@{/io.svg}"/>
+    </div>
+    <div class="flex">
+        <div class="flex flex-col justify-center">
+            <div class="flex rounded-xl border-2 border-black h-[6vh] text-[12px] md:text-md">
+                <div class="flex p-1">
+                    <h1 class="font-bold mx-0 md:mx-2 w-fit my-auto" th:text="${coordinator.getProfessor().getName() }"></h1>
+                </div>
+            </div>
+        </div>
+        <form method="post" th:action="@{'/logout'}">
+            <div class="flex flex-col justify-center ml-2 md:ml-4" onclick="this.closest('form').submit();">
+                <img class="bg-red-600 h-[5.5vh] w-[5.5vh] rounded-lg "  style="height: 5.5vh; width: 5.5vh; padding: 14px" th:src="@{/logout.svg}"/>
+            </div>
+        </form>
+    </div>
+
+</div>
 <h1>Internships for prof. <span th:text="${professor.getName()}"></span></h1>
 <form method="post" th:if="${coordinator == null}" th:action="@{/coordinator/opt-in}">
     <button type="submit">Opt in</button>
@@ -24,3 +50,4 @@
         </td>
     </tr>
 </table>
+</body>
