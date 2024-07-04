@@ -11,7 +11,7 @@ import mk.ukim.finki.wp.internships.model.Company;
 public class InternshipPosting {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @ManyToOne
