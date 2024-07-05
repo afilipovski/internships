@@ -47,7 +47,6 @@ public class InternshipCoordinatorController {
                           @AuthenticationPrincipal FacultyUserDetails facultyUserDetails) {
         Professor professor = facultyUserDetails.getProfessor();
         coordinatorService.approveInternship(professor.getId(), internshipId);
-        coordinatorService.assignRandom(internshipId);
         Internship internship = internshipService.findById(internshipId);
         Student student = internship.getStudent();
         return "redirect:/internships/"+internshipId+"/"+student.getIndex()+"/";
