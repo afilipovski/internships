@@ -21,7 +21,6 @@ public class InternshipController {
     private final InternshipPostingService internshipPostingService;
     private final InternshipCoordinatorService internshipCoordinatorService;
     private final StudentService studentService;
-    private final InternshipWeekService internshipWeekService;
 
     private String studentIndex(Student student, Model model) {
         List<Internship> internships = internshipService.findAllByStudentIndex(student.getIndex());

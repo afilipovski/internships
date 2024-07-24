@@ -1,55 +1,38 @@
 package mk.ukim.finki.wp.internships.web.rest;
 
+import lombok.AllArgsConstructor;
+import mk.ukim.finki.wp.internships.model.Student;
+import mk.ukim.finki.wp.internships.service.StudentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/students")
+@AllArgsConstructor
 public class StudentControllerRest {
+    private final StudentService studentService;
 
-//    private final StudentService studentService;
-//
-//    private final StudyProgramService studyProgramService;
-//
-//    public StudentController(StudentService studentService,
-//                             StudyProgramService studyProgramService) {
-//        this.studentService = studentService;
-//        this.studyProgramService = studyProgramService;
-//    }
-//
-//    @GetMapping
-//    public String list(Model model,
-//                       @RequestParam(defaultValue = "1") Integer pageNum,
-//                       @RequestParam(defaultValue = "20") Integer results,
-//                       @RequestParam(required = false) String nameOrIndex,
-//                       @RequestParam(name = "studyProgram", required = false) String studyProgramCode) {
-//
-//        Page<Student> result = studentService.find(pageNum, results, nameOrIndex, studyProgramCode);
-//
-//        model.addAttribute("page", result);
-//
-//
-//        List<StudyProgram> studyPrograms = studyProgramService.findAll();
-//        model.addAttribute("studyPrograms", studyPrograms);
-//
-//        return "students/list";
-//    }
-//
-//
-//    @PostMapping("/import")
-//    public void importStudents(@RequestParam("file") MultipartFile file, HttpServletResponse response) {
-//        List<StudentDto> students = importRepository.readTypeList(file, StudentDto.class);
-//
-//        List<StudentDto> invalidEnrollments = studentService.importStudents(students);
-//
-//        String fileName = "invalid_students.tsv";
-//        response.setContentType("text/tab-separated-values");
-//        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-//
-//        try (OutputStream outputStream = response.getOutputStream()) {
-//            importRepository.writeTypeList(StudentDto.class, invalidEnrollments, outputStream);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<Student> getStudentByUserId(@PathVariable String userId) {
+        Student student = studentService.getStudentByUserId(userId);
+        return ResponseEntity.ok(student);
+    }
 
+    @GetMapping("/{index}")
+    public ResponseEntity<Student> getStudentByIndex(@PathVariable String index) {
+        Student student = studentService.getStudentByIndex(index);
+        return ResponseEntity.ok(student);
+    }
+
+    @PutMapping("/{id}/approve-internship/{internshipId}")
+    public ResponseEntity<Void> approveInternship(@PathVariable String id, @PathVariable Long internshipId) {
+        studentService.approveInternship(id, internshipId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/{id}/revoke-internship-approval/{internshipId}")
+    public ResponseEntity<Void> revokeApprovalInternship(@PathVariable String id, @PathVariable Long internshipId) {
+        studentService.revokeApprovalInternship(id, internshipId);
+        return ResponseEntity.noContent().build();
+    }
 }

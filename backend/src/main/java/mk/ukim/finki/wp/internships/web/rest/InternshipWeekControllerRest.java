@@ -1,6 +1,5 @@
 package mk.ukim.finki.wp.internships.web.rest;
 
-import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.model.internships.InternshipWeek;
 import mk.ukim.finki.wp.internships.service.InternshipWeekService;
 import org.springframework.web.bind.annotation.*;
@@ -8,19 +7,59 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 
 @RestController
-@RequestMapping("/api/internship-week")
-@ControllerAdvice
-@AllArgsConstructor
+@RequestMapping("/api/internship-weeks")
 public class InternshipWeekControllerRest {
-    InternshipWeekService internshipWeekService;
+
+    private final InternshipWeekService internshipWeekService;
+
+    public InternshipWeekControllerRest(InternshipWeekService internshipWeekService) {
+        this.internshipWeekService = internshipWeekService;
+    }
+
+    @GetMapping("/{id}")
+    public InternshipWeek getInternshipWeek(@PathVariable Long id) {
+        return internshipWeekService.findById(id);
+    }
 
     @PostMapping("/create")
-    public InternshipWeek createInternshipWeek(@RequestParam LocalDate startDate, @RequestParam LocalDate endDate){
+    public InternshipWeek createInternshipWeek(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate
+    ) {
         return internshipWeekService.create(startDate, endDate);
     }
 
-    @PutMapping("/update-description")
-    public InternshipWeek updateDescription(@RequestParam Long id, @RequestParam String description){
+    @PostMapping("/create-with-internship")
+    public InternshipWeek createInternshipWeekWithInternship(
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate,
+            @RequestParam Long internshipId,
+            @RequestParam String description
+    ) {
+        return internshipWeekService.create(startDate, endDate, internshipId, description);
+    }
+
+    @PutMapping("/{id}")
+    public InternshipWeek updateInternshipWeek(
+            @PathVariable Long id,
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate,
+            @RequestParam Long internshipId,
+            @RequestParam String description
+    ) {
+        return internshipWeekService.update(id, startDate, endDate, internshipId, description);
+    }
+
+    @PutMapping("/{id}/update-description")
+    public InternshipWeek updateWeekDescription(
+            @PathVariable Long id,
+            @RequestParam String description
+    ) {
         return internshipWeekService.updateDescription(id, description);
+    }
+
+    @DeleteMapping("/{id}")
+    public InternshipWeek deleteInternshipWeek(@PathVariable Long id) {
+        return internshipWeekService.delete(id);
     }
 }

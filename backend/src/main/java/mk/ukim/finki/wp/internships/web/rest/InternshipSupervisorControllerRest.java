@@ -1,34 +1,66 @@
 package mk.ukim.finki.wp.internships.web.rest;
 
-import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.model.internships.InternshipSupervisor;
 import mk.ukim.finki.wp.internships.service.InternshipSupervisorService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/internship-supervisor")
-@ControllerAdvice
-@AllArgsConstructor
+@RequestMapping("/api/internship-supervisors")
 public class InternshipSupervisorControllerRest {
-    private final InternshipSupervisorService internshipSupervisorService;
 
-    @GetMapping ("/{id}")
-    public InternshipSupervisor getSupervisor(@PathVariable Long id){
-        return internshipSupervisorService.findById(id);
+    private final InternshipSupervisorService supervisorService;
+
+    public InternshipSupervisorControllerRest(InternshipSupervisorService supervisorService) {
+        this.supervisorService = supervisorService;
     }
 
-    @PutMapping("/approve-internship")
-    public void approveInternship(@RequestParam Long supervisorId, @RequestParam Long internshipId){
-        internshipSupervisorService.approveInternship(supervisorId, internshipId);
+    @PostMapping("/create")
+    public InternshipSupervisor createInternshipSupervisor(
+            @RequestParam String companyId,
+            @RequestParam String email,
+            @RequestParam String fullName
+    ) {
+        return supervisorService.create(companyId, email, fullName);
     }
 
-    @PutMapping("/revoke-approval-internship")
-    public void revokeApprovalInternship(@RequestParam Long supervisorId, @RequestParam Long internshipId){
-        internshipSupervisorService.revokeApprovalInternship(supervisorId, internshipId);
+    @GetMapping("/{id}")
+    public InternshipSupervisor getInternshipSupervisor(@PathVariable Long id) {
+        return supervisorService.findById(id);
     }
 
-    @PutMapping("/assign")
-    public void assignSupervisor(@RequestParam Long supervisorId, @RequestParam Long internshipId){
-        internshipSupervisorService.assign(supervisorId, internshipId);
+    @PutMapping("/approve/{id}/{internshipId}")
+    public void approveInternship(
+            @PathVariable Long id,
+            @PathVariable Long internshipId
+    ) {
+        supervisorService.approveInternship(id, internshipId);
+    }
+
+    @PutMapping("/revoke-approval/{id}/{internshipId}")
+    public void revokeApprovalInternship(
+            @PathVariable Long id,
+            @PathVariable Long internshipId
+    ) {
+        supervisorService.revokeApprovalInternship(id, internshipId);
+    }
+
+    @PutMapping("/assign/{id}/{internshipId}")
+    public void assignInternship(
+            @PathVariable Long id,
+            @PathVariable Long internshipId
+    ) {
+        supervisorService.assign(id, internshipId);
+    }
+
+    @GetMapping
+    public List<InternshipSupervisor> getAllInternshipSupervisors() {
+        return supervisorService.findAll();
+    }
+
+    @PutMapping("/update")
+    public void updateInternshipSupervisor(@RequestBody InternshipSupervisor supervisor) {
+        supervisorService.update(supervisor);
     }
 }
