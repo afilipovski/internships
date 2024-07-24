@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.internships.model.internships;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,7 @@ public class InternshipWeek {
     private LocalDate endDate;
 
     @ManyToOne
+    @JsonBackReference
     private Internship internship;
 
     private String description;

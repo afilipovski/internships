@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.internships.model.internships;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +35,7 @@ public class Internship {
     private InternshipStatus status;
 
     @OneToMany(mappedBy = "internship",cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<InternshipWeek> journal;
 
     @ManyToOne

@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.internships.model.internships;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ public class InternshipPosting {
     private Long id;
 
     @ManyToOne
+    @JsonBackReference
     private Company company;
 
     private Integer plannedWeeks;

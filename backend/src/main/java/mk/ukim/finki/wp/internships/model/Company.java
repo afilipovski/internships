@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.internships.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -38,6 +39,7 @@ public class Company {
     public Boolean active;
 
     @OneToMany(mappedBy="company")
+    @JsonManagedReference
     public List<InternshipPosting> postings;
 
     public Company(String name, String phone, String email, String companyDescription, String websiteUrl, byte[] logoImage, byte[] banner, Boolean active) {
