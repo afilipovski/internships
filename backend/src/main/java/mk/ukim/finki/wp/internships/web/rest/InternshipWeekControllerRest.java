@@ -8,6 +8,7 @@ import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/api/internship-weeks")
+@CrossOrigin("*")
 public class InternshipWeekControllerRest {
 
     private final InternshipWeekService internshipWeekService;

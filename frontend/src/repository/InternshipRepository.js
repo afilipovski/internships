@@ -1,83 +1,83 @@
-import HttpClient from './HttpClient';
+import {instance} from './HttpClient';
 
 const CONTROLLER_PATH = '/internships';
 
 class InternshipRepository {
   
   async createInternship(studentId, postingId) {
-    const response = await HttpClient.post(CONTROLLER_PATH, null, {
+    const response = await instance.post(CONTROLLER_PATH, null, {
       params: { studentId, postingId },
     });
     return response.data;
   }
 
   async deleteInternship(id) {
-    const response = await HttpClient.delete(`${CONTROLLER_PATH}/${id}`);
+    const response = await instance.delete(`${CONTROLLER_PATH}/${id}`);
     return response.data;
   }
 
   async getInternshipsByStudentIndex(studentIndex) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/student/${studentIndex}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/student/${studentIndex}`);
     return response.data;
   }
 
   async getInternshipsBySupervisorId(supervisorId) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/supervisor/${supervisorId}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/supervisor/${supervisorId}`);
     return response.data;
   }
 
   async getInternshipsByProfessorId(professorId) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/professor/${professorId}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/professor/${professorId}`);
     return response.data;
   }
 
   async getInternshipsByStudentIdAndStatus(studentId, status) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/student/${studentId}/status/${status}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/student/${studentId}/status/${status}`);
     return response.data;
   }
 
   async getInternshipsBySupervisorIdAndStatus(supervisorId, status) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/supervisor/${supervisorId}/status/${status}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/supervisor/${supervisorId}/status/${status}`);
     return response.data;
   }
 
   async getInternshipsBySupervisorIdOrderByStatus(supervisorId) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/supervisor/${supervisorId}/order-by-status`);
+    const response = await instance.get(`${CONTROLLER_PATH}/supervisor/${supervisorId}/order-by-status`);
     return response.data;
   }
 
   async getInternshipsByProfessorIdAndStatus(professorId, status) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/professor/${professorId}/status/${status}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/professor/${professorId}/status/${status}`);
     return response.data;
   }
 
   async getInternshipById(id) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/${id}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/${id}`);
     return response.data;
   }
 
   async addInternshipWeek(id, weekId) {
-    const response = await HttpClient.post(`${CONTROLLER_PATH}/${id}/weeks/${weekId}`);
+    const response = await instance.post(`${CONTROLLER_PATH}/${id}/weeks/${weekId}`);
     return response.data;
   }
 
   async getInternshipsByCompanyId(companyId) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/company/${companyId}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/company/${companyId}`);
     return response.data;
   }
 
   async getInternshipsByCompanyIdAndStatus(companyId, status) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/company/${companyId}/status/${status}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/company/${companyId}/status/${status}`);
     return response.data;
   }
 
   async getInternshipsByCompanyIdAndSupervisorIdNot(companyId, supervisorId) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/company/${companyId}/supervisor/not/${supervisorId}`);
+    const response = await instance.get(`${CONTROLLER_PATH}/company/${companyId}/supervisor/not/${supervisorId}`);
     return response.data;
   }
 
   async getInternshipsByCompanyIdAndSupervisorIdIsNull(companyId) {
-    const response = await HttpClient.get(`${CONTROLLER_PATH}/company/${companyId}/supervisor/null`);
+    const response = await instance.get(`${CONTROLLER_PATH}/company/${companyId}/supervisor/null`);
     return response.data;
   }
 }

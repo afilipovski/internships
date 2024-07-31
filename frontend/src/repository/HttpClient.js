@@ -1,15 +1,19 @@
-import axios from "axios";
+import axios from 'axios';
 
-const username = 'riste.stojanov';
-const password = 'SystemPass';
-const token = btoa(`${username}:${password}`);
+let token = '';
+
+const setAuthToken = (newToken) => {
+    token = newToken;
+    instance.defaults.headers.common['Authorization'] = `Basic ${token}`;
+    console.log("VLAGHA")
+};
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: 'http://localhost:8084/api',
     headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Authorization': `Basic ${token}`
+        'Content-Type': 'application/json', // Ensure Content-Type is set
+        'Access-Control-Allow-Origin': '*'
     }
 });
 
-export default instance;
+export { instance, setAuthToken };
