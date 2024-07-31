@@ -16,7 +16,6 @@ public class InternshipPosting {
     private Long id;
 
     @ManyToOne
-    @JsonBackReference
     private Company company;
 
     private Integer plannedWeeks;

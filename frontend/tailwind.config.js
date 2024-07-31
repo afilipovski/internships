@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      flexBasis: {
+        '12.5': '12.5%',
+      },
       colors:{
         red: '#f84f5a',
         offblack: '#171717',
