@@ -27,7 +27,7 @@ public class CompanyControllerRest {
         return companyService.findById(id);
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     public void saveCompany(
             @RequestParam String id,
             @RequestParam String name,
@@ -42,7 +42,7 @@ public class CompanyControllerRest {
         companyService.save(id, name, phone, email, companyDescription, websiteUrl, logoImage, banner, active);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("admin/{id}")
     public void editCompany(
             @PathVariable String id,
             @RequestParam String name,

@@ -3,6 +3,7 @@ INSERT INTO auth_user (id, name, email, role) VALUES
                                                   ('vasil.strezov', 'Васил Стрезов', 'vasil.strezov@students.finki.ukim.mk', 'STUDENT'),
                                                   ('luka.krstikj', 'Лука Крстиќ', 'luka.krstikj@students.finki.ukim.mk', 'STUDENT'),
                                                   ('dimitrij.krstev', 'Димитриј Крстев', 'dimitrij.krstev@students.finki.ukim.mk', 'STUDENT'),
+                                                  ('dimitrij.auth', 'Димитриј Крстев', 'dimitrij.krstev@students.finki.ukim.mk', 'STUDENT_ADMINISTRATION'),
                                                   ('supervisor', 'Sample Supervisor', 'supervisor@example.mk','SUPERVISOR');
 
 INSERT INTO student (student_index, email, last_name, name, parent_name, study_program_code) VALUES
@@ -29,7 +30,8 @@ INSERT INTO internship(id, status, professor_id, posting_id, student_student_ind
      (1, 'ONGOING', null, 1, '211999', null),
      (2, 'ONGOING', null, 1, '213999', null),
      (3, 'ONGOING', null, 1, '214999', null),
-     (4, 'ONGOING', null, 1, '216999', null);
+     (4, 'ONGOING', null, 1, '216999', null),
+     (5, 'ONGOING', null, 1, '216999', 1);
 
 
 INSERT INTO internship_week(id, description, end_date, start_date, internship_id) VALUES

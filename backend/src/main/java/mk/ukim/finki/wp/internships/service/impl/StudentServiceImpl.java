@@ -10,6 +10,7 @@ import mk.ukim.finki.wp.internships.repository.StudentRepository;
 import mk.ukim.finki.wp.internships.repository.UserRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.service.StudentService;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,6 +32,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @PostAuthorize("@requestAndAuthIdsMatchSecurityService(#id) or hasRole('ROLE_ADMIN')")
     public void approveInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
         if (internship.getStatus() != InternshipStatus.ONGOING) {
@@ -41,6 +43,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    @PostAuthorize("@requestAndAuthIdsMatchSecurityService(#id) or hasRole('ROLE_ADMIN')")
     public void revokeApprovalInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
         if (internship.getStatus() != InternshipStatus.PENDING_COMPANY_REVIEW) {

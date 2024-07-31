@@ -36,8 +36,7 @@ public class AuthConfig {
                         )
                         .requestMatchers("/engagement/{professorId}/**").access(
                                 new WebExpressionAuthorizationManager("#professorId == authentication.name or hasRole('ROLE_ADMIN')")
-                        )
-                        .requestMatchers("/admin/**", "/api/**", "/build/**", "/engagement/init").hasAnyRole(
+                        ).requestMatchers("/admin/**", "/api/*/admin/**", "/build/**", "/engagement/init").hasAnyRole(
                                 AppRole.ADMIN.name()
                         )
                         .requestMatchers("/active-subjects", "io.png", "/allocation/*").permitAll()

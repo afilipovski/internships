@@ -15,13 +15,13 @@ import java.util.List;
 public class InternshipControllerRest {
     private final InternshipService internshipService;
 
-    @PostMapping
+    @PostMapping("/admin")
     public ResponseEntity<Internship> createInternship(@RequestParam String studentId, @RequestParam Long postingId) {
         Internship internship = internshipService.create(studentId, postingId);
         return ResponseEntity.ok(internship);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/admin/{id}")
     public ResponseEntity<Internship> deleteInternship(@PathVariable Long id) {
         Internship internship = internshipService.delete(id);
         return ResponseEntity.ok(internship);
@@ -81,25 +81,25 @@ public class InternshipControllerRest {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/company/{companyId}")
+    @GetMapping("/admin/company/{companyId}")
     public ResponseEntity<List<Internship>> getInternshipsByCompanyId(@PathVariable String companyId) {
         List<Internship> internships = internshipService.findAllByPostingCompanyId(companyId);
         return ResponseEntity.ok(internships);
     }
 
-    @GetMapping("/company/{companyId}/status/{status}")
+    @GetMapping("/admin/company/{companyId}/status/{status}")
     public ResponseEntity<List<Internship>> getInternshipsByCompanyIdAndStatus(@PathVariable String companyId, @PathVariable InternshipStatus status) {
         List<Internship> internships = internshipService.findAllByPostingCompanyIdAndStatus(companyId, status);
         return ResponseEntity.ok(internships);
     }
 
-    @GetMapping("/company/{companyId}/supervisor/not/{supervisorId}")
+    @GetMapping("/admin/company/{companyId}/supervisor/not/{supervisorId}")
     public ResponseEntity<List<Internship>> getInternshipsByCompanyIdAndSupervisorIdNot(@PathVariable String companyId, @PathVariable Long supervisorId) {
         List<Internship> internships = internshipService.findAllByPostingCompanyIdAndSupervisorIdNot(companyId, supervisorId);
         return ResponseEntity.ok(internships);
     }
 
-    @GetMapping("/company/{companyId}/supervisor/null")
+    @GetMapping("/admin/company/{companyId}/supervisor/null")
     public ResponseEntity<List<Internship>> getInternshipsByCompanyIdAndSupervisorIdIsNull(@PathVariable String companyId) {
         List<Internship> internships = internshipService.findAllByPostingCompanyIdAndSupervisorIdIsNull(companyId);
         return ResponseEntity.ok(internships);
