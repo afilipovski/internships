@@ -9,7 +9,7 @@ const setAuthToken = (newToken) => {
 };
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8080/api',
+    baseURL: 'http://localhost:8084/api',
     headers: {
         'Content-Type': 'application/json', // Ensure Content-Type is set
         'Access-Control-Allow-Origin': '*'
