@@ -10,6 +10,7 @@ import mk.ukim.finki.wp.internships.repository.ProfessorRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipCoordinatorRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -65,11 +66,17 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId) and" +
+            "@internshipCoordinatorSecurityService.checkInternshipCoordinatorAndRequestIdMatch(professorId, internshipId)" +
+            "or hasRole('ROLE_ADMIN')")
     public void approveInternship(String professorId, Long internshipId) {
         changeInternshipStatus(professorId,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.DEPOSITED);
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId) and" +
+            "@internshipCoordinatorSecurityService.checkInternshipCoordinatorAndRequestIdMatch(professorId, internshipId)" +
+            "or hasRole('ROLE_ADMIN')")
     public void revokeApprovalInternship(String professorId, Long internshipId) {
         changeInternshipStatus(professorId,internshipId,InternshipStatus.DEPOSITED, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }

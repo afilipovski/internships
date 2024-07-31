@@ -22,7 +22,7 @@ public class InternshipWeekControllerRest {
         return internshipWeekService.findById(id);
     }
 
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     public InternshipWeek createInternshipWeek(
             @RequestParam LocalDate startDate,
             @RequestParam LocalDate endDate

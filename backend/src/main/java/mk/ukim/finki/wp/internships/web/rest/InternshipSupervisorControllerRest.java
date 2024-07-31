@@ -16,7 +16,7 @@ public class InternshipSupervisorControllerRest {
         this.supervisorService = supervisorService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     public InternshipSupervisor createInternshipSupervisor(
             @RequestParam String companyId,
             @RequestParam String email,
@@ -59,6 +59,7 @@ public class InternshipSupervisorControllerRest {
         return supervisorService.findAll();
     }
 
+    //TODO
     @PutMapping("/update")
     public void updateInternshipSupervisor(@RequestBody InternshipSupervisor supervisor) {
         supervisorService.update(supervisor);

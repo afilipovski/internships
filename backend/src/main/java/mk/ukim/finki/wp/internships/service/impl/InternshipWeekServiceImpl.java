@@ -8,6 +8,7 @@ import mk.ukim.finki.wp.internships.model.internships.InternshipWeek;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipWeekRepository;
 import mk.ukim.finki.wp.internships.service.InternshipWeekService;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfStudentIdAndAuthIdMatch(internshipId) or hasRole('ROLE_ADMIN')")
     public InternshipWeek create(LocalDate startDate, LocalDate endDate, Long internshipId, String description) {
         Internship internship = internshipRepository.findById(internshipId)
                 .orElseThrow(() -> new InternshipNotFoundException(internshipId));
@@ -40,6 +42,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfStudentIdAndAuthIdMatch(id) or hasRole('ROLE_ADMIN')")
     public InternshipWeek updateDescription(Long id, String description) {
         InternshipWeek week = internshipWeekRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("InternshipWeek with id "+id+" not found"));
@@ -48,6 +51,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(id) or hasRole('ROLE_ADMIN')")
     public InternshipWeek update(Long id, LocalDate startDate, LocalDate endDate, Long internshipId, String description) {
         InternshipWeek week = internshipWeekRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("InternshipWeek with id "+id+" not found"));
@@ -59,6 +63,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(id) or hasRole('ROLE_ADMIN')")
     public InternshipWeek delete(Long id) {
         InternshipWeek res = internshipWeekRepository.findById(id).orElseThrow();
         internshipWeekRepository.delete(res);
