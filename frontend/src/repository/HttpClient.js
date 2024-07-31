@@ -9,7 +9,7 @@ const setAuthToken = (newToken) => {
 };
 
 const instance = axios.create({
-    baseURL: 'http://localhost:8084/api',
+    baseURL: 'http://localhost:8080/api',
     headers: {
         'Content-Type': 'application/json', // Ensure Content-Type is set
         'Access-Control-Allow-Origin': '*'
@@ -17,3 +17,4 @@ const instance = axios.create({
 });
 
 export { instance, setAuthToken };
+export default instance;

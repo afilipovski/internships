@@ -38,10 +38,6 @@ public class Company {
 
     public Boolean active;
 
-    @OneToMany(mappedBy="company")
-    @JsonManagedReference
-    public List<InternshipPosting> postings;
-
     public Company(String name, String phone, String email, String companyDescription, String websiteUrl, byte[] logoImage, byte[] banner, Boolean active) {
         this.name = name;
         this.phone = phone;

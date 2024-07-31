@@ -10,7 +10,6 @@ function CreateInternship(props) {
     const { user } = useContext(GlobalContext);
     const [selectedPosting, setSelectedPosting] = useState(null);
     const [postings, setPostings] = useState([]);
-    const { userId, internshipId } = location.state || {}; // Default to empty object to avoid destructuring null/undefined
 
     const loadPostings = async () => {
         try {

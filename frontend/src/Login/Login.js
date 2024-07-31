@@ -1,7 +1,8 @@
 import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { instance, setAuthToken } from '../repository/HttpClient';
+import { setAuthToken } from '../repository/HttpClient';
 import { GlobalContext } from "../Context/Context";
+import UserRepository from "../repository/UserRepository";
 
 const Login = ({ setAuthToken: setAppAuthToken }) => {
     const [username, setUsername] = useState('');
@@ -17,8 +18,7 @@ const Login = ({ setAuthToken: setAppAuthToken }) => {
 
         try {
 
-            const userResponse = await instance.get('/user');
-            const userData = userResponse.data;
+            const userData = await UserRepository.getUserDetails();
 
 
 
