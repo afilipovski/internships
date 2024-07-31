@@ -13,6 +13,7 @@ import mk.ukim.finki.wp.internships.repository.internships.InternshipPostingRepo
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipWeekRepository;
 import mk.ukim.finki.wp.internships.service.InternshipService;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -85,6 +86,7 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
     public void addInternshipWeek(Long id, Long weekId) {
         InternshipWeek week = weekRepository.findById(weekId).orElseThrow(() -> new InternshipWeekNotFoundException(weekId));
 

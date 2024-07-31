@@ -3,7 +3,6 @@ package mk.ukim.finki.wp.internships.service.impl;
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.exception.*;
 import mk.ukim.finki.wp.internships.model.Company;
-import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.User;
 import mk.ukim.finki.wp.internships.model.UserRole;
 import mk.ukim.finki.wp.internships.model.internships.Internship;
@@ -14,6 +13,7 @@ import mk.ukim.finki.wp.internships.repository.UserRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipSupervisorRepository;
 import mk.ukim.finki.wp.internships.service.InternshipSupervisorService;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -66,16 +66,19 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(internshipId) or hasRole('ROLE_ADMIN')")
     public void approveInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_COMPANY_REVIEW, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(internshipId) or hasRole('ROLE_ADMIN')")
     public void revokeApprovalInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.PENDING_COMPANY_REVIEW);
     }
 
     @Override
+    @PostAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(internshipId) or hasRole('ROLE_ADMIN')")
     public void assign(Long id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
         InternshipSupervisor supervisor = supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
@@ -99,7 +102,9 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
         supervisorRepository.save(supervisor);
     }
 
+    //TODO TEST
     @Override
+    @PostAuthorize("@internshipSupervisorSecurityService.checkIfRequesterIsApartOfSupervisorsCompany(#supervisor)")
     public void update(InternshipSupervisor supervisor) {
         InternshipSupervisor current = supervisorRepository
                 .findById(supervisor.getId())

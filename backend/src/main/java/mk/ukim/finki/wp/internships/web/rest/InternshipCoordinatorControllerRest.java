@@ -14,12 +14,12 @@ public class InternshipCoordinatorControllerRest {
         this.coordinatorService = coordinatorService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/admin/create")
     public InternshipCoordinator createInternshipCoordinator(@RequestParam String professorId) {
         return coordinatorService.create(professorId);
     }
 
-    @DeleteMapping("/delete/{professorId}")
+    @DeleteMapping("/admin/delete/{professorId}")
     public InternshipCoordinator deleteInternshipCoordinator(@PathVariable String professorId) {
         return coordinatorService.delete(professorId);
     }
@@ -39,7 +39,7 @@ public class InternshipCoordinatorControllerRest {
         coordinatorService.revokeApprovalInternship(professorId, internshipId);
     }
 
-    @PutMapping("/assign-random/{internshipId}")
+    @PutMapping("/admin/assign-random/{internshipId}")
     public void assignRandomCoordinator(@PathVariable Long internshipId) {
         coordinatorService.assignRandom(internshipId);
     }
