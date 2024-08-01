@@ -32,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    @PostAuthorize("@requestAndAuthIdsMatchSecurityService(#id) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@requestAndAuthIdsMatchSecurityService.check(#id) or hasRole('ROLE_ADMIN')")
     public void approveInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
         if (internship.getStatus() != InternshipStatus.ONGOING) {
@@ -43,7 +43,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    @PostAuthorize("@requestAndAuthIdsMatchSecurityService(#id) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@requestAndAuthIdsMatchSecurityService.check(#id) or hasRole('ROLE_ADMIN')")
     public void revokeApprovalInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
         if (internship.getStatus() != InternshipStatus.PENDING_COMPANY_REVIEW) {

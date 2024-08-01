@@ -66,19 +66,19 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(internshipId) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(#internshipId) or hasRole('ROLE_ADMIN')")
     public void approveInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_COMPANY_REVIEW, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(internshipId) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(#internshipId) or hasRole('ROLE_ADMIN')")
     public void revokeApprovalInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.PENDING_COMPANY_REVIEW);
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(internshipId) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#internshipId) or hasRole('ROLE_ADMIN')")
     public void assign(Long id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
         InternshipSupervisor supervisor = supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
