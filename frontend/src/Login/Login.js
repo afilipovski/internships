@@ -40,6 +40,7 @@ const Login = ({ setAuthToken: setAppAuthToken }) => {
                     id: userData.supervisor.id,
                     email: '', // Add this if you have email information
                     lastName: '',
+                    companyId:userData.supervisor.company?.id,
                     parentName: '',
                     index: '',
                 });

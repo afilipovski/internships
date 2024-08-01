@@ -1,16 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './CoordinatorCard.css';
 import InternshipRepository from "../repository/InternshipRepository";
 import InternshipCoordinatorRepository from "../repository/InternshipCoordinatorRepository";
+import InternshipSupervisorRepository from "../repository/InternshipSupervisorRepository";
+import {GlobalContext} from "../Context/Context";
 
-function CoordinatorCard({ internship }) {
+function CoordinatorCard({ internship, SetTekovni }) {
+    const { user } = useContext(GlobalContext);
+
 
     const assignInternship = async () => {
         try {
             console.log("VLAGA")
-            await InternshipCoordinatorRepository.assignRandomCoordinator(internship.id);
+            await InternshipSupervisorRepository.assignInternship(user.id,internship.id);
             console.log(internship.supervisor?.id+"eve go")
+            SetTekovni(false)
             // Call onAssign to update the parent component
         } catch (error) {
             console.error('Failed to assign coordinator', error);

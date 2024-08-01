@@ -55,7 +55,7 @@ function Coordinator(props) {
             </div>
             <div>
                 {internships && internships.map((internship) => (
-                    <CoordinatorCard key={internship.id} internship={internship}  />
+                    <CoordinatorCard key={internship.id} internship={internship} SetTekovni={SetTekovni} />
                 ))}
             </div>
         </div>
