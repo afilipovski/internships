@@ -5,11 +5,14 @@ import InternshipRepository from "../repository/InternshipRepository";
 import InternshipCoordinatorRepository from "../repository/InternshipCoordinatorRepository";
 import InternshipSupervisorRepository from "../repository/InternshipSupervisorRepository";
 import {GlobalContext} from "../Context/Context";
+import {useNavigate} from "react-router-dom";
 
 function CoordinatorCard({ internship, SetTekovni }) {
     const { user } = useContext(GlobalContext);
-
-
+    const nav = useNavigate();
+    const openCalendar = (internshipId) => {
+        nav("/supervisor-calendar", { state: { index: internship?.student?.index, internshipId: internship.id } });
+    };
     const assignInternship = async () => {
         try {
             console.log("VLAGA")
@@ -32,7 +35,7 @@ function CoordinatorCard({ internship, SetTekovni }) {
             </div>
             <div className="flex justify-between p-3 lg:p-0">
                 {internship?.supervisor?.id ? (
-                    <button className="rounded-lg h-max w-auto bg-finkiO p-3 text-white">Details</button>
+                    <button className="rounded-lg h-max w-auto bg-finkiO p-3 text-white" onClick={() => openCalendar(internship.id)}>Details</button>
                 ) : (
                     <button className="rounded-lg h-max w-auto bg-finkiO p-3 text-white" onClick={assignInternship}>
                         Assign
