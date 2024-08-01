@@ -42,7 +42,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfStudentIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@internshipWeekSecurityService.checkIfStudentIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
     public InternshipWeek updateDescription(Long id, String description) {
         InternshipWeek week = internshipWeekRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("InternshipWeek with id "+id+" not found"));
@@ -51,7 +51,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@internshipWeekSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
     public InternshipWeek update(Long id, LocalDate startDate, LocalDate endDate, Long internshipId, String description) {
         InternshipWeek week = internshipWeekRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("InternshipWeek with id "+id+" not found"));
@@ -63,7 +63,7 @@ public class InternshipWeekServiceImpl implements InternshipWeekService {
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@internshipWeekSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
     public InternshipWeek delete(Long id) {
         InternshipWeek res = internshipWeekRepository.findById(id).orElseThrow();
         internshipWeekRepository.delete(res);
