@@ -13,6 +13,10 @@ public class RequestAndAuthIdsMatchSecurityService {
         else if (userDetails.getSupervisor() != null) authId = userDetails.getSupervisor().getId().toString();
         else if (userDetails.getStudent() != null) authId = userDetails.getStudent().getIndex();
 
+        System.out.println("ALOOOOOOOOOOOOOOO");
+        System.out.println(requestId);
+        System.out.println(authId);
+
         return requestId.equals(authId);
     }
 }
