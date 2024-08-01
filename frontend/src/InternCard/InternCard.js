@@ -55,7 +55,7 @@ const InternCard = () => {
                             <div className="flex justify-between">
                                 <div className="flex flex-col">
                                     <h1 className="font-bold text-xl lg:text-4xl">{internship.posting.position}</h1>
-                                    {/*<h3 className="text-md lg:text-2xl font-thin">{internship.posting.company.name}</h3>*/}
+                                    <h3 className="text-md lg:text-2xl font-thin">{internship.posting.company.name}</h3>
                                 </div>
                                 <div className="flex justify-center">
                                     <div className="flex flex-col justify-center">
@@ -70,7 +70,7 @@ const InternCard = () => {
                                 {internship.journal.map((journalWeek) => (
                                     <img
                                         key={journalWeek.id}
-                                        className={`rounded-full ${internship.status === "ONGOING" ? 'bg-gray' : 'bg-green'} md:p-4 w-[12%]`}
+                                        className={`rounded-full ${internship.status === "DEPOSITED" ? 'bg-green' : 'bg-gray'} md:p-4 w-[12%]`}
                                         src={check}
                                         alt="Check"
                                     />

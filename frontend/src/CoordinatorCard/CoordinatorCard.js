@@ -1,32 +1,43 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import './CoordinatorCard.css';
+import InternshipRepository from "../repository/InternshipRepository";
+import InternshipCoordinatorRepository from "../repository/InternshipCoordinatorRepository";
 
+function CoordinatorCard({ internship }) {
 
-function CoordinatorCard(props) {
+    const assignInternship = async () => {
+        try {
+            console.log("VLAGA")
+            await InternshipCoordinatorRepository.assignRandomCoordinator(internship.id);
+            console.log(internship.supervisor?.id+"eve go")
+            // Call onAssign to update the parent component
+        } catch (error) {
+            console.error('Failed to assign coordinator', error);
+        }
+    };
+
     return (
-                <div class="flex flex-col lg:flex-row justify-between bg-lightgray text-offblack rounded-xl p-1 card mb-2">
-                    <div class="flex p-3 infoIntern flex-col lg:flex-row">
-                        <h1 class="mx-2 my-2 lg:my-0">Vasil Strezov</h1>
-                        <h1 class="mx-2 my-2 lg:my-0">213178</h1>
-                        <h1 class="mx-2 my-2 lg:my-0">CodeChem</h1>
-                        <h1 class="mx-2 my-2 lg:my-0">Praksa za kodiranje i ucenje ucenje ;D</h1>
-                    </div>
-                    <div class="flex justify-between p-3 lg:p-0">
-                        <div class="flex border-2 border-gray rounded-lg mr-2">
-                            <h1 class="p-2 text-gray">Заверена</h1>
-                            <div class="flex flex-col justify-center">
-                                <input type="checkbox" class="mx-2 checkbox"/>
-                            </div>
-                        </div>
-                        <button class="rounded-lg h-max w-auto bg-finkiO p-3 text-white">Промени</button>
-                    </div>
-                </div>
+        <div className="flex flex-col lg:flex-row justify-between bg-lightgray text-offblack rounded-xl p-1 card mb-2">
+            <div className="flex p-3 infoIntern flex-col lg:flex-row">
+                <h1 className="mx-2 my-2 lg:my-0">{internship?.student.name} {internship?.student.lastName}</h1>
+                <h1 className="mx-2 my-2 lg:my-0">{internship?.student.index}</h1>
+                <h1 className="mx-2 my-2 lg:my-0">{internship?.posting.company.name}</h1>
+                <h1 className="mx-2 my-2 lg:my-0">{internship.status}</h1>
+            </div>
+            <div className="flex justify-between p-3 lg:p-0">
+                {internship?.supervisor?.id ? (
+                    <button className="rounded-lg h-max w-auto bg-finkiO p-3 text-white">Details</button>
+                ) : (
+                    <button className="rounded-lg h-max w-auto bg-finkiO p-3 text-white" onClick={assignInternship}>
+                        Assign
+                    </button>
+                )}
+            </div>
+        </div>
     );
 }
 
-
-CoordinatorCard.propTypes = {};
 
 CoordinatorCard.defaultProps = {};
 

@@ -47,7 +47,8 @@ function Calendar(props) {
     const loadInternship = async () => {
         try {
             const data = await InternshipRepository.getInternshipById(internshipId);
-            setInternship(data);
+            setInternship(data)
+            console.log(internshipId)
         } catch (error) {
             console.error('Failed to load internships', error);
         }
