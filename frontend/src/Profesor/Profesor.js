@@ -21,7 +21,21 @@ function Professor(props) {
             console.error('Failed to load coordinator', error);
         }
     };
-
+    const optIn = async () => {
+        try {
+            await InternshipCoordinatorRepository.optIn();
+        } catch (error) {
+            console.error('Failed to load internships', error);
+        }
+    };
+    const optOut = async () => {
+        try {
+            await InternshipCoordinatorRepository.optOut();
+            setCoordinator(null);
+        } catch (error) {
+            console.error('Failed to load internships', error);
+        }
+    };
     const loadInternships = async () => {
         try {
             const depositedData = await InternshipRepository.getInternshipsByProfessorIdAndStatus(user?.id, "DEPOSITED");
@@ -54,6 +68,14 @@ function Professor(props) {
     return (
         <div className="pt-4 px-4">
             <div className="flex flex-col lg:flex-row justify-between">
+                <div className="basis-1/3 text-white mb-4">
+                    {coordinator && <button className="w-[49%] py-2 rounded-xl mr-[2%] bg-finkiO text-gray"
+                                            onClick={optOut}>Opt out</button>
+                    }
+                    {!coordinator && <button className="w-[49%] py-2 rounded-xl mr-[2%] bg-finkiO text-gray"
+                                             onClick={optIn}>Opt in</button>
+                    }
+                </div>
                 <input
                     className="basis-1/3 bg-lightgray px-4 py-2 text-gray placeholder-gray mb-4 rounded-xl"
                     type="text"
