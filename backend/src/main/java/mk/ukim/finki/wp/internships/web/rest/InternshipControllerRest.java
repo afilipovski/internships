@@ -34,7 +34,7 @@ public class InternshipControllerRest {
     }
 
     @GetMapping("/supervisor/{supervisorId}")
-    public ResponseEntity<List<Internship>> getInternshipsBySupervisorId(@PathVariable Long supervisorId) {
+    public ResponseEntity<List<Internship>> getInternshipsBySupervisorId(@PathVariable String supervisorId) {
         List<Internship> internships = internshipService.findAllBySupervisorId(supervisorId);
         return ResponseEntity.ok(internships);
     }
@@ -52,13 +52,13 @@ public class InternshipControllerRest {
     }
 
     @GetMapping("/supervisor/{supervisorId}/status/{status}")
-    public ResponseEntity<List<Internship>> getInternshipsBySupervisorIdAndStatus(@PathVariable Long supervisorId, @PathVariable InternshipStatus status) {
+    public ResponseEntity<List<Internship>> getInternshipsBySupervisorIdAndStatus(@PathVariable String supervisorId, @PathVariable InternshipStatus status) {
         List<Internship> internships = internshipService.findAllBySupervisorIdAndStatus(supervisorId, status);
         return ResponseEntity.ok(internships);
     }
 
     @GetMapping("/supervisor/{supervisorId}/order-by-status")
-    public ResponseEntity<List<Internship>> getInternshipsBySupervisorIdOrderByStatus(@PathVariable Long supervisorId) {
+    public ResponseEntity<List<Internship>> getInternshipsBySupervisorIdOrderByStatus(@PathVariable String supervisorId) {
         List<Internship> internships = internshipService.findAllBySupervisorIdOrderByStatusAsc(supervisorId);
         return ResponseEntity.ok(internships);
     }
@@ -94,7 +94,7 @@ public class InternshipControllerRest {
     }
 
     @GetMapping("/admin/company/{companyId}/supervisor/not/{supervisorId}")
-    public ResponseEntity<List<Internship>> getInternshipsByCompanyIdAndSupervisorIdNot(@PathVariable String companyId, @PathVariable Long supervisorId) {
+    public ResponseEntity<List<Internship>> getInternshipsByCompanyIdAndSupervisorIdNot(@PathVariable String companyId, @PathVariable String supervisorId) {
         List<Internship> internships = internshipService.findAllByPostingCompanyIdAndSupervisorIdNot(companyId, supervisorId);
         return ResponseEntity.ok(internships);
     }

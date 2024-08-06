@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './Navbar/Navbar';
 import InternCard from './Student/InternCard';
-import Authentication from './Authentication/Authentication';
 import Calendar from './Student/Calendar';
 import Supervisor from './Supervisor/Supervisor';
 import Login from './Login/Login';
