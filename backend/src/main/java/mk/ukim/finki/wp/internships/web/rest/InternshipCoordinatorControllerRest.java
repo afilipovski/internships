@@ -48,22 +48,22 @@ public class InternshipCoordinatorControllerRest {
     }
 
     @PostMapping("/opt-in")
-    public String optIn(@AuthenticationPrincipal FacultyUserDetails principal) {
+    public Professor optIn(@AuthenticationPrincipal FacultyUserDetails principal) {
         Professor professor = principal.getProfessor();
         InternshipCoordinator coordinator = coordinatorService.findById(professor.getId());
         if (coordinator == null) {
             coordinatorService.create(professor.getId());
         }
-        return "redirect:/api/internship-coordinators/" + professor.getId();
+        return professor;
     }
 
     @PostMapping("/opt-out")
-    public String optOut(@AuthenticationPrincipal FacultyUserDetails principal) {
+    public Professor optOut(@AuthenticationPrincipal FacultyUserDetails principal) {
         Professor professor = principal.getProfessor();
         InternshipCoordinator coordinator = coordinatorService.findById(professor.getId());
         if (coordinator != null) {
             coordinatorService.delete(professor.getId());
         }
-        return "redirect:/api/internship-coordinators/" + professor.getId();
+        return professor;
     }
 }
