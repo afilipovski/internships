@@ -6,6 +6,7 @@ import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/internship-coordinators")
@@ -50,8 +51,10 @@ public class InternshipCoordinatorControllerRest {
     @PostMapping("/opt-in")
     public Professor optIn(@AuthenticationPrincipal FacultyUserDetails principal) {
         Professor professor = principal.getProfessor();
-        InternshipCoordinator coordinator = coordinatorService.findById(professor.getId());
-        if (coordinator == null) {
+        try {
+            InternshipCoordinator coordinator = coordinatorService.findById(professor.getId());
+        }
+        catch (ResponseStatusException e) {
             coordinatorService.create(professor.getId());
         }
         return professor;

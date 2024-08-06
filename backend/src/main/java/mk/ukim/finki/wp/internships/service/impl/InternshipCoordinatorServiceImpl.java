@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -43,15 +42,14 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
 
     @Override
     public InternshipCoordinator delete(String professorId) {
-        InternshipCoordinator coordinator = findById(professorId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        InternshipCoordinator coordinator = findById(professorId);
         coordinatorRepository.delete(coordinator);
         return coordinator;
     }
 
     @Override
-    public Optional<InternshipCoordinator> findById(String professorId) {
-        Optional<InternshipCoordinator> coordinator = coordinatorRepository.findById(professorId);
-        return coordinator;
+    public InternshipCoordinator findById(String professorId) {
+        return coordinatorRepository.findById(professorId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     private void changeInternshipStatus(String professorId, Long internshipId, InternshipStatus from, InternshipStatus to) {
