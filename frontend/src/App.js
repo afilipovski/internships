@@ -8,7 +8,7 @@ import Login from './Login/Login';
 import { GlobalContext } from "./Context/Context";
 import CreateInternship from "./CreateInternship/CreateInternship";
 import SupervisorCalendar from "./Supervisor/SupervisorCalendar";
-import ProfesorCard from "./Profesor/ProfessorCard";
+import Profesor from "./Profesor/Profesor";
 import ProfessorCalendar from "./Profesor/ProfessorCalendar"; // Correct import
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
                             ) : user.role === 'supervisor' ? (
                                 <Supervisor />
                             ) : user.role === 'professor' ? (
-                                <ProfesorCard />
+                                <Profesor />
                             ) : (
                                 <Navigate to="/login" />
                             )
