@@ -13,17 +13,12 @@ function Professor(props) {
     const [originalInternships, setOriginalInternships] = useState([]);
     const [coordinator, setCoordinator] = useState(null);
 
-    const loadCoordinator = async () => {
-        try {
-            const data = await InternshipCoordinatorRepository.getInternshipCoordinator(user?.id);
-            setCoordinator(data);
-        } catch (error) {
-            console.error('Failed to load coordinator', error);
-        }
-    };
+
     const optIn = async () => {
         try {
+            console.log("VLAHA")
             await InternshipCoordinatorRepository.optIn();
+            loadCoordinator()
         } catch (error) {
             console.error('Failed to load internships', error);
         }
@@ -59,8 +54,23 @@ function Professor(props) {
             setInternships(filteredInternships);
         }
     };
-
+    const loadCoordinator = async () => {
+        try {
+            const data = await InternshipCoordinatorRepository.getInternshipCoordinator(user?.id);
+            if (data) {
+                setCoordinator(data);
+            } else {
+                setCoordinator(null);
+            }
+            return data;
+        } catch (error) {
+            console.error('Failed to load coordinator', error);
+            setCoordinator(null);
+            return null;
+        }
+    };
     useEffect(() => {
+        console.log(coordinator)
         loadCoordinator();
         loadInternships();
     }, []);

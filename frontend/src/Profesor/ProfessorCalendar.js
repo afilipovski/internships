@@ -48,7 +48,6 @@ function ProfessorCalendar(props) {
     const coordinatorApprove = async () => {
         try {
             await InternshipCoordinatorRepository.approveInternship(user.id,internshipId);
-            // Reload internship to reflect the new week
             loadInternship();
         } catch (error) {
             console.error('Failed to add internship week', error);
