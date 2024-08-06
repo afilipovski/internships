@@ -31,13 +31,13 @@ public class InternshipSupervisorControllerRest {
     }
 
     @GetMapping("/{id}")
-    public InternshipSupervisor getInternshipSupervisor(@PathVariable Long id) {
+    public InternshipSupervisor getInternshipSupervisor(@PathVariable String id) {
         return supervisorService.findById(id);
     }
 
     @PutMapping("/approve/{id}/{internshipId}")
     public void approveInternship(
-            @PathVariable Long id,
+            @PathVariable String id,
             @PathVariable Long internshipId
     ) {
         supervisorService.approveInternship(id, internshipId);
@@ -46,7 +46,7 @@ public class InternshipSupervisorControllerRest {
 
     @PutMapping("/revoke-approval/{id}/{internshipId}")
     public void revokeApprovalInternship(
-            @PathVariable Long id,
+            @PathVariable String id,
             @PathVariable Long internshipId
     ) {
         supervisorService.revokeApprovalInternship(id, internshipId);
@@ -54,7 +54,7 @@ public class InternshipSupervisorControllerRest {
 
     @PutMapping("/assign/{id}/{internshipId}")
     public void assignInternship(
-            @PathVariable Long id,
+            @PathVariable String id,
             @PathVariable Long internshipId
     ) {
         supervisorService.assign(id, internshipId);

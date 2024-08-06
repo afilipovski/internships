@@ -13,8 +13,7 @@ import mk.ukim.finki.wp.internships.model.Company;
 public class InternshipSupervisor {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private String id;
 
     @ManyToOne
     private Company company;

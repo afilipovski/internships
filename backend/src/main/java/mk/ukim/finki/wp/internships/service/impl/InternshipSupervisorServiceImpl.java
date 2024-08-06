@@ -46,11 +46,11 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
     }
 
     @Override
-    public InternshipSupervisor findById(Long id) {
+    public InternshipSupervisor findById(String id) {
         return supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
     }
 
-    private void changeInternshipStatus(Long id, Long internshipId, InternshipStatus from, InternshipStatus to) {
+    private void changeInternshipStatus(String id, Long internshipId, InternshipStatus from, InternshipStatus to) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
 
         if (internship.getStatus() != from) {
@@ -67,19 +67,19 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
 
     @Override
     @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(#internshipId) or hasRole('ROLE_ADMIN')")
-    public void approveInternship(Long id, Long internshipId) {
+    public void approveInternship(String id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_COMPANY_REVIEW, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
     @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(#internshipId) or hasRole('ROLE_ADMIN')")
-    public void revokeApprovalInternship(Long id, Long internshipId) {
+    public void revokeApprovalInternship(String id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.PENDING_COMPANY_REVIEW);
     }
 
     @Override
     @PostAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#internshipId) or hasRole('ROLE_ADMIN')")
-    public void assign(Long id, Long internshipId) {
+    public void assign(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow(() -> new InternshipNotFoundException(internshipId));
         InternshipSupervisor supervisor = supervisorRepository.findById(id).orElseThrow(() -> new SupervisorNotFoundException(id));
 

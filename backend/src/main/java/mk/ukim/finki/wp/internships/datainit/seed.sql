@@ -16,7 +16,7 @@ INSERT INTO company (id, name, phone, email, company_description, website_url, a
     ('company1', 'Sample Company', '123-456-7890', 'info@samplecompany.com', 'This is a sample company for testing purposes.', 'http://www.samplecompany.com', TRUE, 'samplepassword', 'sampletoken', '2025-12-31 23:59:59');
 
 INSERT INTO internship_supervisor (id, email, full_name, company_id) VALUES
-    (1, 'supervisor@example.mk', 'Sample Supervisor', 'company1');
+    ('supervisor', 'supervisor@example.mk', 'Sample Supervisor', 'company1');
 
 INSERT INTO internship_coordinator (professor_id) VALUES
     ('vesna.dimitrievska'),

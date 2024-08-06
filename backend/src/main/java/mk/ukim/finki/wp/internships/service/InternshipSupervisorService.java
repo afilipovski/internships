@@ -7,13 +7,13 @@ import java.util.List;
 public interface InternshipSupervisorService {
     InternshipSupervisor create(String companyId, String email, String fullName);
 
-    InternshipSupervisor findById(Long id);
+    InternshipSupervisor findById(String id);
 
-    void approveInternship(Long id, Long internshipId);
+    void approveInternship(String id, Long internshipId);
 
-    void revokeApprovalInternship(Long id, Long internshipId);
+    void revokeApprovalInternship(String id, Long internshipId);
 
-    void assign(Long id, Long internshipId);
+    void assign(String id, Long internshipId);
 
     List<InternshipSupervisor> findAll();
 
