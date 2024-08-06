@@ -1,13 +1,13 @@
 import React, {useContext, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import './CoordinatorCard.css';
+import './SupervisorCard.css';
 import InternshipRepository from "../repository/InternshipRepository";
 import InternshipCoordinatorRepository from "../repository/InternshipCoordinatorRepository";
 import InternshipSupervisorRepository from "../repository/InternshipSupervisorRepository";
 import {GlobalContext} from "../Context/Context";
 import {useNavigate} from "react-router-dom";
 
-function CoordinatorCard({ internship, SetTekovni }) {
+function SupervisorCard({ internship, SetTekovni }) {
     const { user } = useContext(GlobalContext);
     const nav = useNavigate();
     const openCalendar = (internshipId) => {
@@ -47,6 +47,6 @@ function CoordinatorCard({ internship, SetTekovni }) {
 }
 
 
-CoordinatorCard.defaultProps = {};
+SupervisorCard.defaultProps = {};
 
-export default CoordinatorCard;
+export default SupervisorCard;

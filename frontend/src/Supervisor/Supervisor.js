@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './Supervisor.css';
-import CoordinatorCard from "./CoordinatorCard";
+import SupervisorCard from "./SupervisorCard";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../Context/Context";
 import InternshipRepository from "../repository/InternshipRepository";
@@ -63,7 +63,7 @@ function Supervisor(props) {
             </div>
             <div>
                 {internships && internships.map((internship) => (
-                    <CoordinatorCard key={internship.id} internship={internship} SetTekovni={setTekovni} />
+                    <SupervisorCard key={internship.id} internship={internship} SetTekovni={setTekovni} />
                 ))}
             </div>
         </div>

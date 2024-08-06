@@ -110,9 +110,7 @@ function SupervisorCalendar(props) {
                     {internship && internship.status==="PENDING_PROFFESSOR_REVIEW" && <button className="bg-red text-white p-3 rounded-xl mx-2" onClick={revokeApproval}>
                         Revoke Approval
                     </button>}
-                    <button className="bg-red text-white p-3 rounded-xl mx-2">
-                        Delete
-                    </button>
+
                 </div>
             </div>
             <div className="md:basis-2/3 h-max lg:basis-3/4 p-8 w-full lg:w-fit mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4">

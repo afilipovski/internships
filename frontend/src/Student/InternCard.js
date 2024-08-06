@@ -7,6 +7,7 @@ import testLogo from "../assets/image1.png";
 import './InternCard.css';
 
 const InternCard = () => {
+    const [authToken, setAuthToken] = useState(localStorage.getItem('authToken') || '');
     const nav = useNavigate();
     const { user } = useContext(GlobalContext);
     const [internships, setInternships] = useState([]);
@@ -29,6 +30,7 @@ const InternCard = () => {
         nav("/calendar", { state: { index: user.index, internshipId: internshipId } });
     };
     useEffect(() => {
+        console.log(authToken+"aaaa")
         loadInternships();
         console.log(internships);
     }, []);

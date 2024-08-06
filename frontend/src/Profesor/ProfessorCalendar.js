@@ -1,14 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import './Calendar.css';
-import InternshipRepository from "../repository/InternshipRepository";
-import { useNavigate } from "react-router-dom";
-import { GlobalContext } from "../Context/Context";
-import { useLocation } from 'react-router-dom';
+import React, {useContext, useEffect, useState} from 'react';
+import {useLocation, useNavigate} from "react-router-dom";
+import {GlobalContext} from "../Context/Context";
 import InternshipWeekRepository from "../repository/InternshipWeekRepository";
-import StudentRepository from "../repository/StudentRepository";
+import InternshipRepository from "../repository/InternshipRepository";
+import InternshipSupervisorRepository from "../repository/InternshipSupervisorRepository";
+import InternshipCoordinatorRepository from "../repository/InternshipCoordinatorRepository";
 
-function Calendar(props) {
+function ProfessorCalendar(props) {
     const loc = useLocation();
     const nav = useNavigate();
     const { user } = useContext(GlobalContext);
@@ -23,13 +21,6 @@ function Calendar(props) {
         const options = { day: 'numeric', month: 'short' };
         const date = new Date(dateString);
         return date.toLocaleDateString('en-GB', options);
-    };
-
-    const addweek = () => {
-        setWeek(null);
-        setWeekdesc("");
-        setStartDate("");
-        setEndDate("");
     };
 
     const handleWeek = async (id) => {
@@ -54,61 +45,16 @@ function Calendar(props) {
         }
     };
 
-    const addWeek = async () => {
+    const coordinatorApprove = async () => {
         try {
-            await InternshipWeekRepository.createInternshipWeekWithInternship(startDate, endDate, internshipId, weekdesc);
+            await InternshipCoordinatorRepository.approveInternship(user.id,internshipId);
             // Reload internship to reflect the new week
             loadInternship();
         } catch (error) {
             console.error('Failed to add internship week', error);
         }
     };
-    const studentApprove = async () => {
-        try {
-            await StudentRepository.approveInternship(index,internshipId);
-            // Reload internship to reflect the new week
-            loadInternship();
-        } catch (error) {
-            console.error('Failed to add internship week', error);
-        }
-    };
-    const revokeApproval = async () => {
-        try {
-            await StudentRepository.revokeApprovalInternship(index,internshipId);
-            // Reload internship to reflect the new week
-            loadInternship();
-        } catch (error) {
-            console.error('Failed to add internship week', error);
-        }
-    };
-    const editWeek = async (id) => {
-        try {
-            await InternshipWeekRepository.updateInternshipWeek(id, startDate, endDate, internshipId, weekdesc);
-            // Reload internship to reflect the edited week
-            loadInternship();
-        } catch (error) {
-            console.error('Failed to edit internship week', error);
-        }
-    };
-    const deleteInternship = async () => {
-        try {
-            const data = await InternshipRepository.deleteInternship(internship.id).then(()=>{
-                nav("/")
-            });
-        } catch (error) {
-            console.error('Failed to load postings', error);
-        }
-    };
-    const deleteWeek = async (id) => {
-        try {
-            await InternshipWeekRepository.deleteInternshipWeek(id);
-            setWeek(null);
-            // Reload internship to reflect the deleted week
-            loadInternship();
-        } catch (error) {
-            console.error('Failed to delete internship week', error);
-        }
-    };
+
 
     useEffect(() => {
         loadInternship();
@@ -126,25 +72,12 @@ function Calendar(props) {
                         {week ? <h4 className="text-sm text-gray">{formatDate(week.startDate)} - {formatDate(week.endDate)}</h4> :
                             <h4 className="text-sm text-gray">No week</h4>}
                         <label htmlFor="startDate" className="m-2">Start Date:</label>
-                        <input id="startDate" onChange={(e) => setStartDate(e.target.value)} className="m-2" type="date" name="startDate" value={startDate} /><br />
+                        <input id="startDate" disabled onChange={(e) => setStartDate(e.target.value)} className="m-2" type="date" name="startDate" value={startDate} /><br />
                         <label htmlFor="endDate" className="m-2">End Date:</label>
-                        <input id="endDate" onChange={(e) => setEndDate(e.target.value)} className="m-2" type="date" name="endDate" value={endDate} />
+                        <input id="endDate" disabled onChange={(e) => setEndDate(e.target.value)} className="m-2" type="date" name="endDate" value={endDate} />
                     </div>
-                    <textarea placeholder="Внесете дневник за неделата." onChange={(e) => setWeekdesc(e.target.value)} className="h-[30vh] p-2 my-4 rounded-xl" value={weekdesc} />
-                    <div className="text-white flex justify-end">
-                        {week && internship.status==="ONGOING" && <button className="bg-red px-4 py-2 rounded-xl mr-2" onClick={() => deleteWeek(week.id)}>
-                            Избриши
-                        </button>}
-                        {!week ?
-                            <button className="bg-finkiO px-4 py-2 rounded-xl" onClick={addWeek}>
-                                Зачувај
-                            </button>
-                            :
-                            <button className="bg-finkiO px-4 py-2 rounded-xl" onClick={() => editWeek(week.id)}>
-                                Зачувај
-                            </button>}
+                    <textarea disabled placeholder="Внесете дневник за неделата." onChange={(e) => setWeekdesc(e.target.value)} className="h-[30vh] p-2 my-4 rounded-xl" value={weekdesc} />
 
-                    </div>
                 </div>
                 <div className="flex flex-row">
                     <div className="flex justify-center flex-row">
@@ -158,14 +91,8 @@ function Calendar(props) {
                             : <h1 className="w-full flex-basis-12.5 p-1 text-center font-thin text-base mb-1 mt-1">TBD</h1>}                    </div>
                 </div>
                 <div className="flex justify-center flex-row">
-                    {internship && internship.status==="ONGOING" && <button className="bg-finkiO text-white p-3 rounded-xl mx-2" onClick={studentApprove}>
+                    {internship && internship.status==="PENDING_PROFFESSOR_REVIEW" && <button className="bg-finkiO text-white p-3 rounded-xl mx-2" onClick={coordinatorApprove}>
                         Approve
-                    </button>}
-                    {internship && internship.status==="PENDING_COMPANY_REVIEW" && <button className="bg-red text-white p-3 rounded-xl mx-2" onClick={revokeApproval}>
-                        Revoke Approval
-                    </button>}
-                    {internship && internship.status==="ONGOING" && <button className="bg-red text-white p-3 rounded-xl mx-2"  onClick={deleteInternship}>
-                        Delete
                     </button>}
                 </div>
             </div>
@@ -189,25 +116,9 @@ function Calendar(props) {
                         {journalweek ? <textarea className="rounded-xl mt-4 h-[17vh] cardTextArea p-2 text-sm" value={journalweek.description}></textarea> : <textarea className="rounded-xl mt-4 h-[17vh] cardTextArea p-2 text-sm" disabled value="DABSHDSAHBJ"></textarea>}
                     </div>
                 ))}
-                {internship && internship.status === "ONGOING" && <div
-                    className="flex justify-center flex-col shadow-xl rounded-xl p-4 h-[30vh] min-h-auto lg:h-auto cardWeek"
-                    onClick={addweek}>
-                    <div className="flex justify-center items-center mx-auto h-[17vh]">
-                        <div className="rounded-full bg-[#2A93D1] p-4 flex justify-center w-[6vw] h-[6vw]">
-                            <div className="flex flex-col justify-center text-center">
-                                <button className="text-[#f8f8f8] font-bold text-2xl h-fit justify-center ">+
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>}
             </div>
         </div>
     );
 }
 
-Calendar.propTypes = {};
-
-Calendar.defaultProps = {};
-
-export default Calendar;
+export default ProfessorCalendar;

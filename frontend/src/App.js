@@ -5,11 +5,12 @@ import InternCard from './Student/InternCard';
 import Authentication from './Authentication/Authentication';
 import Calendar from './Student/Calendar';
 import Supervisor from './Supervisor/Supervisor';
-import CoordinatorDetails from './CoordinatorDetails/CoordinatorDetails';
 import Login from './Login/Login';
 import { GlobalContext } from "./Context/Context";
 import CreateInternship from "./CreateInternship/CreateInternship";
-import SupervisorCalendar from "./Supervisor/SupervisorCalendar"; // Correct import
+import SupervisorCalendar from "./Supervisor/SupervisorCalendar";
+import Profesor from "./Profesor/Profesor";
+import ProfessorCalendar from "./Profesor/ProfessorCalendar"; // Correct import
 
 function App() {
     const [authToken, setAuthToken] = useState(localStorage.getItem('authToken') || '');
@@ -31,12 +32,27 @@ function App() {
             <Routes>
                 <Route
                     path="/"
-                    element={user && user.role ? (user.role === 'student' ? <InternCard /> : <Supervisor />) : <Navigate to="/login" />}
+                    element={
+                        user && user.role ? (
+                            user.role === 'student' ? (
+                                <InternCard />
+                            ) : user.role === 'supervisor' ? (
+                                <Supervisor />
+                            ) : user.role === 'professor' ? (
+                                <Profesor />
+                            ) : (
+                                <Navigate to="/login" />
+                            )
+                        ) : (
+                            <Navigate to="/login" />
+                        )
+                    }
                 />
                 <Route
                     path="/login"
                     element={<Login setAuthToken={setAuthToken} />}
                 />
+
                 <Route
                     path="/calendar"
                     element={user ? <Calendar /> : <Navigate to="/login" />}
@@ -46,16 +62,12 @@ function App() {
                     element={user ? <SupervisorCalendar /> : <Navigate to="/login" />}
                 />
                 <Route
+                    path="/coordinator-calendar"
+                    element={user ? <ProfessorCalendar /> : <Navigate to="/login" />}
+                />
+                <Route
                     path="/create"
                     element={user ? <CreateInternship /> : <Navigate to="/login" />}
-                />
-                <Route
-                    path="/coordinator"
-                    element={user ? <Supervisor /> : <Navigate to="/login" />}
-                />
-                <Route
-                    path="/coordinatorDetails"
-                    element={user ? <CoordinatorDetails /> : <Navigate to="/login" />}
                 />
             </Routes>
         </Router>
