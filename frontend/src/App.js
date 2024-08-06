@@ -2,14 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './Navbar/Navbar';
 import InternCard from './Student/InternCard';
-import Authentication from './Authentication/Authentication';
 import Calendar from './Student/Calendar';
 import Supervisor from './Supervisor/Supervisor';
 import Login from './Login/Login';
 import { GlobalContext } from "./Context/Context";
 import CreateInternship from "./CreateInternship/CreateInternship";
 import SupervisorCalendar from "./Supervisor/SupervisorCalendar";
-import Profesor from "./Profesor/Profesor";
+import ProfesorCard from "./Profesor/ProfessorCard";
 import ProfessorCalendar from "./Profesor/ProfessorCalendar"; // Correct import
 
 function App() {
@@ -39,7 +38,7 @@ function App() {
                             ) : user.role === 'supervisor' ? (
                                 <Supervisor />
                             ) : user.role === 'professor' ? (
-                                <Profesor />
+                                <ProfesorCard />
                             ) : (
                                 <Navigate to="/login" />
                             )

@@ -31,7 +31,7 @@ INSERT INTO internship(id, status, professor_id, posting_id, student_student_ind
      (2, 'ONGOING', null, 1, '213999', null),
      (3, 'ONGOING', null, 1, '214999', null),
      (4, 'ONGOING', null, 1, '216999', null),
-     (5, 'ONGOING', null, 1, '216999', 1);
+     (5, 'ONGOING', null, 1, '216999', 'supervisor');
 
 
 INSERT INTO internship_week(id, description, end_date, start_date, internship_id) VALUES
