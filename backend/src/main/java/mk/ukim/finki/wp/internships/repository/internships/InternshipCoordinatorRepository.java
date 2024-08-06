@@ -6,5 +6,5 @@ import mk.ukim.finki.wp.internships.repository.JpaSpecificationRepository;
 import java.util.Optional;
 
 public interface InternshipCoordinatorRepository extends JpaSpecificationRepository<InternshipCoordinator, Long> {
-    Optional<InternshipCoordinator> findByProfessorId(String professorId);
+    Optional<InternshipCoordinator> findById(String professorId);
 }

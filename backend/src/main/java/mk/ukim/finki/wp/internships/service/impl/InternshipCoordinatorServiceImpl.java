@@ -43,17 +43,15 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
 
     @Override
     public InternshipCoordinator delete(String professorId) {
-        InternshipCoordinator coordinator = findById(professorId);
+        InternshipCoordinator coordinator = findById(professorId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         coordinatorRepository.delete(coordinator);
         return coordinator;
     }
 
     @Override
-    public InternshipCoordinator findById(String professorId) {
-        Optional<InternshipCoordinator> coordinator = coordinatorRepository.findByProfessorId(professorId);
-        if (coordinator.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordinator with id " + professorId + " not found");
-        return coordinator.get();
+    public Optional<InternshipCoordinator> findById(String professorId) {
+        Optional<InternshipCoordinator> coordinator = coordinatorRepository.findById(professorId);
+        return coordinator;
     }
 
     private void changeInternshipStatus(String professorId, Long internshipId, InternshipStatus from, InternshipStatus to) {
