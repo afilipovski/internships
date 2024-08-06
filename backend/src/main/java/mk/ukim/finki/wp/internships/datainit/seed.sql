@@ -18,7 +18,7 @@ INSERT INTO company (id, name, phone, email, company_description, website_url, a
 INSERT INTO internship_supervisor (id, email, full_name, company_id) VALUES
     ('supervisor', 'supervisor@example.mk', 'Sample Supervisor', 'company1');
 
-INSERT INTO internship_coordinator (professor_id) VALUES
+INSERT INTO internship_coordinator (id) VALUES
     ('vesna.dimitrievska'),
     ('andreja.naumoski'),
     ('georgina.mirceva');

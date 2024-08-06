@@ -12,11 +12,11 @@ import mk.ukim.finki.wp.internships.model.Professor;
 @NoArgsConstructor
 public class InternshipCoordinator {
     @Id
-    @Column(name="professor_id", insertable=false, updatable=false)
-    private String professorId;
+    @Column(name="id", insertable=false, updatable=false)
+    private String id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="professor_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="id")
     private Professor professor;
 
 
