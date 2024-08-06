@@ -18,10 +18,10 @@ INSERT INTO company (id, name, phone, email, company_description, website_url, a
 INSERT INTO internship_supervisor (id, email, full_name, company_id) VALUES
     (1, 'supervisor@example.mk', 'Sample Supervisor', 'company1');
 
-INSERT INTO internship_coordinator (id, professor_id) VALUES
-    (1, 'vesna.dimitrievska'),
-    (2, 'andreja.naumoski'),
-    (3, 'georgina.mirceva');
+INSERT INTO internship_coordinator (professor_id) VALUES
+    ('vesna.dimitrievska'),
+    ('andreja.naumoski'),
+    ('georgina.mirceva');
 
 INSERT INTO internship_posting (id, description, planned_weeks, position, company_id) VALUES
     (1, 'PostgreSQL, Spring, React', 12, 'Software Engineer', 'company1');
