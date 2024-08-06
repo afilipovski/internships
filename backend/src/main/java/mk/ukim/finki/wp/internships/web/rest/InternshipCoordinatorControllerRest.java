@@ -1,7 +1,10 @@
 package mk.ukim.finki.wp.internships.web.rest;
 
+import mk.ukim.finki.wp.internships.config.FacultyUserDetails;
+import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.internships.InternshipCoordinator;
 import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,5 +45,25 @@ public class InternshipCoordinatorControllerRest {
     @PutMapping("/admin/assign-random/{internshipId}")
     public void assignRandomCoordinator(@PathVariable Long internshipId) {
         coordinatorService.assignRandom(internshipId);
+    }
+
+    @PostMapping("/opt-in")
+    public Professor optIn(@AuthenticationPrincipal FacultyUserDetails principal) {
+        Professor professor = principal.getProfessor();
+        InternshipCoordinator coordinator = coordinatorService.findById(professor.getId());
+        if (coordinator == null) {
+            coordinatorService.create(professor.getId());
+        }
+        return professor;
+    }
+
+    @PostMapping("/opt-out")
+    public Professor optOut(@AuthenticationPrincipal FacultyUserDetails principal) {
+        Professor professor = principal.getProfessor();
+        InternshipCoordinator coordinator = coordinatorService.findById(professor.getId());
+        if (coordinator != null) {
+            coordinatorService.delete(professor.getId());
+        }
+        return professor;
     }
 }
