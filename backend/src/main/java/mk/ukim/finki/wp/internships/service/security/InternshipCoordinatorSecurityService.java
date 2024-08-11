@@ -9,7 +9,5 @@ import org.springframework.stereotype.Service;
 public class InternshipCoordinatorSecurityService {
     private final InternshipService internshipService;
 
-    public boolean checkInternshipCoordinatorAndRequestIdMatch(String requestProfessorId, Long internshipId){
-        return internshipService.findById(internshipId).getProfessor().getId().equals(requestProfessorId);
-    }
+
 }

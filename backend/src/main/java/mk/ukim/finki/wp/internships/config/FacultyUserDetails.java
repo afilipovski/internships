@@ -4,6 +4,7 @@ import lombok.Getter;
 import mk.ukim.finki.wp.internships.model.Professor;
 import mk.ukim.finki.wp.internships.model.Student;
 import mk.ukim.finki.wp.internships.model.User;
+import mk.ukim.finki.wp.internships.model.UserRole;
 import mk.ukim.finki.wp.internships.model.internships.InternshipSupervisor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -83,6 +84,10 @@ public class FacultyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserRole getRole(){
+        return user.getRole();
     }
 
 }

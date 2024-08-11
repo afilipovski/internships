@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.internships.service.impl;
 
 import lombok.AllArgsConstructor;
 import mk.ukim.finki.wp.internships.exception.IllegalInternshipStatusOperation;
+import mk.ukim.finki.wp.internships.exception.UserNotInternshipStudentException;
 import mk.ukim.finki.wp.internships.model.Student;
 import mk.ukim.finki.wp.internships.model.User;
 import mk.ukim.finki.wp.internships.model.internships.Internship;
@@ -35,6 +36,7 @@ public class StudentServiceImpl implements StudentService {
     @PostAuthorize("@requestAndAuthIdsMatchSecurityService.check(#id) or hasRole('ROLE_ADMIN')")
     public void approveInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
+        if (internship.getStudent().getIndex().equals(id)) throw new UserNotInternshipStudentException(id, internshipId);
         if (internship.getStatus() != InternshipStatus.ONGOING) {
             throw new IllegalInternshipStatusOperation(internship.getStatus(), InternshipStatus.PENDING_COMPANY_REVIEW);
         }
@@ -46,6 +48,7 @@ public class StudentServiceImpl implements StudentService {
     @PostAuthorize("@requestAndAuthIdsMatchSecurityService.check(#id) or hasRole('ROLE_ADMIN')")
     public void revokeApprovalInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
+        if (internship.getStudent().getIndex().equals(id)) throw new UserNotInternshipStudentException(id, internshipId);
         if (internship.getStatus() != InternshipStatus.PENDING_COMPANY_REVIEW) {
             throw new IllegalInternshipStatusOperation(internship.getStatus(), InternshipStatus.ONGOING);
         }

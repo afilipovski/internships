@@ -49,6 +49,6 @@ public class InternshipSecurityService {
         FacultyUserDetails userDetails = SecurityUtil.getAuthUserDetails();
 
         return userDetails.getSupervisor() != null &&
-                internshipService.findById(internshipId).getPosting().getCompany().equals(userDetails.getSupervisor().getCompany());
+                internshipService.findById(internshipId).getPosting().getCompany().getId().equals(userDetails.getSupervisor().getCompany().getId());
     }
 }

@@ -65,19 +65,14 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
         internshipRepository.save(internship);
     }
 
-    //TODO TEST
     @Override
-    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId) or hasRole('ROLE_ADMIN') and" +
-            "@internshipCoordinatorSecurityService.checkInternshipCoordinatorAndRequestIdMatch(#professorId, #internshipId)" +
-            "or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId)")
     public void approveInternship(String professorId, Long internshipId) {
         changeInternshipStatus(professorId,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.DEPOSITED);
     }
 
     @Override
-    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId) or hasRole('ROLE_ADMIN') and" +
-            "@internshipCoordinatorSecurityService.checkInternshipCoordinatorAndRequestIdMatch(#professorId, #internshipId)" +
-            "or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId)")
     public void revokeApprovalInternship(String professorId, Long internshipId) {
         changeInternshipStatus(professorId,internshipId,InternshipStatus.DEPOSITED, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }

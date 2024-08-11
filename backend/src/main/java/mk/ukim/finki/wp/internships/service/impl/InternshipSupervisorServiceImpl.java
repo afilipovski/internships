@@ -66,13 +66,13 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(#internshipId) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@requestAndAuthIdsMatchSecurityService.check(#id)")
     public void approveInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_COMPANY_REVIEW, InternshipStatus.PENDING_PROFFESSOR_REVIEW);
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfSupervisorIdAndAuthIdMatch(#internshipId) or hasRole('ROLE_ADMIN')")
+    @PostAuthorize("@requestAndAuthIdsMatchSecurityService.check(#id)")
     public void revokeApprovalInternship(Long id, Long internshipId) {
         changeInternshipStatus(id,internshipId,InternshipStatus.PENDING_PROFFESSOR_REVIEW, InternshipStatus.PENDING_COMPANY_REVIEW);
     }
@@ -102,7 +102,6 @@ public class InternshipSupervisorServiceImpl implements InternshipSupervisorServ
         supervisorRepository.save(supervisor);
     }
 
-    //TODO TEST
     @Override
     @PostAuthorize("@internshipSupervisorSecurityService.checkIfRequesterIsApartOfSupervisorsCompany(#supervisor)")
     public void update(InternshipSupervisor supervisor) {

@@ -39,8 +39,4 @@ public class InternshipCoordinatorControllerRest {
         coordinatorService.revokeApprovalInternship(professorId, internshipId);
     }
 
-    @PutMapping("/admin/assign-random/{internshipId}")
-    public void assignRandomCoordinator(@PathVariable Long internshipId) {
-        coordinatorService.assignRandom(internshipId);
-    }
 }

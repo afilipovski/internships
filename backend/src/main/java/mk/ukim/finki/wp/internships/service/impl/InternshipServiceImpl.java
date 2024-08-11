@@ -14,6 +14,7 @@ import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipWeekRepository;
 import mk.ukim.finki.wp.internships.service.InternshipService;
 import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class InternshipServiceImpl implements InternshipService {
     private final InternshipWeekRepository weekRepository;
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#studentId)")
     public Internship create(String studentId, Long postingId) {
         Internship internship = new Internship(
                 studentRepository.findById(studentId).orElseThrow(() -> new StudentNotFoundException(studentId)),
@@ -39,6 +41,7 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    @PreAuthorize("@internshipSecurityService.checkIfStudentIdAndAuthIdMatch(#id)")
     public Internship delete(Long id) {
         Internship internship = findById(id);
         internshipRepository.delete(internship);
@@ -46,47 +49,55 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#studentIndex)")
     public List<Internship> findAllByStudentIndex(String studentIndex) {
         return internshipRepository.findAllByStudentIndex(studentIndex);
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#supervisorId)")
     public List<Internship> findAllBySupervisorId(Long supervisorId) {
         return internshipRepository.findAllBySupervisorId(supervisorId);
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId)")
     public List<Internship> findAllByProfessorId(String professorId) {
         return internshipRepository.findAllByProfessorId(professorId);
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#studentId)")
     public List<Internship> findAllByStudentIdAndStatus(String studentId, InternshipStatus status) {
         return internshipRepository.findAllByStudentIndexAndStatus(studentId,status);
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#supervisorId)")
     public List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status) {
         return internshipRepository.findAllBySupervisorIdAndStatus(supervisorId,status);
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#supervisorId)")
     public List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId) {
         return internshipRepository.findAllBySupervisorIdOrderByStatusAsc(supervisorId);
     }
 
     @Override
+    @PreAuthorize("@requestAndAuthIdsMatchSecurityService.check(#professorId)")
     public List<Internship> findAllByProfessorIdAndStatus(String professorId, InternshipStatus status) {
         return internshipRepository.findAllByProfessorIdAndStatus(professorId,status);
     }
 
     @Override
+    @PreAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id)")
     public Internship findById(Long id) {
         return internshipRepository.findById(id).orElseThrow(() -> new InternshipNotFoundException(id));
     }
 
     @Override
-    @PostAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id) or hasRole('ROLE_ADMIN')")
     public void addInternshipWeek(Long id, Long weekId) {
         InternshipWeek week = weekRepository.findById(weekId).orElseThrow(() -> new InternshipWeekNotFoundException(weekId));
 
@@ -98,21 +109,25 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
+    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyId(String companyId) {
         return internshipRepository.findAllByPostingCompanyId(companyId);
     }
 
     @Override
+    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status) {
         return internshipRepository.findAllByPostingCompanyIdAndStatus(companyId,status);
     }
 
     @Override
+    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, Long supervisorId) {
         return internshipRepository.findAllByPostingCompanyIdAndSupervisorIdNot(companyId,supervisorId);
     }
 
     @Override
+    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId) {
         return internshipRepository.findAllByPostingCompanyIdAndSupervisorIdIsNull(companyId);
     }

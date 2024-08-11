@@ -42,7 +42,7 @@ public class CompanyControllerRest {
         companyService.save(id, name, phone, email, companyDescription, websiteUrl, logoImage, banner, active);
     }
 
-    @PutMapping("admin/{id}")
+    @PutMapping("/admin/{id}")
     public void editCompany(
             @PathVariable String id,
             @RequestParam String name,

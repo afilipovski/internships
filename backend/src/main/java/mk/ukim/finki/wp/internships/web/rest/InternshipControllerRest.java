@@ -15,13 +15,13 @@ import java.util.List;
 public class InternshipControllerRest {
     private final InternshipService internshipService;
 
-    @PostMapping("/admin")
+    @PostMapping("/create")
     public ResponseEntity<Internship> createInternship(@RequestParam String studentId, @RequestParam Long postingId) {
         Internship internship = internshipService.create(studentId, postingId);
         return ResponseEntity.ok(internship);
     }
 
-    @DeleteMapping("/admin/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Internship> deleteInternship(@PathVariable Long id) {
         Internship internship = internshipService.delete(id);
         return ResponseEntity.ok(internship);
@@ -81,13 +81,13 @@ public class InternshipControllerRest {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/admin/company/{companyId}")
+    @GetMapping("/company/{companyId}")
     public ResponseEntity<List<Internship>> getInternshipsByCompanyId(@PathVariable String companyId) {
         List<Internship> internships = internshipService.findAllByPostingCompanyId(companyId);
         return ResponseEntity.ok(internships);
     }
 
-    @GetMapping("/admin/company/{companyId}/status/{status}")
+    @GetMapping("/company/{companyId}/status/{status}")
     public ResponseEntity<List<Internship>> getInternshipsByCompanyIdAndStatus(@PathVariable String companyId, @PathVariable InternshipStatus status) {
         List<Internship> internships = internshipService.findAllByPostingCompanyIdAndStatus(companyId, status);
         return ResponseEntity.ok(internships);
@@ -99,7 +99,7 @@ public class InternshipControllerRest {
         return ResponseEntity.ok(internships);
     }
 
-    @GetMapping("/admin/company/{companyId}/supervisor/null")
+    @GetMapping("/company/{companyId}/supervisor/null")
     public ResponseEntity<List<Internship>> getInternshipsByCompanyIdAndSupervisorIdIsNull(@PathVariable String companyId) {
         List<Internship> internships = internshipService.findAllByPostingCompanyIdAndSupervisorIdIsNull(companyId);
         return ResponseEntity.ok(internships);
