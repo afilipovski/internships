@@ -10,8 +10,10 @@ import mk.ukim.finki.wp.internships.repository.ProfessorRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipCoordinatorRepository;
 import mk.ukim.finki.wp.internships.repository.internships.InternshipRepository;
 import mk.ukim.finki.wp.internships.service.InternshipCoordinatorService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Random;
@@ -47,7 +49,7 @@ public class InternshipCoordinatorServiceImpl implements InternshipCoordinatorSe
 
     @Override
     public InternshipCoordinator findById(String professorId) {
-        return coordinatorRepository.findByProfessorId(professorId);
+        return coordinatorRepository.findById(professorId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     private void changeInternshipStatus(String professorId, Long internshipId, InternshipStatus from, InternshipStatus to) {

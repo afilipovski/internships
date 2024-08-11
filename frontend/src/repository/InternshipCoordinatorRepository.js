@@ -32,6 +32,14 @@ class InternshipCoordinatorRepository {
   async assignRandomCoordinator(internshipId) {
     await HttpClient.put(`${CONTROLLER_PATH}/assign-random/${internshipId}`);
   }
+
+  async optIn() {
+    await HttpClient.post(`${CONTROLLER_PATH}/opt-in`)
+  }
+  
+  async optOut() {
+    await HttpClient.post(`${CONTROLLER_PATH}/opt-out`)
+  }
 }
 
 export default new InternshipCoordinatorRepository();

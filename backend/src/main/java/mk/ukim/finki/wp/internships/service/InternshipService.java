@@ -12,15 +12,15 @@ public interface InternshipService {
 
     List<Internship> findAllByStudentIndex(String studentId);
 
-    List<Internship> findAllBySupervisorId(Long supervisorId);
+    List<Internship> findAllBySupervisorId(String supervisorId);
 
     List<Internship> findAllByProfessorId(String coordinatorId);
 
     List<Internship> findAllByStudentIdAndStatus(String studentId, InternshipStatus status);
 
-    List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status);
+    List<Internship> findAllBySupervisorIdAndStatus(String supervisorId, InternshipStatus status);
 
-    List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId);
+    List<Internship> findAllBySupervisorIdOrderByStatusAsc(String supervisorId);
 
     List<Internship> findAllByProfessorIdAndStatus(String coordinatorId, InternshipStatus status);
 
@@ -32,7 +32,7 @@ public interface InternshipService {
 
     List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status);
 
-    List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, Long supervisorId);
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, String supervisorId);
 
     List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId);
 

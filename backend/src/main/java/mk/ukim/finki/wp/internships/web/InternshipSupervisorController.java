@@ -71,7 +71,7 @@ public class InternshipSupervisorController {
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    public String showEditForm(@PathVariable String id, Model model) {
         InternshipSupervisor supervisor = supervisorService.findById(id);
         List<Company> companies = companyService.getAllCompanies();
         model.addAttribute("supervisor", supervisor);
@@ -80,7 +80,7 @@ public class InternshipSupervisorController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateSupervisor(@PathVariable Long id, @ModelAttribute InternshipSupervisor supervisor) {
+    public String updateSupervisor(@PathVariable String id, @ModelAttribute InternshipSupervisor supervisor) {
         supervisor.setId(id);
         supervisorService.update(supervisor);
         return "redirect:/supervisor/";

@@ -8,16 +8,16 @@ import java.util.List;
 
 public interface InternshipRepository extends JpaSpecificationRepository<Internship, Long> {
     List<Internship> findAllByProfessorId(String professorId);
-    List<Internship> findAllBySupervisorId(Long supervisorId);
+    List<Internship> findAllBySupervisorId(String supervisorId);
     List<Internship> findAllByStudentIndex(String studentIndex);
     List<Internship> findAllByPostingCompanyId(String companyId);
-    List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, Long supervisorId);
+    List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, String supervisorId);
     List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId);
 
-    List<Internship> findAllBySupervisorIdOrderByStatusAsc(Long supervisorId);
+    List<Internship> findAllBySupervisorIdOrderByStatusAsc(String supervisorId);
 
     List<Internship> findAllByProfessorIdAndStatus(String professorId, InternshipStatus status);
-    List<Internship> findAllBySupervisorIdAndStatus(Long supervisorId, InternshipStatus status);
+    List<Internship> findAllBySupervisorIdAndStatus(String supervisorId, InternshipStatus status);
     List<Internship> findAllByStudentIndexAndStatus(String studentIndex, InternshipStatus status);
     List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status);
 }

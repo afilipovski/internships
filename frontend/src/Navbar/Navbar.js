@@ -33,8 +33,7 @@ function Navbar({ setAuthToken}) {
                             <div className="flex rounded-xl border-2 border-black h-[6vh] text-[12px] md:text-md">
                          <div className="flex p-[10px] gap-0">
 
-                            <h1 className="font-bold mx-0 md:mx-2 w-fit my-auto">{user.name}</h1>
-                                <h1 className="font-bold mx-0 md:mx-2 w-fit my-auto">{user.lastName}</h1>
+                            <h1 className="font-bold mx-0 md:mx-2 w-fit my-auto">{user.name} {user.lastName}</h1>
                              <h1 className="mx-0 md:mx-2 w-fit my-auto">({user.index})</h1>
                          </div>
                             </div>

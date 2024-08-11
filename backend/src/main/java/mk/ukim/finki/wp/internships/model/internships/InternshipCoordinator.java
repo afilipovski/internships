@@ -12,13 +12,14 @@ import mk.ukim.finki.wp.internships.model.Professor;
 @NoArgsConstructor
 public class InternshipCoordinator {
     @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long id;
+    private String id;
 
-
+    @MapsId
     @OneToOne
+    @JoinColumn(name="id")
     private Professor professor;
+
+
     public InternshipCoordinator(Professor professor) {
         this.professor = professor;
     }

@@ -16,12 +16,12 @@ INSERT INTO company (id, name, phone, email, company_description, website_url, a
     ('company1', 'Sample Company', '123-456-7890', 'info@samplecompany.com', 'This is a sample company for testing purposes.', 'http://www.samplecompany.com', TRUE, 'samplepassword', 'sampletoken', '2025-12-31 23:59:59');
 
 INSERT INTO internship_supervisor (id, email, full_name, company_id) VALUES
-    (1, 'supervisor@example.mk', 'Sample Supervisor', 'company1');
+    ('supervisor', 'supervisor@example.mk', 'Sample Supervisor', 'company1');
 
-INSERT INTO internship_coordinator (id, professor_id) VALUES
-    (1, 'vesna.dimitrievska'),
-    (2, 'andreja.naumoski'),
-    (3, 'georgina.mirceva');
+INSERT INTO internship_coordinator (id) VALUES
+    ('vesna.dimitrievska'),
+    ('andreja.naumoski'),
+    ('georgina.mirceva');
 
 INSERT INTO internship_posting (id, description, planned_weeks, position, company_id) VALUES
     (1, 'PostgreSQL, Spring, React', 12, 'Software Engineer', 'company1');
@@ -31,7 +31,7 @@ INSERT INTO internship(id, status, professor_id, posting_id, student_student_ind
      (2, 'ONGOING', null, 1, '213999', null),
      (3, 'ONGOING', null, 1, '214999', null),
      (4, 'ONGOING', null, 1, '216999', null),
-     (5, 'ONGOING', null, 1, '216999', 1);
+     (5, 'ONGOING', null, 1, '216999', 'supervisor');
 
 
 INSERT INTO internship_week(id, description, end_date, start_date, internship_id) VALUES

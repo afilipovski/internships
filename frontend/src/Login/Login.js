@@ -13,15 +13,10 @@ const Login = ({ setAuthToken: setAppAuthToken }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         const token = btoa(`${username}:${password}`);
-        setAuthToken(token); // Set the token in HttpClient.js
-        setAppAuthToken(token); // Set the token in App state
-
+        setAuthToken(token);
+        setAppAuthToken(token);
         try {
-
             const userData = await UserRepository.getUserDetails();
-
-
-
             if (userData.student) {
                 setUser({
                     role: 'student',
@@ -40,6 +35,7 @@ const Login = ({ setAuthToken: setAppAuthToken }) => {
                     id: userData.supervisor.id,
                     email: '', // Add this if you have email information
                     lastName: '',
+                    companyId:userData.supervisor.company?.id,
                     parentName: '',
                     index: '',
                 });
@@ -48,7 +44,7 @@ const Login = ({ setAuthToken: setAppAuthToken }) => {
                     role: 'professor',
                     name: userData.professor.name,
                     id: userData.professor.id,
-                    email: '', // Add this if you have email information
+                    email: '',
                     lastName: '',
                     parentName: '',
                     index: '',
