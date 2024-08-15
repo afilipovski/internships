@@ -1,0 +1,9 @@
+version: "3.9"
+services:
+    backend:
+        image: afilipovski/internship-backend
+        container_name: backend
+        ports:
+            - "8080:8080"
+        build:
+            context: ../backend
