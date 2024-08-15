@@ -14,7 +14,19 @@ services:
             - SPRING_JPA_HIBERNATE_DDL_AUTO=update
         networks:
             - finki_services_net
+    frontend:
+        image: afilipovski/internship-frontend
+        container_name: frontend
+        ports:
+            - "80:80"
+        build:
+            context: ../frontend
+        environment:
+            - BACKEND_BASE_URL=http://backend:8080/api
+        networks:
+            - finki_services_net
 networks:
   finki_services_net:
+      name: common-model_finki_services_net
       driver: bridge
       external: true
