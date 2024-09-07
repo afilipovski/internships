@@ -48,7 +48,7 @@ public class FacultyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findById(username).orElseThrow(InvalidUsernameException::new);
+        User user = userRepository.findById(username).orElseThrow(() -> new InvalidUsernameException("Failed to login user with username " + username));
         if (user.getRole().isProfessor()) {
             Professor professor = professorRepository.findById(username).orElseThrow(() -> new ProfessorNotFoundException(username));
             return new FacultyUserDetails(user, professor, passwordEncoder.encode(systemAuthenticationPassword));

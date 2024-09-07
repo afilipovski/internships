@@ -36,7 +36,7 @@ public class StudentServiceImpl implements StudentService {
     @PostAuthorize("@requestAndAuthIdsMatchSecurityService.check(#id) or hasRole('ROLE_ADMIN')")
     public void approveInternship(String id, Long internshipId) {
         Internship internship = internshipRepository.findById(internshipId).orElseThrow();
-        if (internship.getStudent().getIndex().equals(id)) throw new UserNotInternshipStudentException(id, internshipId);
+        if (!internship.getStudent().getIndex().equals(id)) throw new UserNotInternshipStudentException(id, internshipId);
         if (internship.getStatus() != InternshipStatus.ONGOING) {
             throw new IllegalInternshipStatusOperation(internship.getStatus(), InternshipStatus.PENDING_COMPANY_REVIEW);
         }

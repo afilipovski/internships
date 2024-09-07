@@ -5,6 +5,7 @@ import mk.ukim.finki.wp.internships.model.internships.Internship;
 import mk.ukim.finki.wp.internships.model.internships.InternshipStatus;
 import mk.ukim.finki.wp.internships.service.InternshipService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class InternshipControllerRest {
     }
 
     @DeleteMapping("/{id}")
+    @CrossOrigin("http://localhost:3000")
     public ResponseEntity<Internship> deleteInternship(@PathVariable Long id) {
         Internship internship = internshipService.delete(id);
         return ResponseEntity.ok(internship);
@@ -70,6 +72,7 @@ public class InternshipControllerRest {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id)")
     public ResponseEntity<Internship> getInternshipById(@PathVariable Long id) {
         Internship internship = internshipService.findById(id);
         return ResponseEntity.ok(internship);

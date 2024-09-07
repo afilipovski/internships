@@ -91,7 +91,6 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    @PreAuthorize("@internshipSecurityService.checkIfAnyInternshipUserIdAndAuthIdMatch(#id)")
     public Internship findById(Long id) {
         return internshipRepository.findById(id).orElseThrow(() -> new InternshipNotFoundException(id));
     }
@@ -109,25 +108,25 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
+    @PreAuthorize("@internshipSupervisorSecurityService.checkIfRequesterIsApartOfSupervisorsCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyId(String companyId) {
         return internshipRepository.findAllByPostingCompanyId(companyId);
     }
 
     @Override
-    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
+    @PreAuthorize("@internshipSupervisorSecurityService.checkIfRequesterIsApartOfSupervisorsCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyIdAndStatus(String companyId, InternshipStatus status) {
         return internshipRepository.findAllByPostingCompanyIdAndStatus(companyId,status);
     }
 
     @Override
-    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
+    @PreAuthorize("@internshipSupervisorSecurityService.checkIfRequesterIsApartOfSupervisorsCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyIdAndSupervisorIdNot(String companyId, String supervisorId) {
         return internshipRepository.findAllByPostingCompanyIdAndSupervisorIdNot(companyId,supervisorId);
     }
 
     @Override
-    @PreAuthorize("@internshipSecurityService.checkIfRequesterIsApartOfInternshipCompany(#companyId)")
+    @PreAuthorize("@internshipSupervisorSecurityService.checkIfRequesterIsApartOfSupervisorsCompany(#companyId)")
     public List<Internship> findAllByPostingCompanyIdAndSupervisorIdIsNull(String companyId) {
         return internshipRepository.findAllByPostingCompanyIdAndSupervisorIdIsNull(companyId);
     }
