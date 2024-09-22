@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import './Calendar.css';
 import InternshipRepository from "../repository/InternshipRepository";
 import { useNavigate } from "react-router-dom";
@@ -101,8 +100,17 @@ const PDFDocument = ({ internship }) => (
                     <Text style={styles.weekTitle}>
                         Week {index + 1} ({new Date(week.startDate).toLocaleDateString()} – {new Date(week.endDate).toLocaleDateString()}):
                     </Text>
-                    <Text style={styles.description}>- {week.description || "No description available"}</Text>
-                </View>
+                    {week.description ? (
+                        week.description.split(/\n+/)
+                            .filter(line => line.trim() !== "")
+                            .map((line, lineIndex) => (
+                                <Text key={lineIndex} style={styles.description}>
+                                    - {line.trim()}
+                                </Text>
+                            ))
+                    ) : (
+                        <Text style={styles.description}>No description available</Text>
+                    )}              </View>
             ))}
         </Page>
     </Document>
