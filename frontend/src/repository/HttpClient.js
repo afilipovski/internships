@@ -8,7 +8,7 @@ const setAuthToken = (newToken) => {
 };
 
 const httpInstance = axios.create({
-    baseURL: process.env.BACKEND_BASE_URL ?? 'http://localhost:8080/api',
+    baseURL: process.env.BACKEND_BASE_URL ?? 'http://localhost:8084/api',
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'

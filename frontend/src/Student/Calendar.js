@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
     },
     spacing: {
         marginBottom: 10,
+        marginTop: 20
     },
 });
 
@@ -93,7 +94,7 @@ const PDFDocument = ({ internship }) => (
 
             <View style={styles.section}>
                 <Text style={{ fontWeight: 'bold' }}>Supervisor:</Text>
-                <Text style={styles.spacing}>_______________</Text>
+                <Text style={styles.spacing}>__________________</Text>
             </View>
 
             {internship && internship.journal.map((week, index) => (
