@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     header: {
         marginBottom: 20,
         fontSize: 12,
+        gap:10
     },
     section: {
         marginBottom: 15,
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight:"bold",
         textAlign: 'center',
-        marginBottom: 30,
+        marginBottom: 60,
     },
     weekTitle: {
         fontSize: 14,
