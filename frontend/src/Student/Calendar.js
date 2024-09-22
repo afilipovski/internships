@@ -7,6 +7,106 @@ import { GlobalContext } from "../Context/Context";
 import { useLocation } from 'react-router-dom';
 import InternshipWeekRepository from "../repository/InternshipWeekRepository";
 import StudentRepository from "../repository/StudentRepository";
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet,Font } from '@react-pdf/renderer';
+import RobotoRegular from './fonts/Roboto-Regular.ttf';
+import RobotoBold from './fonts/Roboto-Bold.ttf';
+Font.register({
+    family: 'Roboto',
+    fonts: [
+        { src: RobotoRegular, fontWeight: 'normal' },
+        { src: RobotoBold, fontWeight: 'bold' },
+    ],
+});
+const styles = StyleSheet.create({
+    page: {
+        padding: 20,
+        fontFamily: 'Roboto',
+    },
+    header: {
+        marginBottom: 20,
+        fontSize: 12,
+    },
+    section: {
+        marginBottom: 15,
+        fontSize: 12,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight:"bold",
+        textAlign: 'center',
+        marginBottom: 30,
+    },
+    weekTitle: {
+        fontSize: 14,
+        marginBottom: 5,
+        fontWeight: 'bold'
+    },
+    description: {
+        fontSize: 12,
+        marginBottom: 8,
+    },
+    label: {
+        fontWeight: 'bold',
+    },
+    underline: {
+        textDecoration: 'underline',
+    },
+    spacing: {
+        marginBottom: 10,
+    },
+});
+
+const PDFDocument = ({ internship }) => (
+    <Document>
+        <Page style={styles.page}>
+            <Text style={styles.title}>Student Internship calendar</Text>
+
+            <View style={styles.header}>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontWeight: 'bold' }}>Name and surname: </Text>
+                    <Text style={{ fontWeight: 'normal' }}>
+                        {internship?.student.name} {internship?.student.lastName}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontWeight: 'bold' }}>Student index: </Text>
+                    <Text style={{ fontWeight: 'normal' }}>{internship?.student.index}</Text>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontWeight: 'bold' }}>Date: </Text>
+                    <Text style={{ fontWeight: 'normal' }}>
+                    {internship?.journal?.length > 0 && (
+                        <>
+                            {new Date(internship.journal[0].startDate).toLocaleDateString('en-GB')} –{' '}
+                            {new Date(internship.journal[internship.journal.length - 1].endDate).toLocaleDateString('en-GB')}
+                        </>
+                    )}
+                    </Text>
+                </View>
+                <View style={{ flexDirection: 'row' }}>
+                    <Text style={{ fontWeight: 'bold' }}>Company: </Text>
+                    <Text style={{ fontWeight: 'normal' }}>
+                    {internship?.posting.company.name}
+                    </Text>
+                </View>
+            </View>
+
+            <View style={styles.section}>
+                <Text style={{ fontWeight: 'bold' }}>Supervisor:</Text>
+                <Text style={styles.spacing}>_______________</Text>
+            </View>
+
+            {internship && internship.journal.map((week, index) => (
+                <View key={week.id} style={styles.section}>
+                    <Text style={styles.weekTitle}>
+                        Week {index + 1} ({new Date(week.startDate).toLocaleDateString()} – {new Date(week.endDate).toLocaleDateString()}):
+                    </Text>
+                    <Text style={styles.description}>- {week.description || "No description available"}</Text>
+                </View>
+            ))}
+        </Page>
+    </Document>
+);
 
 function Calendar(props) {
     const loc = useLocation();
@@ -167,6 +267,16 @@ function Calendar(props) {
                     {internship && internship.status==="ONGOING" && <button className="bg-red text-white p-3 rounded-xl mx-2"  onClick={deleteInternship}>
                         Delete
                     </button>}
+                    {internship && internship.status==="DEPOSITED" && (
+                        <button className="bg-green text-white p-3 rounded-xl mx-2">
+                        <PDFDownloadLink
+                            document={<PDFDocument internship={internship} />}
+                            fileName="internship_calendar.pdf"
+                        >
+                            {({ loading }) => (loading ? 'Loading document...' : 'Download PDF')}
+                        </PDFDownloadLink>
+                        </button>
+                    )}
                 </div>
             </div>
             <div className="md:basis-2/3 h-max lg:basis-3/4 p-8 w-full lg:w-fit mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4">

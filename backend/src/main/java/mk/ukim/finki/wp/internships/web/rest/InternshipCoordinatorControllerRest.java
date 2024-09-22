@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/api/internship-coordinators")
+@CrossOrigin("*")
 public class InternshipCoordinatorControllerRest {
 
     private final InternshipCoordinatorService coordinatorService;

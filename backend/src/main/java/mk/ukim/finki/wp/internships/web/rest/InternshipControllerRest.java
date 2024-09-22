@@ -16,7 +16,7 @@ import java.util.List;
 public class InternshipControllerRest {
     private final InternshipService internshipService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Internship> createInternship(@RequestParam String studentId, @RequestParam Long postingId) {
         Internship internship = internshipService.create(studentId, postingId);
         return ResponseEntity.ok(internship);
